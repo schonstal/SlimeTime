@@ -75,7 +75,7 @@ class Projectile extends FlxSpriteGroup
 
     if (particle == null) {
       particle = new FlxSprite();
-      particle.loadGraphic("assets/images/projectiles/player/particle.png", true, 16, 16);
+      particle.loadGraphic("assets/images/projectiles/player/particle.png", true, 8, 8);
       particle.animation.add("fade", [0,1,2,2,3,3,4,4,4], 15, false);
       particle.animation.play("fade");
       particle.solid = false;

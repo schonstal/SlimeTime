@@ -13,11 +13,12 @@ class Player extends FlxSprite
 {
   public static var RUN_SPEED:Float = 200;
 
+  public var started:Bool = false;
+
   var speed:Point;
   var gravity:Float = 800;
   var terminalVelocity:Float = 200;
 
-  var started:Bool = false;
   var dead:Bool = false;
 
   var jumpPressed:Bool = false;
@@ -40,7 +41,8 @@ class Player extends FlxSprite
     animation.add("jump start", [0], 15, true);
     animation.add("jump peak", [1], 15, true);
     animation.add("jump fall", [2], 15, true);
-    animation.play("jump fall");
+    animation.add("spawning", [3], 15, true);
+    animation.play("spawning");
 
     //width = 12;
     //height = 15;
@@ -67,8 +69,13 @@ class Player extends FlxSprite
     acceleration.x = 0;
 
     facing = FlxObject.RIGHT;
-    acceleration.y = gravity;
+    acceleration.y = 0;
     started = false;
+  }
+  
+  private function start():Void {
+    acceleration.y = gravity;
+    started = true;
   }
 
   private function isJumpPressed():Bool {
@@ -160,7 +167,7 @@ class Player extends FlxSprite
   override public function update(elapsed:Float):Void {
     this.elapsed = elapsed;
 
-    if(!started && (pressed("left") || pressed("right") || pressed("jump"))) started = true;
+    if(!started && (pressed("left") || pressed("right") || pressed("jump"))) start();
 
     if(!dead && started) {
       handleMovement();

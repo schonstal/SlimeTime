@@ -12,6 +12,7 @@ class PlayState extends FlxState
   var playerProjectileGroup:FlxSpriteGroup;
   var playerLaserGroup:FlxSpriteGroup;
   var spawnGroup:SpawnGroup;
+  var player:Player;
 
   override public function create():Void {
     super.create();
@@ -28,9 +29,9 @@ class PlayState extends FlxState
 
     add(playerLaserGroup);
 
-    var p = new Player(spawnGroup.x, spawnGroup.y);
-    p.init();
-    add(p);
+    player = new Player(spawnGroup.x + 6, spawnGroup.y + 6);
+    player.init();
+    add(player);
 
     add(playerProjectileGroup);
 
@@ -43,6 +44,7 @@ class PlayState extends FlxState
   }
 
   override public function update(elapsed:Float):Void {
+    if (player.started) spawnGroup.exists = false;
     super.update(elapsed);
   }
 }
