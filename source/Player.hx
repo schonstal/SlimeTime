@@ -26,7 +26,7 @@ class Player extends FlxSprite
   var jumpThreshold:Float = 0.075;
 
   var shootTimer:Float = 0;
-  var shootRate:Float = 0.1;
+  var shootRate:Float = 0.05;
 
   var elapsed:Float = 0;
 
@@ -89,6 +89,7 @@ class Player extends FlxSprite
     velocity.y = -speed.y;
     jumpPressed = false;
     FlxG.camera.flash(0x33ffffff, 0.1);
+    Reg.playerLasesrService.shoot(x, y + height, facing);
   }
 
   private function tryJumping():Void {
@@ -137,7 +138,7 @@ class Player extends FlxSprite
   private function shoot():Void {
     if (shootTimer <= 0) {
       var direction = new FlxVector(facing == FlxObject.LEFT ? 1 : -1, 0);
-      Reg.playerProjectileService.shoot(x, y, direction);
+      Reg.playerProjectileService.shoot(x, y + 3, direction, facing);
       shootTimer = shootRate;
     }
   }

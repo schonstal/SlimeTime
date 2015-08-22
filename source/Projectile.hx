@@ -4,6 +4,7 @@ import flixel.group.FlxSpriteGroup;
 import flixel.FlxSprite;
 import flixel.FlxG;
 import flixel.util.FlxTimer;
+import flixel.FlxObject;
 
 import flixel.math.FlxVector;
 
@@ -18,9 +19,11 @@ class Projectile extends FlxSpriteGroup
   var particles:Array<FlxSprite>;
   var particleGroup:FlxSpriteGroup;
   var explosionSprite:FlxSprite;
+  var showParticles:Bool;
 
-  public function new(X:Float, Y:Float, direction:FlxVector):Void {
+  public function new(X:Float, Y:Float, direction:FlxVector, facing:Int, showParticles:Bool = false):Void {
     super(X, Y);
+    this.showParticles = showParticles;
 
     particles = new Array<FlxSprite>();
     particleGroup = new FlxSpriteGroup();
@@ -36,21 +39,22 @@ class Projectile extends FlxSpriteGroup
     explosionSprite.solid = false;
     add(explosionSprite);
 
-    initialize(X, Y, direction);
+    initialize(X, Y, direction, facing);
   }
 
-  public function initialize(X:Float, Y:Float, direction:FlxVector):Void {
+  public function initialize(X:Float, Y:Float, direction:FlxVector, facing:Int):Void {
     x = X;
     y = Y;
     projectile.x = X;
     projectile.y = Y;
+    projectile.facing = facing;
     physical = true;
     visible = true;
 
     projectile.updateHitbox();
 
     exists = projectile.exists = particleGroup.exists = explosionSprite.exists = true;
-    spawnParticle();
+    if (showParticles) spawnParticle();
 
     explosionSprite.visible = false;
     this.direction = direction;
