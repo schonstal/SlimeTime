@@ -11,6 +11,7 @@ class PlayState extends FlxState
 {
   var playerProjectileGroup:FlxSpriteGroup;
   var playerLaserGroup:FlxSpriteGroup;
+  var spawnGroup:SpawnGroup;
 
   override public function create():Void {
     super.create();
@@ -22,9 +23,12 @@ class PlayState extends FlxState
     Reg.playerProjectileService = new ProjectileService(playerProjectileGroup);
     Reg.playerLasesrService = new LaserService(playerLaserGroup);
 
+    spawnGroup = new SpawnGroup();
+    add(spawnGroup);
+
     add(playerLaserGroup);
 
-    var p = new Player();
+    var p = new Player(spawnGroup.x, spawnGroup.y);
     p.init();
     add(p);
 

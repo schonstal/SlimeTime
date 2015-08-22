@@ -68,7 +68,7 @@ class Player extends FlxSprite
 
     facing = FlxObject.RIGHT;
     acceleration.y = gravity;
-    started = true;
+    started = false;
   }
 
   private function isJumpPressed():Bool {
@@ -159,6 +159,8 @@ class Player extends FlxSprite
 
   override public function update(elapsed:Float):Void {
     this.elapsed = elapsed;
+
+    if(!started && (pressed("left") || pressed("right") || pressed("jump"))) started = true;
 
     if(!dead && started) {
       handleMovement();
