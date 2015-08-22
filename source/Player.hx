@@ -7,6 +7,7 @@ import flash.geom.Point;
 import flixel.system.FlxSound;
 import flixel.math.FlxRandom;
 import flixel.math.FlxVector;
+import flixel.group.FlxSpriteGroup;
 
 class Player extends FlxSprite
 {
@@ -22,8 +23,10 @@ class Player extends FlxSprite
   var jumpPressed:Bool = false;
   var jumpAmount:Float = 300;
   var jumpTimer:Float = 0;
-  var jumping:Bool = false;
   var jumpThreshold:Float = 0.075;
+
+  var canJumpTimer:Float = 0;
+  var canJumpThreshold:Float = 0.23;
 
   var shootTimer:Float = 0;
   var shootRate:Float = 0.05;
@@ -57,7 +60,6 @@ class Player extends FlxSprite
 
   public function init():Void {
     jumpPressed = false;
-    jumping = false;
 
     jumpTimer = 0;
 
@@ -84,12 +86,18 @@ class Player extends FlxSprite
   }
 
   private function jump():Void {
+    if(!canJump()) return;
     animation.play("jump start");
-    jumping = true;
     velocity.y = -speed.y;
     jumpPressed = false;
-    FlxG.camera.flash(0x33ffffff, 0.1);
+    FlxG.camera.flash(0x33ffccff, 0.1);
+    //FlxG.camera.shake(0.01, 0.2);
     Reg.playerLasesrService.shoot(x, y + height - 6, facing);
+    canJumpTimer = canJumpThreshold;
+  }
+
+  private function canJump():Bool {
+    return canJumpTimer <= 0;
   }
 
   private function tryJumping():Void {
@@ -137,7 +145,7 @@ class Player extends FlxSprite
 
   private function shoot():Void {
     if (shootTimer <= 0) {
-      var direction = new FlxVector(facing == FlxObject.LEFT ? 1 : -1, 0);
+      var direction = new FlxVector(facing == FlxObject.LEFT ? 1 : -1, Reg.random.float(-0.05, 0.05));
       Reg.playerProjectileService.shoot(x, y + 3, direction, facing);
       shootTimer = shootRate;
     }
@@ -156,7 +164,7 @@ class Player extends FlxSprite
       handleMovement();
       tryJumping();
       computeTerminalVelocity();
-      shootTimer -= elapsed;
+      updateTimers();
     }
 
     super.update(elapsed);
@@ -166,6 +174,11 @@ class Player extends FlxSprite
     visible = false;
     dead = true;
     acceleration.y = acceleration.x = velocity.x = velocity.y = 0;
+  }
+
+  private function updateTimers():Void {
+    shootTimer -= elapsed;
+    canJumpTimer -= elapsed;
   }
 
   private function justPressed(action:String):Bool {
