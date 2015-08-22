@@ -34,9 +34,9 @@ class Player extends FlxSprite
     super(X,Y);
     loadGraphic("assets/images/player.png", true, 12, 12);
 
-    animation.add("jump start", [12], 15, true);
-    animation.add("jump peak", [13], 15, true);
-    animation.add("jump fall", [14], 15, true);
+    animation.add("jump start", [0], 15, true);
+    animation.add("jump peak", [1], 15, true);
+    animation.add("jump fall", [2], 15, true);
     animation.play("jump fall");
 
     //width = 12;
@@ -51,8 +51,8 @@ class Player extends FlxSprite
 
     maxVelocity.x = RUN_SPEED;
 
-    //setFacingFlip(FlxObject.LEFT, true, false);
-    //setFacingFlip(FlxObject.RIGHT, false, false);
+    setFacingFlip(FlxObject.LEFT, true, false);
+    setFacingFlip(FlxObject.RIGHT, false, false);
   }
 
   public function init():Void {
@@ -95,7 +95,7 @@ class Player extends FlxSprite
     if(isJumpPressed()) jump();
 
     if(velocity.y < -1) {
-      if(pressed("jump") && velocity.y > -25) {
+      if(velocity.y > -50) {
         animation.play("jump peak");
       }
     } else if (velocity.y > 1) {
