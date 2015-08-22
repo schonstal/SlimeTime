@@ -41,8 +41,7 @@ class Player extends FlxSprite
     animation.add("jump start", [0], 15, true);
     animation.add("jump peak", [1], 15, true);
     animation.add("jump fall", [2], 15, true);
-    animation.add("spawning", [3], 15, true);
-    animation.play("spawning");
+    visible = false;
 
     //width = 12;
     //height = 15;
@@ -76,6 +75,7 @@ class Player extends FlxSprite
   private function start():Void {
     acceleration.y = gravity;
     started = true;
+    visible = true;
   }
 
   private function isJumpPressed():Bool {
