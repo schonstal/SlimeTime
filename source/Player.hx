@@ -32,8 +32,7 @@ class Player extends FlxSprite
 
   public function new(X:Float=0,Y:Float=0) {
     super(X,Y);
-    //loadGraphic("assets/images/player.png", true, 16, 16);
-    makeGraphic(8, 8, 0xff000000);
+    loadGraphic("assets/images/player.png", true, 12, 12);
 
     animation.add("jump start", [12], 15, true);
     animation.add("jump peak", [13], 15, true);
