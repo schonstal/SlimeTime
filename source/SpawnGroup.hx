@@ -20,17 +20,20 @@ class SpawnGroup extends FlxSpriteGroup {
     squares = new FlxSpriteGroup();
 
     var square = new FlxSprite();
-    square.makeGraphic(24, 24, 0xffffff00);
+    square.loadGraphic("assets/images/playerSpawn.png");
+    square.color = 0xffffff00;
     square.blend = BlendMode.ADD;
     squares.add(square);
     
     square = new FlxSprite();
-    square.makeGraphic(24, 24, 0xffff00ff);
+    square.loadGraphic("assets/images/playerSpawn.png");
+    square.color = 0xffff00ff;
     square.blend = BlendMode.ADD;
     squares.add(square);
 
     square = new FlxSprite();
-    square.makeGraphic(24, 24, 0xff00ffff);
+    square.loadGraphic("assets/images/playerSpawn.png");
+    square.color = 0xff00ffff;
     square.blend = BlendMode.ADD;
     squares.add(square);
 
@@ -39,8 +42,8 @@ class SpawnGroup extends FlxSpriteGroup {
 
   override public function update(elapsed:Float):Void {
     for (square in squares.members) {
-      square.offset.x = Reg.random.int(-2, 2);
-      square.offset.y = Reg.random.int(-2, 2);
+      square.offset.x = Reg.random.int(-1, 1);
+      square.offset.y = Reg.random.int(-1, 1);
     }
     super.update(elapsed);
   }
