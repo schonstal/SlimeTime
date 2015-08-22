@@ -16,22 +16,19 @@ class PlayState extends FlxState
     super.create();
     Reg.random = new FlxRandom();
 
-    var background = new FlxSprite();
-    background.makeGraphic(FlxG.width, FlxG.height, 0xffffffff);
-    add(background);
-
     playerProjectileGroup = new FlxSpriteGroup();
     playerLaserGroup = new FlxSpriteGroup();
 
     Reg.playerProjectileService = new ProjectileService(playerProjectileGroup);
     Reg.playerLasesrService = new LaserService(playerLaserGroup);
 
+    add(playerLaserGroup);
+
     var p = new Player();
     p.init();
     add(p);
 
     add(playerProjectileGroup);
-    add(playerLaserGroup);
 
     //DEBUGGER
     FlxG.debugger.drawDebug = true;

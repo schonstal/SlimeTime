@@ -89,7 +89,7 @@ class Player extends FlxSprite
     velocity.y = -speed.y;
     jumpPressed = false;
     FlxG.camera.flash(0x33ffffff, 0.1);
-    Reg.playerLasesrService.shoot(x, y + height, facing);
+    Reg.playerLasesrService.shoot(x, y + height - 6, facing);
   }
 
   private function tryJumping():Void {
