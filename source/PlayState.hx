@@ -34,11 +34,12 @@ class PlayState extends FlxState
 
     Reg.enemyProjectileService = new ProjectileService(enemyProjectileGroup, "enemy");
 
+    level = new Room("assets/tilemaps/level.tmx");
+    add(level.backgroundTiles);
+    add(level.foregroundTiles);
+
     spawnGroup = new SpawnGroup();
     add(spawnGroup);
-
-    level = new Room("assets/tilemaps/level.tmx");
-    add(level.foregroundTiles);
 
     add(playerLaserGroup);
 
