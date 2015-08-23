@@ -18,6 +18,8 @@ class PlayState extends FlxState
   var spawnGroup:SpawnGroup;
   var player:Player;
 
+  var level:Room;
+
   override public function create():Void {
     super.create();
     Reg.random = new FlxRandom();
@@ -35,19 +37,22 @@ class PlayState extends FlxState
     spawnGroup = new SpawnGroup();
     add(spawnGroup);
 
+    level = new Room("assets/tilemaps/level.tmx");
+    add(level.foregroundTiles);
+
     add(playerLaserGroup);
 
     player = new Player(spawnGroup.x + 6, spawnGroup.y + 6);
     player.init();
     add(player);
 
-    for(i in (0...10)) {
-      new FlxTimer().start(Reg.random.float(0, 5), function(t) {
-        var g = new Grenade();
-        g.spawn();
-        add(g);
-      });
-    }
+    new FlxTimer().start(Reg.random.float(0.2, 1), function(t) {
+      var g = new Grenade();
+      g.spawn();
+      add(g);
+    });
+
+    spawnTest();
 
     add(new Slime());
 
@@ -57,6 +62,15 @@ class PlayState extends FlxState
     //DEBUGGER
     FlxG.debugger.drawDebug = true;
   }
+
+  function spawnTest():Void {
+    var g = new Grenade();
+    g.spawn();
+    add(g);
+    new FlxTimer().start(Reg.random.float(0.2, 1), function(t) {
+      spawnTest();
+    });
+  }
   
   override public function destroy():Void {
     super.destroy();
@@ -64,6 +78,7 @@ class PlayState extends FlxState
 
   override public function update(elapsed:Float):Void {
     if (player.started) spawnGroup.exists = false;
+    level.collideWithLevel(player);
     super.update(elapsed);
   }
 }

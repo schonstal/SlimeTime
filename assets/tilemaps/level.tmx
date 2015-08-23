@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="11" height="8" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="walls" tilewidth="32" tileheight="32">
+  <image source="../../../LudumDare32/assets/images/tiles/walls.png" width="320" height="240"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="11" height="8">
+  <properties>
+   <property name="tileset" value="walls"/>
+   <property name="tilesheet" value="walls"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjZmBgYCYBEwNG1SLUAgBFxABM
+  </data>
+ </layer>
+</map>
