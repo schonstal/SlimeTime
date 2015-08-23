@@ -156,7 +156,7 @@ class Player extends FlxSprite
   private function shoot():Void {
     if (shootTimer <= 0) {
       var direction = new FlxVector(facing == FlxObject.LEFT ? 1 : -1, Reg.random.float(-0.05, 0.05));
-      Reg.playerProjectileService.shoot(x, y + 3, direction, facing);
+      Reg.playerProjectileService.shoot(x + (facing == FlxObject.LEFT ? 2 : -10), y + 3, direction, facing);
       shootTimer = shootRate;
     }
   }
