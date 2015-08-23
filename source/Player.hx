@@ -130,11 +130,11 @@ class Player extends FlxSprite
   }
 
   private function handleMovement():Void {
-    if(pressed("right")) {
+    if(pressed("left")) {
       acceleration.x = -speed.x * (velocity.x > 0 ? 4 : 1);
       facing = FlxObject.LEFT;
       shoot();
-    } else if(pressed("left")) {
+    } else if(pressed("right")) {
       acceleration.x = speed.x * (velocity.x < 0 ? 4 : 1);
       facing = FlxObject.RIGHT;
       shoot();

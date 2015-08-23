@@ -9,6 +9,7 @@ class Reg {
   public static var playerProjectileService:ProjectileService;
   public static var enemyProjectileService:ProjectileService;
   public static var playerLasesrService:LaserService;
+  public static var enemyLaserService:EnemyLaserService;
 
   public static var random:FlxRandom;
 

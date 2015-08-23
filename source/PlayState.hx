@@ -14,6 +14,7 @@ class PlayState extends FlxState
   var playerLaserGroup:FlxSpriteGroup;
 
   var enemyProjectileGroup:FlxSpriteGroup;
+  var enemyLaserGroup:FlxSpriteGroup;
 
   var spawnGroup:SpawnGroup;
   var player:Player;
@@ -29,11 +30,13 @@ class PlayState extends FlxState
     playerLaserGroup = new FlxSpriteGroup();
 
     enemyProjectileGroup = new FlxSpriteGroup();
+    enemyLaserGroup = new FlxSpriteGroup();
 
     Reg.playerProjectileService = new ProjectileService(playerProjectileGroup);
     Reg.playerLasesrService = new LaserService(playerLaserGroup);
 
     Reg.enemyProjectileService = new ProjectileService(enemyProjectileGroup, "enemy");
+    Reg.enemyLaserService = new EnemyLaserService(enemyLaserGroup);
 
     level = new Room("assets/tilemaps/level.tmx");
     add(level.backgroundTiles);
@@ -70,6 +73,7 @@ class PlayState extends FlxState
   }
 
   override public function update(elapsed:Float):Void {
+    if (FlxG.keys.justPressed.Q) Reg.enemyLaserService.shoot(32);
     if (player.started) spawnGroup.exists = false;
     level.collideWithLevel(player);
     level.collideWithLevel(playerProjectileGroup, Projectile.handleCollision);
