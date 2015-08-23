@@ -11,4 +11,6 @@ class Reg {
   public static var playerLasesrService:LaserService;
 
   public static var random:FlxRandom;
+
+  public static var TAU:Float = 6.28318530718;
 }

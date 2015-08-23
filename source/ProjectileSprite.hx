@@ -13,10 +13,11 @@ class ProjectileSprite extends FlxSprite {
 
   public var onCollisionCallback:Void->Void;
 
-  public function new() {
+  public function new(name:String = "player") {
     super();
-    loadGraphic("assets/images/projectiles/player/projectile.png", true, 16, 16);
-    animation.add("pulse", [0,1,2,3], 15);
+    var size = name == "player" ? 16 : 8;
+    loadGraphic('assets/images/projectiles/$name/projectile.png', true, size, size);
+    animation.add("pulse", [0, 1, 2], 10);
     animation.play("pulse");
     width = WIDTH;
     height = HEIGHT;

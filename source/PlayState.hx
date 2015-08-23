@@ -6,11 +6,15 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxRandom;
+import flixel.util.FlxTimer;
 
 class PlayState extends FlxState
 {
   var playerProjectileGroup:FlxSpriteGroup;
   var playerLaserGroup:FlxSpriteGroup;
+
+  var enemyProjectileGroup:FlxSpriteGroup;
+
   var spawnGroup:SpawnGroup;
   var player:Player;
 
@@ -21,8 +25,12 @@ class PlayState extends FlxState
     playerProjectileGroup = new FlxSpriteGroup();
     playerLaserGroup = new FlxSpriteGroup();
 
+    enemyProjectileGroup = new FlxSpriteGroup();
+
     Reg.playerProjectileService = new ProjectileService(playerProjectileGroup);
     Reg.playerLasesrService = new LaserService(playerLaserGroup);
+
+    Reg.enemyProjectileService = new ProjectileService(enemyProjectileGroup, "enemy");
 
     spawnGroup = new SpawnGroup();
     add(spawnGroup);
@@ -33,7 +41,18 @@ class PlayState extends FlxState
     player.init();
     add(player);
 
+    for(i in (0...10)) {
+      new FlxTimer().start(Reg.random.float(0, 5), function(t) {
+        var g = new Grenade();
+        g.spawn();
+        add(g);
+      });
+    }
+
+    add(new Slime());
+
     add(playerProjectileGroup);
+    add(enemyProjectileGroup);
 
     //DEBUGGER
     FlxG.debugger.drawDebug = true;

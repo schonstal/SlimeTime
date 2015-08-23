@@ -20,21 +20,23 @@ class Projectile extends FlxSpriteGroup
   var particleGroup:FlxSpriteGroup;
   var explosionSprite:FlxSprite;
   var showParticles:Bool;
+  var name:String;
 
-  public function new(X:Float, Y:Float, direction:FlxVector, facing:Int, showParticles:Bool = false):Void {
+  public function new(X:Float, Y:Float, direction:FlxVector, facing:Int, showParticles:Bool = false, name:String):Void {
     super(X, Y);
     this.showParticles = showParticles;
+    this.name = name;
 
     particles = new Array<FlxSprite>();
     particleGroup = new FlxSpriteGroup();
     add(particleGroup);
 
-    projectile = new ProjectileSprite();
+    projectile = new ProjectileSprite(name);
     projectile.onCollisionCallback = onCollide;
     add(projectile);
 
     explosionSprite = new FlxSprite();
-    explosionSprite.loadGraphic("assets/images/projectiles/player/hit.png", true, 64, 64);
+    //explosionSprite.loadGraphic('assets/images/projectiles/$name/hit.png', true, 64, 64);
     explosionSprite.animation.add("explode", [0,1,2,3,4,5,6], 20, false);
     explosionSprite.solid = false;
     add(explosionSprite);
@@ -58,8 +60,9 @@ class Projectile extends FlxSpriteGroup
 
     explosionSprite.visible = false;
     this.direction = direction;
-    projectile.velocity.x = direction.x * SPEED;
-    projectile.velocity.y = direction.y * SPEED;
+    var speed = name == "enemy" ? 100 : SPEED;
+    projectile.velocity.x = direction.x * speed;
+    projectile.velocity.y = direction.y * speed;
   }
 
   private function spawnParticle():FlxSprite {
@@ -75,16 +78,16 @@ class Projectile extends FlxSpriteGroup
 
     if (particle == null) {
       particle = new FlxSprite();
-      particle.loadGraphic("assets/images/projectiles/player/particle.png", true, 8, 8);
-      particle.animation.add("fade", [0,1,2,2,3,3,4,4,4], 15, false);
+      particle.loadGraphic('assets/images/projectiles/$name/particle.png', true, 8, 8);
+      particle.animation.add("fade", [0, 1, 2, 3], 15, false);
       particle.animation.play("fade");
       particle.solid = false;
-      new FlxTimer().start(0.6, function(t) { particle.exists = false; });
+      new FlxTimer().start(0.2, function(t) { particle.exists = false; });
       particleGroup.add(particle);
     }
 
-    particle.x = projectile.x + Reg.random.int(-3, 3) - 5;
-    particle.y = projectile.y + Reg.random.int(-3, 3) - 22;
+    particle.x = projectile.x + Reg.random.int(-1, 1);
+    particle.y = projectile.y + Reg.random.int(-1, 1);
     particle.velocity.x = projectile.velocity.x/4;
     particle.velocity.y = projectile.velocity.y/4;
 

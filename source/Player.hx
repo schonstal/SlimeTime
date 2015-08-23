@@ -12,11 +12,11 @@ import flixel.group.FlxSpriteGroup;
 class Player extends FlxSprite
 {
   public static var RUN_SPEED:Float = 200;
+  public static var gravity:Float = 800;
 
   public var started:Bool = false;
 
   var speed:Point;
-  var gravity:Float = 800;
   var terminalVelocity:Float = 200;
 
   var dead:Bool = false;
