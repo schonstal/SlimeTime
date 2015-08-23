@@ -37,6 +37,7 @@ class Projectile extends FlxSpriteGroup
 
     explosionSprite = new FlxSprite();
     //explosionSprite.loadGraphic('assets/images/projectiles/$name/hit.png', true, 64, 64);
+    explosionSprite.makeGraphic(16, 16, 0xffff00ff);
     explosionSprite.animation.add("explode", [0,1,2,3,4,5,6], 20, false);
     explosionSprite.solid = false;
     add(explosionSprite);
@@ -99,13 +100,17 @@ class Projectile extends FlxSpriteGroup
     if(!physical) return;
     physical = false;
 
-    explosionSprite.x = projectile.x - 26;
-    explosionSprite.y = projectile.y - 38;
+    explosionSprite.x = projectile.x;
+    explosionSprite.y = projectile.y;
     explosionSprite.visible = true;
     explosionSprite.animation.play("explode");
-    new FlxTimer().start(3, function(t) { exists = false; });
+    new FlxTimer().start(0.5, function(t) { exists = false; });
     projectile.exists = false;
-    FlxG.camera.shake(0.02, 0.3);
-    FlxG.sound.play("assets/sounds/orb_explode.wav");
+    //FlxG.camera.shake(0.02, 0.3);
+    //FlxG.sound.play("assets/sounds/orb_explode.wav");
+  }
+
+  public static function handleCollision(other, projectile):Void {
+    cast(projectile, ProjectileSprite).onCollide();
   }
 }

@@ -80,6 +80,9 @@ class PlayState extends FlxState
   override public function update(elapsed:Float):Void {
     if (player.started) spawnGroup.exists = false;
     level.collideWithLevel(player);
+    level.collideWithLevel(playerProjectileGroup, Projectile.handleCollision);
+    level.collideWithLevel(enemyProjectileGroup, Projectile.handleCollision);
+    FlxG.collide(player, enemyProjectileGroup, Projectile.handleCollision);
     super.update(elapsed);
   }
 }

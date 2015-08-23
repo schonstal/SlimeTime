@@ -43,11 +43,11 @@ class Player extends FlxSprite
     animation.add("jump fall", [2], 15, true);
     visible = false;
 
-    //width = 12;
-    //height = 15;
+    width = 5;
+    height = 8;
 
-    //offset.y = 1;
-    //offset.x = 3;
+    offset.y = 1;
+    offset.x = 3;
 
     speed = new Point();
     speed.y = jumpAmount;

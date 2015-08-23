@@ -5,8 +5,8 @@ import flixel.FlxG;
 import flixel.FlxObject;
 
 class ProjectileSprite extends FlxSprite {
-  public inline static var WIDTH = 14;
-  public inline static var HEIGHT = 6;
+  var WIDTH = 14;
+  var HEIGHT = 6;
 
   public var originalWidth:Float = 32;
   public var originalHeight:Float = 32;
@@ -16,9 +16,15 @@ class ProjectileSprite extends FlxSprite {
   public function new(name:String = "player") {
     super();
     var size = name == "player" ? 16 : 8;
+    if (name == "enemy") {
+      WIDTH = 6;
+      HEIGHT = 6;
+    }
+
     loadGraphic('assets/images/projectiles/$name/projectile.png', true, size, size);
     animation.add("pulse", [0, 1, 2], 10);
     animation.play("pulse");
+
     width = WIDTH;
     height = HEIGHT;
 
