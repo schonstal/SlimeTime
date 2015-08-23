@@ -11,7 +11,7 @@ class Grenade extends Enemy {
   public function new() {
     super();
     loadGraphic("assets/images/enemies/canister.png", true, 16, 16);
-    animation.add("spin", [1, 2, 3, 0], 10, true);
+    animation.add("spin", [1, 2, 3, 0], 15, true);
     animation.add("explode", [4, 5, 6, 7], 15, false);
     animation.finishCallback = onAnimationComplete;
     animation.play("spin");
@@ -27,7 +27,11 @@ class Grenade extends Enemy {
 
   public override function update(elapsed:Float):Void {
     super.update(elapsed);
-    if (velocity.y >= 10) explode();
+    if (velocity.y >= 10) {
+      acceleration.y = 0;
+      velocity.y = 0;
+      explode();
+    }
   }
 
   function explode():Void {
