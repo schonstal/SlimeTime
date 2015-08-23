@@ -128,6 +128,7 @@ class Projectile extends FlxSpriteGroup
 
   function explosionFinished(_:String):Void {
     explosionSprite.exists = false;
+    exists = false;
   }
 
   public static function handleCollision(other, projectile):Void {

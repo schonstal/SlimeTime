@@ -15,6 +15,7 @@ class PlayState extends FlxState
 
   var enemyProjectileGroup:FlxSpriteGroup;
   var enemyLaserGroup:FlxSpriteGroup;
+  var pipes:WallPipes;
 
   var spawnGroup:SpawnGroup;
   var player:Player;
@@ -51,7 +52,9 @@ class PlayState extends FlxState
     add(player);
 
     add(level.foregroundTiles);
-    add(new WallPipes());
+
+    pipes = new WallPipes();
+    add(pipes);
 
     var g = new Grenade();
     g.spawn();
@@ -82,6 +85,11 @@ class PlayState extends FlxState
     FlxG.overlap(slime, enemyProjectileGroup, Projectile.handleCollision);
     FlxG.overlap(slime, playerProjectileGroup, Projectile.handleCollision);
 
+    FlxG.overlap(pipes, playerProjectileGroup, function(pipe, projectile):Void {
+      Projectile.handleCollision(pipe, projectile);
+      cast(pipe, Pipe).hurt(1);
+    });
+
     FlxG.overlap(player, enemyProjectileGroup, function(player, projectile):Void {
       Projectile.handleCollision(player, projectile);
       cast(player, Player).die();
@@ -90,6 +98,7 @@ class PlayState extends FlxState
       player.x = spawnGroup.x + 6;
       player.y = spawnGroup.y + 6;
     });
+    
     super.update(elapsed);
   }
 }

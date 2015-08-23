@@ -32,6 +32,7 @@ class Pipe extends Enemy {
     animation.add("idle", [0]);
     animation.add("charge", [1, 2, 1, 2, 3, 2, 4], 10, false);
     animation.add("sploosh", [5], 15, false);
+    animation.play("idle");
     animation.finishCallback = onAnimationComplete;
 
     if(side == FlxObject.LEFT) {
@@ -70,6 +71,4 @@ class Pipe extends Enemy {
       animation.play("idle");
     }
   }
-
-
 }

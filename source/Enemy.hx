@@ -6,18 +6,28 @@ import flixel.util.FlxTimer;
 import flash.geom.ColorTransform;
 
 class Enemy extends FlxSprite {
+  var flashTimer:FlxTimer;
+
   public function new() {
     super();
+    health = 10;
+    flashTimer = new FlxTimer();
+  }
+
+  public override function hurt(damage:Float):Void {
+    //don't call super...
+    health -= damage;
+    flash();
   }
 
   public function flash():Void {
     useColorTransform = true;
     setColorTransform(0, 0, 0, 1, 0, 0, 0, 0);
 
-    new FlxTimer().start(0.025, function(t) {
+    flashTimer.start(0.025, function(t) {
       setColorTransform(0, 0, 0, 1, 255, 255, 255, 0);
 
-      new FlxTimer().start(0.025, function(t) {
+      flashTimer.start(0.025, function(t) {
         useColorTransform = false;
       });
     });
