@@ -80,9 +80,10 @@ class PlayState extends FlxState
     level.collideWithLevel(player);
     level.collideWithLevel(playerProjectileGroup, Projectile.handleCollision);
     level.collideWithLevel(enemyProjectileGroup, Projectile.handleCollision);
-    FlxG.collide(slime, enemyProjectileGroup, Projectile.handleCollision);
-    FlxG.collide(slime, playerProjectileGroup, Projectile.handleCollision);
-    FlxG.collide(player, enemyProjectileGroup, function(player, projectile):Void {
+    FlxG.overlap(slime, enemyProjectileGroup, Projectile.handleCollision);
+    FlxG.overlap(slime, playerProjectileGroup, Projectile.handleCollision);
+
+    FlxG.overlap(player, enemyProjectileGroup, function(player, projectile):Void {
       Projectile.handleCollision(player, projectile);
       cast(player, Player).die();
       FlxG.camera.flash(0xff33ff88, 0.5);
