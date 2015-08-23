@@ -12,6 +12,8 @@ class Grenade extends Enemy {
     super();
     loadGraphic("assets/images/enemies/canister.png", true, 16, 16);
     animation.add("spin", [1, 2, 3, 0], 10, true);
+    animation.add("explode", [4, 5, 6, 7], 15, false);
+    animation.finishCallback = onAnimationComplete;
     animation.play("spin");
   }
 
@@ -29,12 +31,16 @@ class Grenade extends Enemy {
   }
 
   function explode():Void {
-    exists = false;
+    animation.play("explode");
     FlxG.camera.shake(0.02, 0.2);
     for(i in (0...8)) {
       Reg.enemyProjectileService.shoot(
         x + 6, y + 6, new FlxVector(Math.cos(i/8 * Reg.TAU), Math.sin(i/8 * Reg.TAU))
       );
     }
+  }
+
+  function onAnimationComplete(name:String) {
+    if (name == "explode") exists = false;
   }
 }

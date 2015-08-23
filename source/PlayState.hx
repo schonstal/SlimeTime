@@ -56,6 +56,9 @@ class PlayState extends FlxState
     var g = new Grenade();
     g.spawn();
     add(g);
+    var g = new Grenade();
+    g.spawn();
+    add(g);
 
     slime = new Slime();
     add(slime);
