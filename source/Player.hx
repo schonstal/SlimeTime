@@ -52,6 +52,7 @@ class Player extends FlxSprite
     speed = new Point();
     speed.y = jumpAmount;
     speed.x = 800;
+    solid = false;
 
     maxVelocity.x = RUN_SPEED;
 
@@ -76,6 +77,8 @@ class Player extends FlxSprite
     acceleration.y = gravity;
     started = true;
     visible = true;
+    solid = true;
+    dead = false;
   }
 
   private function isJumpPressed():Bool {
@@ -167,7 +170,7 @@ class Player extends FlxSprite
   override public function update(elapsed:Float):Void {
     this.elapsed = elapsed;
 
-    if(!started && (pressed("left") || pressed("right") || pressed("jump"))) start();
+    if(!started && (justPressed("left") || justPressed("right") || justPressed("jump"))) start();
 
     if(!dead && started) {
       handleMovement();
@@ -182,6 +185,8 @@ class Player extends FlxSprite
   public function die():Void {
     visible = false;
     dead = true;
+    started = false;
+    solid = false;
     acceleration.y = acceleration.x = velocity.x = velocity.y = 0;
   }
 

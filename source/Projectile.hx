@@ -36,10 +36,13 @@ class Projectile extends FlxSpriteGroup
     add(projectile);
 
     explosionSprite = new FlxSprite();
-    //explosionSprite.loadGraphic('assets/images/projectiles/$name/hit.png', true, 64, 64);
-    explosionSprite.makeGraphic(16, 16, 0xffff00ff);
-    explosionSprite.animation.add("explode", [0,1,2,3,4,5,6], 20, false);
+    explosionSprite.loadGraphic('assets/images/projectiles/$name/hit.png', true, 16, 16);
+    explosionSprite.animation.add("explode", [0, 1, 2, 3], 15, false);
     explosionSprite.solid = false;
+    explosionSprite.setFacingFlip(0, true, false);
+    explosionSprite.setFacingFlip(1, false, false);
+    explosionSprite.setFacingFlip(2, true, true);
+    explosionSprite.setFacingFlip(3, false, true);
     add(explosionSprite);
 
     initialize(X, Y, direction, facing);
@@ -100,10 +103,11 @@ class Projectile extends FlxSpriteGroup
     if(!physical) return;
     physical = false;
 
-    explosionSprite.x = projectile.x;
-    explosionSprite.y = projectile.y;
+    explosionSprite.x = projectile.x - 5;
+    explosionSprite.y = projectile.y - 5;
     explosionSprite.visible = true;
     explosionSprite.animation.play("explode");
+    explosionSprite.facing = Reg.random.int(0, 3);
     new FlxTimer().start(0.5, function(t) { exists = false; });
     projectile.exists = false;
     //FlxG.camera.shake(0.02, 0.3);

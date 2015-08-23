@@ -19,6 +19,7 @@ class PlayState extends FlxState
   var player:Player;
 
   var level:Room;
+  var slime:Slime;
 
   override public function create():Void {
     super.create();
@@ -37,6 +38,7 @@ class PlayState extends FlxState
     level = new Room("assets/tilemaps/level.tmx");
     add(level.backgroundTiles);
     add(level.foregroundTiles);
+    add(new WallPipes());
 
     spawnGroup = new SpawnGroup();
     add(spawnGroup);
@@ -53,9 +55,8 @@ class PlayState extends FlxState
       add(g);
     });
 
-    spawnTest();
-
-    add(new Slime());
+    slime = new Slime();
+    add(slime);
 
     add(playerProjectileGroup);
     add(enemyProjectileGroup);
@@ -64,15 +65,6 @@ class PlayState extends FlxState
     FlxG.debugger.drawDebug = true;
   }
 
-  function spawnTest():Void {
-    var g = new Grenade();
-    g.spawn();
-    add(g);
-    new FlxTimer().start(Reg.random.float(0.2, 1), function(t) {
-      spawnTest();
-    });
-  }
-  
   override public function destroy():Void {
     super.destroy();
   }
@@ -82,7 +74,16 @@ class PlayState extends FlxState
     level.collideWithLevel(player);
     level.collideWithLevel(playerProjectileGroup, Projectile.handleCollision);
     level.collideWithLevel(enemyProjectileGroup, Projectile.handleCollision);
-    FlxG.collide(player, enemyProjectileGroup, Projectile.handleCollision);
+    FlxG.collide(slime, enemyProjectileGroup, Projectile.handleCollision);
+    FlxG.collide(slime, playerProjectileGroup, Projectile.handleCollision);
+    FlxG.collide(player, enemyProjectileGroup, function(player, projectile):Void {
+      Projectile.handleCollision(player, projectile);
+      cast(player, Player).die();
+      FlxG.camera.flash(0xff33ff88, 0.5);
+      spawnGroup.exists = true;
+      player.x = spawnGroup.x + 6;
+      player.y = spawnGroup.y + 6;
+    });
     super.update(elapsed);
   }
 }
