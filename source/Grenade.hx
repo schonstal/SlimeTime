@@ -36,7 +36,7 @@ class Grenade extends Enemy {
 
   function explode():Void {
     animation.play("explode");
-    FlxG.camera.shake(0.02, 0.2);
+    //FlxG.camera.shake(0.02, 0.2);
     for(i in (0...8)) {
       Reg.enemyProjectileService.shoot(
         x + 6, y + 6, new FlxVector(Math.cos(i/8 * Reg.TAU), Math.sin(i/8 * Reg.TAU))
