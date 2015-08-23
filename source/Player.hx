@@ -194,6 +194,12 @@ class Player extends FlxSprite
     switch(action) {
       case "jump":
         return FlxG.keys.justPressed.W || FlxG.keys.justPressed.UP || FlxG.keys.justPressed.SPACE;
+      case "left":
+        return FlxG.keys.justPressed.LEFT || FlxG.keys.justPressed.A;
+      case "right":
+        return FlxG.keys.justPressed.RIGHT || FlxG.keys.justPressed.D;
+      case "direction":
+        return justPressed("left") || justPressed("right");
     }
     return false;
   }
