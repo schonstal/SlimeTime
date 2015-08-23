@@ -53,6 +53,10 @@ class PlayState extends FlxState
     add(level.foregroundTiles);
     add(new WallPipes());
 
+    var g = new Grenade();
+    g.spawn();
+    add(g);
+
     slime = new Slime();
     add(slime);
 

@@ -9,15 +9,22 @@ import flixel.util.FlxColor;
 import flixel.math.FlxVector;
 
 class EnemyLaserGroup extends FlxSpriteGroup {
+  public var onCompleteCallback:Void->Void;
+
+  var duration:Float = 0;
+
   public function new(Y):Void {
     super();
 
     for (i in (0...Std.int((FlxG.width - 32)/32))) {
-      var laserSprite = new FlxSprite(16 + i * 32, -6);
+      var laserSprite = new FlxSprite(16 + i * 32, -8);
       laserSprite.loadGraphic("assets/images/projectiles/enemy/laser.png", true, 32, 32);
-      laserSprite.animation.add("shoot", [0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 4, 5, 6, 7, 8], 30, false);
+      laserSprite.animation.add("shoot", [0, 1, 2, 3], 30, true);
+      laserSprite.animation.add("fade", [4, 5, 6, 7, 8], 30, false);
       laserSprite.immovable = true;
       laserSprite.setFacingFlip(FlxObject.RIGHT, true, false);
+      laserSprite.animation.callback = onAnimate;
+      laserSprite.animation.finishCallback = onAnimationComplete;
       add(laserSprite);
     }
 
@@ -32,14 +39,35 @@ class EnemyLaserGroup extends FlxSpriteGroup {
     y = Y;
   }
 
-  public function shoot(facing:Int):Void {
+  public override function update(elapsed:Float):Void {
+    duration -= elapsed;
+
+    super.update(elapsed);
+  }
+
+  public function shoot(facing:Int, duration:Float):Void {
+    this.duration = duration;
     for(laserSprite in members) {
       laserSprite.animation.play("shoot");
       laserSprite.facing = facing;
     }
-    new FlxTimer().start(0.6, function(t) {
+  }
+
+  function onAnimate(name:String, frame:Int, frameIndex:Int):Void {
+    if (name == "shoot" && frame == 3) {
+      if (duration <= 0) {
+        for(laserSprite in members) {
+          laserSprite.animation.play("fade");
+        }
+
+        if (onCompleteCallback != null) onCompleteCallback();
+      }
+    }
+  }
+
+  function onAnimationComplete(name:String):Void {
+    if (name == "fade") {
       exists = false;
-      for(laserSprite in members) laserSprite.exists = false;
-    });
+    }
   }
 }

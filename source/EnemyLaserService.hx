@@ -13,10 +13,11 @@ class EnemyLaserService {
     this.group = group;
   }
 
-  public function shoot(Y:Float, facing:Int = FlxObject.RIGHT):EnemyLaserGroup {
+  public function shoot(Y:Float, facing:Int = FlxObject.RIGHT, duration:Float = 1, ?onComplete:Void->Void):EnemyLaserGroup {
     var laserGroup = recycle(Y);
     group.add(laserGroup);
-    laserGroup.shoot(facing);
+    laserGroup.shoot(facing, duration);
+    laserGroup.onCompleteCallback = onComplete;
 
     return laserGroup;
   }

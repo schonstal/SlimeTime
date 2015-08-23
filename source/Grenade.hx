@@ -10,7 +10,9 @@ import flixel.group.FlxSpriteGroup;
 class Grenade extends Enemy {
   public function new() {
     super();
-    makeGraphic(12, 12, 0xff33ff88);
+    loadGraphic("assets/images/enemies/canister.png", true, 16, 16);
+    animation.add("spin", [1, 2, 3, 0], 10, true);
+    animation.play("spin");
   }
 
   public override function spawn():Void {
