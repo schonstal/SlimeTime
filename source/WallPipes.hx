@@ -13,20 +13,12 @@ class WallPipes extends FlxSpriteGroup {
   public function new():Void {
     super();
 
-    var y = 0;
+    var y = 16;
     var left:Bool = Reg.random.int(0, 1) < 1;
-    while ((y += 32 + Reg.random.int(0, 8)) < FlxG.height - 48) {
+    while ((y += 16) < FlxG.height - 48) {
       var pipe:FlxSprite = new FlxSprite();
       left = !left;
-      pipe.loadGraphic("assets/images/pipe.png");
-      if(left) {
-        pipe.x = 0;
-      } else {
-        pipe.x = FlxG.width - pipe.width;
-        pipe.setFacingFlip(FlxObject.LEFT, true, false);
-        pipe.facing = FlxObject.LEFT;
-      }
-      pipe.y = y;
+      var pipe:Pipe = new Pipe(left ? FlxObject.LEFT : FlxObject.RIGHT, y);
       add(pipe);
     }
   }

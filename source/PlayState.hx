@@ -46,8 +46,6 @@ class PlayState extends FlxState
     spawnGroup = new SpawnGroup();
     add(spawnGroup);
 
-    add(playerProjectileGroup);
-
     player = new Player(spawnGroup.x + 6, spawnGroup.y + 6);
     player.init();
     add(player);
@@ -55,15 +53,10 @@ class PlayState extends FlxState
     add(level.foregroundTiles);
     add(new WallPipes());
 
-    new FlxTimer().start(Reg.random.float(0.2, 1), function(t) {
-      var g = new Grenade();
-      g.spawn();
-      add(g);
-    });
-
     slime = new Slime();
     add(slime);
 
+    add(playerProjectileGroup);
     add(enemyProjectileGroup);
 
     //DEBUGGER
@@ -75,7 +68,6 @@ class PlayState extends FlxState
   }
 
   override public function update(elapsed:Float):Void {
-    if (FlxG.keys.justPressed.Q) Reg.enemyLaserService.shoot(64);
     if (player.started) spawnGroup.exists = false;
     level.collideWithLevel(player);
     level.collideWithLevel(playerProjectileGroup, Projectile.handleCollision);
