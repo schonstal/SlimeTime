@@ -40,17 +40,20 @@ class PlayState extends FlxState
 
     level = new Room("assets/tilemaps/level.tmx");
     add(level.backgroundTiles);
-    add(level.foregroundTiles);
-    add(new WallPipes());
+    add(playerLaserGroup);
+    add(enemyLaserGroup);
 
     spawnGroup = new SpawnGroup();
     add(spawnGroup);
 
-    add(playerLaserGroup);
+    add(playerProjectileGroup);
 
     player = new Player(spawnGroup.x + 6, spawnGroup.y + 6);
     player.init();
     add(player);
+
+    add(level.foregroundTiles);
+    add(new WallPipes());
 
     new FlxTimer().start(Reg.random.float(0.2, 1), function(t) {
       var g = new Grenade();
@@ -61,7 +64,6 @@ class PlayState extends FlxState
     slime = new Slime();
     add(slime);
 
-    add(playerProjectileGroup);
     add(enemyProjectileGroup);
 
     //DEBUGGER
@@ -73,7 +75,7 @@ class PlayState extends FlxState
   }
 
   override public function update(elapsed:Float):Void {
-    if (FlxG.keys.justPressed.Q) Reg.enemyLaserService.shoot(32);
+    if (FlxG.keys.justPressed.Q) Reg.enemyLaserService.shoot(64);
     if (player.started) spawnGroup.exists = false;
     level.collideWithLevel(player);
     level.collideWithLevel(playerProjectileGroup, Projectile.handleCollision);
