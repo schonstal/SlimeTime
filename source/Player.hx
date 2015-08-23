@@ -127,11 +127,11 @@ class Player extends FlxSprite
   }
 
   private function handleMovement():Void {
-    if(pressed("left")) {
+    if(pressed("right")) {
       acceleration.x = -speed.x * (velocity.x > 0 ? 4 : 1);
       facing = FlxObject.LEFT;
       shoot();
-    } else if(pressed("right")) {
+    } else if(pressed("left")) {
       acceleration.x = speed.x * (velocity.x < 0 ? 4 : 1);
       facing = FlxObject.RIGHT;
       shoot();
@@ -193,7 +193,8 @@ class Player extends FlxSprite
   private function justPressed(action:String):Bool {
     switch(action) {
       case "jump":
-        return FlxG.keys.justPressed.W || FlxG.keys.justPressed.UP || FlxG.keys.justPressed.SPACE;
+        return FlxG.keys.justPressed.S || FlxG.keys.justPressed.DOWN || FlxG.keys.justPressed.W ||
+               FlxG.keys.justPressed.UP || FlxG.keys.justPressed.SPACE;
       case "left":
         return FlxG.keys.justPressed.LEFT || FlxG.keys.justPressed.A;
       case "right":
@@ -207,7 +208,8 @@ class Player extends FlxSprite
   private function pressed(action:String):Bool {
     switch(action) {
       case "jump":
-        return FlxG.keys.pressed.W || FlxG.keys.pressed.UP || FlxG.keys.pressed.SPACE;
+        return FlxG.keys.pressed.S || FlxG.keys.pressed.DOWN || FlxG.keys.pressed.W ||
+               FlxG.keys.pressed.UP || FlxG.keys.pressed.SPACE;
       case "left":
         return FlxG.keys.pressed.LEFT || FlxG.keys.pressed.A;
       case "right":
