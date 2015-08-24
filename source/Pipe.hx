@@ -8,7 +8,6 @@ import flixel.tweens.FlxEase;
 import flixel.util.FlxTimer;
 
 class Pipe extends Enemy {
-  var spawnTimer:Float;
   var laserTimer:Float;
 
   var laserDuration:Float = 0.5;
@@ -70,7 +69,7 @@ class Pipe extends Enemy {
 
   public function shoot():Void {
     animation.play("charge");
-    laserTimer = Reg.random.float(2, 4);
+    laserTimer = Reg.random.float(3, 6);
   }
 
   public function onAnimationComplete(name:String):Void {
@@ -103,8 +102,6 @@ class Pipe extends Enemy {
     //                             deathTime, { ease: FlxEase.quadOut });
 
     x = facing == FlxObject.LEFT ? -width : FlxG.width;
-
-    spawnTimer = Reg.random.float(10, 20);
   }
 
   override function die():Void { return; }

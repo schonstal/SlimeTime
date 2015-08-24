@@ -11,9 +11,6 @@ import flash.display.BlendMode;
 import flixel.math.FlxMath;
 
 class WallPipes extends FlxSpriteGroup {
-  var SPAWN_RATE:Float = 3;
-
-  var spawnRate:Float = 3;
   var spawnTimer:Float = 5;
 
   public function new():Void {
@@ -30,15 +27,13 @@ class WallPipes extends FlxSpriteGroup {
   }
 
   override public function update(elapsed:Float):Void {
-    spawnRate = SPAWN_RATE/Reg.difficulty;
-
     if (Reg.started) {
       spawnTimer -= elapsed;
       if (spawnTimer <= 0) {
         spawnPipe();
         spawnTimer = Reg.random.float(
-          FlxMath.lerp(5, 3, Reg.difficulty),
-          FlxMath.lerp(10, 6, Reg.difficulty)
+          FlxMath.lerp(4, 2, Reg.difficulty),
+          FlxMath.lerp(6, 4, Reg.difficulty)
         );
       }
     }

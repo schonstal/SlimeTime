@@ -25,6 +25,7 @@ class PlayState extends FlxState
 
   var level:Room;
   var slime:Slime;
+  var hud:HUD;
 
   override public function create():Void {
     super.create();
@@ -84,7 +85,9 @@ class PlayState extends FlxState
 
     add(enemyExplosionGroup);
 
-    add(new HUD());
+    hud = new HUD();
+    hud.exists = false;
+    add(hud);
 
     //DEBUGGER
     FlxG.debugger.drawDebug = true;
@@ -95,10 +98,13 @@ class PlayState extends FlxState
   }
 
   override public function update(elapsed:Float):Void {
-    if (player.started) spawnGroup.exists = false;
+    if (Reg.started) {
+      spawnGroup.exists = false;
+      hud.exists = true;
+    }
     level.collideWithLevel(player);
 
-    if (Reg.started) Reg.difficulty += elapsed/60;
+    if (Reg.started) Reg.difficulty += elapsed/90;
     if (Reg.difficulty >= 1) Reg.difficulty = 1;
 
     FlxG.overlap(slime, enemyProjectileGroup, Projectile.handleCollision);

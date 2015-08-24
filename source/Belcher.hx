@@ -15,7 +15,7 @@ class Belcher extends Enemy {
   var activeTween:FlxTween;
 
   var shootTimer:Float = 2;
-  var shootTime:Float = 1.5;
+  var shootTime:Float = 2;
 
   public function new() {
     super();
@@ -39,6 +39,7 @@ class Belcher extends Enemy {
 
     animation.play("shoot");
     health = 100;
+    shootTimer = 2;
 
     height = 32;
     offset.y = 32;

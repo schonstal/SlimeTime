@@ -22,9 +22,9 @@ class Grenade extends Enemy {
     super.spawn();
 
     acceleration.y = Player.gravity;
-    velocity.y = Reg.random.int(-300, -600);
+    velocity.y = Reg.random.int(-400, -600);
     animation.play("spin");
-    health = 2;
+    health = 1;
 
     y = FlxG.height;
     x = Reg.random.int(16, FlxG.width - 32);
@@ -32,11 +32,11 @@ class Grenade extends Enemy {
 
   public override function update(elapsed:Float):Void {
     super.update(elapsed);
-    if (velocity.y >= 10) {
-      acceleration.y = 0;
-      velocity.y = 0;
-      explode();
-    }
+  }
+
+  public override function kill():Void {
+    super.kill();
+    explode();
   }
 
   function explode():Void {

@@ -13,6 +13,7 @@ class HUD extends FlxSpriteGroup {
 
   var scoreLabel:FlxSprite;
   var comboLabel:FlxSprite;
+  var maxCombo:FlxSprite;
   var healthLabel:FlxSprite;
   var healthBarBackground:FlxSprite;
   var healthBar:FlxSprite;
