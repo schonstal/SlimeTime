@@ -10,19 +10,19 @@ import flixel.math.FlxVector;
 import flixel.math.FlxMath;
 
 class BelcherGroup extends FlxSpriteGroup {
-  var spawnTimer:Float = 5;
+  var spawnTimer:Float = 2;
 
   public function new() {
     super();
   }
 
   override public function update(elapsed:Float):Void {
-    if (Reg.started && Reg.score >= 2000) {
+    if (Reg.started && Reg.score >= 1000) {
       spawnTimer -= elapsed;
       if (spawnTimer < 0) {
         spawnTimer = Reg.random.float(
-          FlxMath.lerp(8, 4, Reg.difficulty),
-          FlxMath.lerp(12, 6, Reg.difficulty)
+          FlxMath.lerp(6, 4, Reg.difficulty),
+          FlxMath.lerp(10, 6, Reg.difficulty)
         );
         var g = recycle(Belcher);
         cast(g, Belcher).spawn();

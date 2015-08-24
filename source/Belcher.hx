@@ -37,7 +37,7 @@ class Belcher extends Enemy {
   public override function spawn():Void {
     super.spawn();
 
-    animation.play("shoot");
+    animation.play("shoot", true);
     health = 100;
     shootTimer = 2;
 
@@ -66,7 +66,6 @@ class Belcher extends Enemy {
 
   function explode():Void {
     animation.play("shoot");
-    FlxG.sound.play("assets/sounds/belcherShoot.wav");
   }
 
   function onAnimationComplete(name:String):Void {
@@ -75,6 +74,7 @@ class Belcher extends Enemy {
 
   function onAnimate(name:String, frameIndex:Int, frame:Int):Void {
     if (name == "shoot" && frame == 6) {
+      FlxG.sound.play("assets/sounds/belcherShoot.wav");
     //FlxG.camera.shake(0.02, 0.2);
       for(i in (1...9)) {
         if(i == 8) return;

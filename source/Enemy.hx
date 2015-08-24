@@ -37,7 +37,7 @@ class Enemy extends FlxSprite {
 
     super.hurt(damage);
     flash();
-    FlxG.sound.play("assets/sounds/enemyHurt.wav", 0.2);
+    FlxG.sound.play("assets/sounds/enemyHurt.wav", 0.7);
   }
 
   public override function kill():Void {
