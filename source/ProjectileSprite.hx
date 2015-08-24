@@ -5,21 +5,16 @@ import flixel.FlxG;
 import flixel.FlxObject;
 
 class ProjectileSprite extends FlxSprite {
-  var WIDTH = 14;
+  var WIDTH = 6;
   var HEIGHT = 6;
-
-  public var originalWidth:Float = 32;
-  public var originalHeight:Float = 32;
+  var name:String;
 
   public var onCollisionCallback:Void->Void;
 
   public function new(name:String = "player") {
     super();
+    this.name = name;
     var size = name == "player" ? 16 : 8;
-    if (name == "enemy") {
-      WIDTH = 6;
-      HEIGHT = 6;
-    }
 
     loadGraphic('assets/images/projectiles/$name/projectile.png', true, size, size);
     animation.add("pulse", [0, 1, 2], 10);
@@ -45,5 +40,8 @@ class ProjectileSprite extends FlxSprite {
     height = newHeight;
     offset.set( - ((newWidth - frameWidth) * 0.5), - ((newHeight - frameHeight) * 0.5));
 		centerOrigin();
+    if (name == "player") {
+      offset.x += (facing == FlxObject.LEFT ? 4 : -4);
+    }
   }
 }

@@ -102,7 +102,7 @@ class Player extends FlxSprite
     jumpPressed = false;
     FlxG.camera.flash(0x33ffccff, 0.1);
     //FlxG.camera.shake(0.01, 0.2);
-    Reg.playerLasesrService.shoot(x, y + height - 6, facing);
+    Reg.playerLasesrService.shoot(x - (facing == FlxObject.RIGHT ? 3 : 4), y + height - 6, facing);
     canJumpTimer = canJumpThreshold;
   }
 
@@ -156,7 +156,7 @@ class Player extends FlxSprite
   private function shoot():Void {
     if (shootTimer <= 0) {
       var direction = new FlxVector(facing == FlxObject.LEFT ? 1 : -1, Reg.random.float(-0.05, 0.05));
-      Reg.playerProjectileService.shoot(x + (facing == FlxObject.LEFT ? 2 : -10), y + 3, direction, facing);
+      Reg.playerProjectileService.shoot(x + (facing == FlxObject.LEFT ? 8 : -8), y + 3, direction, facing);
       shootTimer = shootRate;
     }
   }

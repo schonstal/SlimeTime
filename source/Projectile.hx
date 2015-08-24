@@ -119,7 +119,7 @@ class Projectile extends FlxSpriteGroup
       explosionSprite.facing = Reg.random.int(0, 3);
     } else {
       explosionSprite.facing = facing;
-      explosionSprite.x += facing == FlxObject.LEFT ? 5 : -7;
+      explosionSprite.x += facing == FlxObject.LEFT ? 3 : -3;
     }
     projectile.exists = false;
     //FlxG.camera.shake(0.02, 0.3);

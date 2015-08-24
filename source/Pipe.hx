@@ -8,12 +8,19 @@ import flixel.tweens.FlxEase;
 import flixel.util.FlxTimer;
 
 class Pipe extends Enemy {
+  var spawnTimer:Float;
+  var laserTimer:Float;
+
   var laserDuration:Float = 0.5;
   var activeTween:FlxTween;
 
   public function new(side:Int, Y:Float) {
     super();
     y = Y;
+    alive = false;
+
+    spawnTimer = Reg.random.float(0, 10);
+    laserTimer = Reg.random.float(3, 7);
 
     setFacingFlip(FlxObject.LEFT, false, false);
     setFacingFlip(FlxObject.RIGHT, true, false);
@@ -40,12 +47,11 @@ class Pipe extends Enemy {
     } else {
       x = FlxG.width;
     }
-    new FlxTimer().start(Reg.random.float(1, 5), function(t) { shoot(); });
-    spawn();
   }
 
   public override function spawn():Void {
     exists = true;
+    alive = true;
     tweenIn();
   }
 
@@ -58,6 +64,7 @@ class Pipe extends Enemy {
 
   public function shoot():Void {
     animation.play("charge");
+    laserTimer = Reg.random.float(3, 7);
   }
 
   public function onAnimationComplete(name:String):Void {
@@ -70,5 +77,20 @@ class Pipe extends Enemy {
     if (name == "sploosh") {
       animation.play("idle");
     }
+  }
+
+  public override function update(elapsed:Float):Void {
+    if (!alive) {
+      spawnTimer -= elapsed;
+      if (spawnTimer <= 0) {
+        spawn();
+      }
+    } else {
+      laserTimer -= elapsed;
+      if (laserTimer <= 0) {
+        shoot();
+      }
+    }
+    super.update(elapsed);
   }
 }

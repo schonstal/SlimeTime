@@ -7,6 +7,7 @@ import flash.geom.ColorTransform;
 
 class Enemy extends FlxSprite {
   var flashTimer:FlxTimer;
+  var explosionTimer:FlxTimer;
 
   public function new() {
     super();
@@ -15,9 +16,15 @@ class Enemy extends FlxSprite {
   }
 
   public override function hurt(damage:Float):Void {
-    //don't call super...
-    health -= damage;
-    flash();
+    super.hurt(damage);
+
+    if (alive) flash();
+  }
+
+  public override function kill():Void {
+    Reg.enemyExplosionService.explode(x + width/2, y + width/2);
+    alive = false;
+    exists = false;
   }
 
   public function flash():Void {
@@ -36,4 +43,7 @@ class Enemy extends FlxSprite {
   public function spawn():Void {
     // Just for the interface for now
   }
+
+  public function onStart():Void {
+  };
 }

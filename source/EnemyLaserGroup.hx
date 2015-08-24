@@ -17,12 +17,15 @@ class EnemyLaserGroup extends FlxSpriteGroup {
     super();
 
     for (i in (0...Std.int((FlxG.width - 32)/32))) {
-      var laserSprite = new FlxSprite(16 + i * 32, -8);
+      var laserSprite = new FlxSprite(16 + i * 32, 0);
       laserSprite.loadGraphic("assets/images/projectiles/enemy/laser.png", true, 32, 32);
+      laserSprite.height = 16;
+      laserSprite.offset.y = 8;
       laserSprite.animation.add("shoot", [0, 1, 2, 3], 30, true);
       laserSprite.animation.add("fade", [4, 5, 6, 7, 8], 30, false);
       laserSprite.immovable = true;
       laserSprite.setFacingFlip(FlxObject.RIGHT, true, false);
+      laserSprite.setFacingFlip(FlxObject.LEFT, false, false);
       laserSprite.animation.callback = onAnimate;
       laserSprite.animation.finishCallback = onAnimationComplete;
       add(laserSprite);
