@@ -66,6 +66,7 @@ class Belcher extends Enemy {
 
   function explode():Void {
     animation.play("shoot");
+    FlxG.sound.play("assets/sounds/belcherShoot.wav");
   }
 
   function onAnimationComplete(name:String):Void {
