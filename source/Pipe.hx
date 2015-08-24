@@ -74,6 +74,7 @@ class Pipe extends Enemy {
 
   public function onAnimationComplete(name:String):Void {
     if (name == "charge") {
+      FlxG.sound.play("assets/sounds/pipeShoot.wav");
       Reg.enemyLaserService.shoot(y, facing, 0.5, tweenIn);
       x += facing == FlxObject.LEFT ? -5 : 5;
       animation.play("sploosh");

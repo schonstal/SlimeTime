@@ -50,6 +50,7 @@ class Enemy extends FlxSprite {
 
     blowUp();
     die();
+    FlxG.sound.play("assets/sounds/enemyDie.wav");
   }
 
   function blowUp():Void {

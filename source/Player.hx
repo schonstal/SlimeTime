@@ -96,6 +96,7 @@ class Player extends Enemy //YOU ARE THE MONSTER
     FlxSpriteUtil.flicker(this, 0.3, 0.04, true, true, function(flicker) {
       justHurt = false;
     });
+    FlxG.sound.play("assets/sounds/player/hurt.wav");
 
     super.hurt(damage);
   }
@@ -123,6 +124,7 @@ class Player extends Enemy //YOU ARE THE MONSTER
     //FlxG.camera.shake(0.01, 0.2);
     Reg.playerLasesrService.shoot(x - (facing == FlxObject.RIGHT ? 3 : 4), y + height - 6, facing);
     canJumpTimer = canJumpThreshold;
+    FlxG.sound.play("assets/sounds/player/laser.wav");
   }
 
   private function canJump():Bool {
@@ -177,6 +179,7 @@ class Player extends Enemy //YOU ARE THE MONSTER
       var direction = new FlxVector(facing == FlxObject.LEFT ? 1 : -1, Reg.random.float(-0.05, 0.05));
       Reg.playerProjectileService.shoot(x + (facing == FlxObject.LEFT ? 8 : -8), y + 3, direction, facing);
       shootTimer = shootRate;
+      FlxG.sound.play("assets/sounds/player/shoot.wav");
     }
   }
 
