@@ -20,6 +20,7 @@ class Enemy extends FlxSprite {
   var points:Int;
 
   var explosionOffset:FlxPoint;
+  var explosionCount:Int = 1;
 
   public function new() {
     super();
@@ -50,9 +51,11 @@ class Enemy extends FlxSprite {
 
   function blowUp():Void {
     FlxG.camera.shake(0.005, 0.2);
-    Reg.enemyExplosionService.explode(x + width/2 + explosionOffset.x,
-                                      y + width/2 + explosionOffset.y,
-                                      deathWidth, deathHeight);
+    for(i in 0...explosionCount) {
+      Reg.enemyExplosionService.explode(x + width/2 + explosionOffset.x,
+                                        y + width/2 + explosionOffset.y,
+                                        deathWidth, deathHeight);
+    }
   }
 
   function die():Void {

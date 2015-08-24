@@ -25,8 +25,13 @@ class Belcher extends Enemy {
     animation.callback = onAnimate;
     animation.finishCallback = onAnimationComplete;
     animation.play("idle");
-    explosionOffset.y = -20;
     points = 500;
+
+    explosionOffset.y = -width/2;
+    explosionOffset.x = -height/2;
+    explosionCount = 8;
+    deathHeight = height/2;
+    deathWidth = width;
   }
 
   public override function spawn():Void {

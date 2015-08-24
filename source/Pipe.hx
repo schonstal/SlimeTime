@@ -47,9 +47,11 @@ class Pipe extends Enemy {
       x = FlxG.width;
     }
 
-    //deathWidth = width;
-    //deathHeight = height;
-    //deathTime = 0.5;
+    explosionOffset.x = -width/2;
+    explosionOffset.y = -height/2;
+    deathWidth = width;
+    deathHeight = height;
+    explosionCount = 3;
     points = 250;
   }
 
