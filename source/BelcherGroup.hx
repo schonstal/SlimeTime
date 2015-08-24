@@ -7,9 +7,10 @@ import flixel.util.FlxTimer;
 import flixel.FlxObject;
 
 import flixel.math.FlxVector;
+import flixel.math.FlxMath;
 
 class BelcherGroup extends FlxSpriteGroup {
-  var spawnTimer:Float = 6;
+  var spawnTimer:Float = 10;
 
   public function new() {
     super();
@@ -19,7 +20,10 @@ class BelcherGroup extends FlxSpriteGroup {
     if (Reg.started) {
       spawnTimer -= elapsed;
       if (spawnTimer < 0) {
-        spawnTimer = Reg.random.float(3/Reg.difficulty, 6/Reg.difficulty);
+        spawnTimer = Reg.random.float(
+          FlxMath.lerp(10, 6, Reg.difficulty),
+          FlxMath.lerp(20, 10, Reg.difficulty)
+        );
         var g = recycle(Belcher);
         cast(g, Belcher).spawn();
         add(g);

@@ -46,7 +46,6 @@ class Belcher extends Enemy {
   }
 
   public override function update(elapsed:Float):Void {
-    if (FlxG.keys.justPressed.Q) explode();
     super.update(elapsed);
   }
 

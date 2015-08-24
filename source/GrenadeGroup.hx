@@ -7,6 +7,7 @@ import flixel.util.FlxTimer;
 import flixel.FlxObject;
 
 import flixel.math.FlxVector;
+import flixel.math.FlxMath;
 
 class GrenadeGroup extends FlxSpriteGroup {
   var spawnTimer:Float = 0;
@@ -19,7 +20,10 @@ class GrenadeGroup extends FlxSpriteGroup {
     if (Reg.started) {
       spawnTimer -= elapsed;
       if (spawnTimer < 0) {
-        spawnTimer = Reg.random.float(0.5/Reg.difficulty, 2/Reg.difficulty);
+        spawnTimer = Reg.random.float(
+          FlxMath.lerp(1, 0.5, Reg.difficulty),
+          FlxMath.lerp(2, 1, Reg.difficulty)
+        );
         var g = recycle(Grenade);
         cast(g, Grenade).spawn();
         add(g);

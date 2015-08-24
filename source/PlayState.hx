@@ -31,7 +31,7 @@ class PlayState extends FlxState
     FlxG.camera.flash(0xffffffff, 1);
     Reg.random = new FlxRandom();
     Reg.started = false;
-    Reg.difficulty = 1;
+    Reg.difficulty = 0;
 
     playerProjectileGroup = new FlxSpriteGroup();
     playerLaserGroup = new FlxSpriteGroup();
@@ -82,6 +82,8 @@ class PlayState extends FlxState
 
     add(enemyExplosionGroup);
 
+    add(new HUD());
+
     //DEBUGGER
     FlxG.debugger.drawDebug = true;
   }
@@ -94,7 +96,8 @@ class PlayState extends FlxState
     if (player.started) spawnGroup.exists = false;
     level.collideWithLevel(player);
 
-    if (Reg.started) Reg.difficulty += elapsed/20;
+    if (Reg.started) Reg.difficulty += elapsed/1000;
+    if (Reg.difficulty >= 1) Reg.difficulty = 1;
 
     FlxG.overlap(slime, enemyProjectileGroup, Projectile.handleCollision);
     FlxG.overlap(slime, playerProjectileGroup, Projectile.handleCollision);
