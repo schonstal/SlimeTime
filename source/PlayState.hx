@@ -20,6 +20,8 @@ class PlayState extends FlxState
   var enemyExplosionGroup:FlxSpriteGroup;
   var pipes:WallPipes;
 
+  var pointGroup:FlxSpriteGroup;
+
   var spawnGroup:SpawnGroup;
   var player:Player;
 
@@ -43,6 +45,7 @@ class PlayState extends FlxState
     enemyLaserGroup = new FlxSpriteGroup();
     enemyGroup = new FlxSpriteGroup();
     enemyExplosionGroup = new FlxSpriteGroup();
+    pointGroup = new FlxSpriteGroup();
     
     Reg.enemyGroup = enemyGroup;
     Reg.enemyExplosionService = new EnemyExplosionService(enemyExplosionGroup);
@@ -52,6 +55,8 @@ class PlayState extends FlxState
 
     Reg.enemyProjectileService = new ProjectileService(enemyProjectileGroup, "enemy");
     Reg.enemyLaserService = new EnemyLaserService(enemyLaserGroup);
+
+    Reg.pointService = new PointService(pointGroup);
 
     level = new Room("assets/tilemaps/level.tmx");
     add(level.backgroundTiles);
@@ -84,6 +89,7 @@ class PlayState extends FlxState
     add(enemyProjectileGroup);
 
     add(enemyExplosionGroup);
+    add(pointGroup);
 
     hud = new HUD();
     hud.exists = false;

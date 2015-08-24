@@ -43,8 +43,10 @@ class Enemy extends FlxSprite {
     setColorTransform();
     color = 0xff8c4a53;
     alive = false;
-    Reg.score += points * (Reg.combo + 1);
+
     if (Reg.combo < 10) Reg.combo++;
+    Reg.score += points * Reg.combo;
+    Reg.pointService.showPoints(x + width/2, y + height/2, points * Reg.combo);
 
     blowUp();
     die();
@@ -54,7 +56,7 @@ class Enemy extends FlxSprite {
     FlxG.camera.shake(0.005, 0.2);
     for(i in 0...explosionCount) {
       Reg.enemyExplosionService.explode(x + width/2 + explosionOffset.x,
-                                        y + width/2 + explosionOffset.y,
+                                        y + height/2 + explosionOffset.y,
                                         deathWidth, deathHeight);
     }
   }
