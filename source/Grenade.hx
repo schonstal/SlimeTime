@@ -18,11 +18,15 @@ class Grenade extends Enemy {
   }
 
   public override function spawn():Void {
+    super.spawn();
+
     acceleration.y = Player.gravity;
     velocity.y = Reg.random.int(-300, -600);
+    animation.play("spin");
+    health = 2;
 
     y = FlxG.height;
-    x = Reg.random.int(16, FlxG.width - 16);
+    x = Reg.random.int(16, FlxG.width - 32);
   }
 
   public override function update(elapsed:Float):Void {
@@ -36,6 +40,7 @@ class Grenade extends Enemy {
 
   function explode():Void {
     animation.play("explode");
+    alive = false;
     //FlxG.camera.shake(0.02, 0.2);
     for(i in (0...8)) {
       Reg.enemyProjectileService.shoot(

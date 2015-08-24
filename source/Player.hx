@@ -9,7 +9,7 @@ import flixel.math.FlxRandom;
 import flixel.math.FlxVector;
 import flixel.group.FlxSpriteGroup;
 
-class Player extends FlxSprite
+class Player extends Enemy //YOU ARE THE MONSTER
 {
   public static var RUN_SPEED:Float = 200;
   public static var gravity:Float = 800;
@@ -18,8 +18,6 @@ class Player extends FlxSprite
 
   var speed:Point;
   var terminalVelocity:Float = 200;
-
-  var dead:Bool = false;
 
   var jumpPressed:Bool = false;
   var jumpAmount:Float = 300;
@@ -30,12 +28,14 @@ class Player extends FlxSprite
   var canJumpThreshold:Float = 0.23;
 
   var shootTimer:Float = 0;
-  var shootRate:Float = 0.05;
+  var shootRate:Float = 0.035;
 
   var elapsed:Float = 0;
 
   public function new(X:Float=0,Y:Float=0) {
-    super(X,Y);
+    super();
+    x = X;
+    y = Y;
     loadGraphic("assets/images/player.png", true, 12, 12);
 
     animation.add("jump start", [0], 15, true);
@@ -78,7 +78,8 @@ class Player extends FlxSprite
     started = true;
     visible = true;
     solid = true;
-    dead = false;
+    alive = true;
+    Reg.started = true;
   }
 
   private function isJumpPressed():Bool {
@@ -172,7 +173,7 @@ class Player extends FlxSprite
 
     if(!started && (justPressed("left") || justPressed("right") || justPressed("jump"))) start();
 
-    if(!dead && started) {
+    if(alive && started) {
       handleMovement();
       tryJumping();
       computeTerminalVelocity();
@@ -182,12 +183,13 @@ class Player extends FlxSprite
     super.update(elapsed);
   }
 
-  public function die():Void {
+  public override function kill():Void {
     visible = false;
-    dead = true;
+    alive = false;
     started = false;
     solid = false;
     acceleration.y = acceleration.x = velocity.x = velocity.y = 0;
+    FlxG.switchState(new PlayState());
   }
 
   private function updateTimers():Void {

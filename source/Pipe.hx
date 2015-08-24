@@ -19,8 +19,7 @@ class Pipe extends Enemy {
     y = Y;
     alive = false;
 
-    spawnTimer = Reg.random.float(0, 10);
-    laserTimer = Reg.random.float(3, 7);
+    laserTimer = 0.5;
 
     setFacingFlip(FlxObject.LEFT, false, false);
     setFacingFlip(FlxObject.RIGHT, true, false);
@@ -47,12 +46,16 @@ class Pipe extends Enemy {
     } else {
       x = FlxG.width;
     }
+
+    //deathWidth = width;
+    //deathHeight = height;
+    //deathTime = 0.5;
   }
 
   public override function spawn():Void {
-    exists = true;
-    alive = true;
+    super.spawn();
     tweenIn();
+    health = 5;
   }
 
   function tweenIn():Void {
@@ -64,13 +67,12 @@ class Pipe extends Enemy {
 
   public function shoot():Void {
     animation.play("charge");
-    laserTimer = Reg.random.float(3, 7);
+    laserTimer = Reg.random.float(2, 4);
   }
 
   public function onAnimationComplete(name:String):Void {
     if (name == "charge") {
       Reg.enemyLaserService.shoot(y, facing, 0.5, tweenIn);
-      FlxG.camera.shake(0.02, 0.1);
       x += facing == FlxObject.LEFT ? -5 : 5;
       animation.play("sploosh");
     }
@@ -80,12 +82,7 @@ class Pipe extends Enemy {
   }
 
   public override function update(elapsed:Float):Void {
-    if (!alive) {
-      spawnTimer -= elapsed;
-      if (spawnTimer <= 0) {
-        spawn();
-      }
-    } else {
+    if (alive && Reg.started) {
       laserTimer -= elapsed;
       if (laserTimer <= 0) {
         shoot();
@@ -93,4 +90,19 @@ class Pipe extends Enemy {
     }
     super.update(elapsed);
   }
+
+  override function kill():Void {
+    super.kill();
+    animation.play("idle");
+    activeTween.cancel();
+
+    //activeTween = FlxTween.tween(this, { x: facing == FlxObject.LEFT ? -width : FlxG.width },
+    //                             deathTime, { ease: FlxEase.quadOut });
+
+    x = facing == FlxObject.LEFT ? -width : FlxG.width;
+
+    spawnTimer = Reg.random.float(10, 20);
+  }
+
+  override function die():Void { return; }
 }

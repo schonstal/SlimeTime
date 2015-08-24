@@ -28,8 +28,10 @@ class PlayState extends FlxState
 
   override public function create():Void {
     super.create();
+    FlxG.camera.flash(0xffffffff, 1);
     Reg.random = new FlxRandom();
     Reg.started = false;
+    Reg.difficulty = 1;
 
     playerProjectileGroup = new FlxSpriteGroup();
     playerLaserGroup = new FlxSpriteGroup();
@@ -58,6 +60,8 @@ class PlayState extends FlxState
     player.init();
     add(player);
 
+    enemyGroup.add(new GrenadeGroup());
+    enemyGroup.add(new BelcherGroup());
     add(enemyGroup);
 
     add(playerLaserGroup);
@@ -89,35 +93,43 @@ class PlayState extends FlxState
   override public function update(elapsed:Float):Void {
     if (player.started) spawnGroup.exists = false;
     level.collideWithLevel(player);
-    level.collideWithLevel(playerProjectileGroup, Projectile.handleCollision);
-    level.collideWithLevel(enemyProjectileGroup, Projectile.handleCollision);
+
+    if (Reg.started) Reg.difficulty += elapsed/20;
 
     FlxG.overlap(slime, enemyProjectileGroup, Projectile.handleCollision);
     FlxG.overlap(slime, playerProjectileGroup, Projectile.handleCollision);
     FlxG.overlap(enemyLaserGroup, playerProjectileGroup, Projectile.handleCollision);
-    FlxG.overlap(playerLaserGroup, enemyProjectileGroup, Projectile.handleCollision);
 
-    FlxG.overlap(pipes, playerProjectileGroup, function(pipe, projectile):Void {
+    FlxG.overlap(enemyGroup, playerProjectileGroup, function(enemy:FlxObject, projectile:FlxObject):Void {
+      if (enemy.alive) Projectile.handleCollision(enemy, projectile);
+      enemy.hurt(1);
+    });
+
+    FlxG.overlap(pipes, playerProjectileGroup, function(pipe:FlxObject, projectile:FlxObject):Void {
       Projectile.handleCollision(pipe, projectile);
       cast(pipe, Pipe).hurt(1);
     });
 
-    FlxG.overlap(player, enemyProjectileGroup, function(player, projectile):Void {
-      Projectile.handleCollision(player, projectile);
-      cast(player, Player).die();
-      FlxG.camera.flash(0xff33ff88, 0.5);
-      spawnGroup.exists = true;
-      player.x = spawnGroup.x + 6;
-      player.y = spawnGroup.y + 6;
+    FlxG.overlap(enemyGroup, playerLaserGroup, function(enemy:FlxObject, laser:FlxObject):Void {
+      if (enemy.y < FlxG.height - 14) enemy.hurt(1);
     });
 
-    FlxG.overlap(player, enemyLaserGroup, function(player, laser):Void {
-      cast(player, Player).die();
-      FlxG.camera.flash(0xff33ff88, 0.5);
-      spawnGroup.exists = true;
-      player.x = spawnGroup.x + 6;
-      player.y = spawnGroup.y + 6;
+    level.collideWithLevel(playerProjectileGroup, Projectile.handleCollision);
+    level.collideWithLevel(enemyProjectileGroup, Projectile.handleCollision);
+
+    FlxG.overlap(player, enemyProjectileGroup, function(player:FlxObject, projectile:FlxObject):Void {
+      Projectile.handleCollision(player, projectile);
+      player.hurt(10);
     });
+
+    FlxG.overlap(player, enemyLaserGroup, function(player:FlxObject, laser:FlxObject):Void {
+      player.hurt(10);
+    });
+
+    FlxG.overlap(player, slime, function(player:FlxObject, laser:FlxObject):Void {
+      player.hurt(10);
+    });
+
     
     super.update(elapsed);
   }

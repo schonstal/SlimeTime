@@ -1,5 +1,6 @@
 package;
 
+import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.util.FlxTimer;
 
@@ -8,22 +9,43 @@ import flash.geom.ColorTransform;
 class Enemy extends FlxSprite {
   var flashTimer:FlxTimer;
   var explosionTimer:FlxTimer;
+  var explosionRate:Float = 0.2;
+  var deathTimer:FlxTimer;
+
+  var deathTime:Float = 0;
+  var deathWidth:Float = 0;
+  var deathHeight:Float = 0;
 
   public function new() {
     super();
-    health = 10;
+    health = 5;
     flashTimer = new FlxTimer();
+    explosionTimer = new FlxTimer();
+    deathTimer = new FlxTimer();
   }
 
   public override function hurt(damage:Float):Void {
-    super.hurt(damage);
+    if (!alive) return;
 
-    if (alive) flash();
+    super.hurt(damage);
+    flash();
   }
 
   public override function kill():Void {
-    Reg.enemyExplosionService.explode(x + width/2, y + width/2);
+    setColorTransform();
+    color = 0xff8c4a53;
     alive = false;
+
+    blowUp();
+    die();
+  }
+
+  function blowUp():Void {
+    FlxG.camera.shake(0.005, 0.2);
+    Reg.enemyExplosionService.explode(x + width/2, y + width/2, deathWidth, deathHeight);
+  }
+
+  function die():Void {
     exists = false;
   }
 
@@ -35,13 +57,15 @@ class Enemy extends FlxSprite {
       setColorTransform(0, 0, 0, 1, 255, 255, 255, 0);
 
       flashTimer.start(0.025, function(t) {
-        useColorTransform = false;
+        setColorTransform();
       });
     });
   }
 
   public function spawn():Void {
-    // Just for the interface for now
+    alive = true;
+    exists = true;
+    setColorTransform();
   }
 
   public function onStart():Void {

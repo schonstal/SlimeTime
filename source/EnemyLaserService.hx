@@ -1,5 +1,6 @@
 package;
 
+import flixel.FlxG;
 import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxVector;
 import flixel.FlxObject;
@@ -18,6 +19,7 @@ class EnemyLaserService {
     group.add(laserGroup);
     laserGroup.shoot(facing, duration);
     laserGroup.onCompleteCallback = onComplete;
+    FlxG.camera.shake(0.02, 0.1, null, true);
 
     return laserGroup;
   }

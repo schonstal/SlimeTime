@@ -10,7 +10,7 @@ import flixel.math.FlxVector;
 
 class Projectile extends FlxSpriteGroup
 {
-  inline static var SPEED = 300;
+  inline static var SPEED = 450;
 
   public var direction:FlxVector;
   public var physical = true;
