@@ -10,14 +10,14 @@ import flixel.math.FlxVector;
 import flixel.math.FlxMath;
 
 class BelcherGroup extends FlxSpriteGroup {
-  var spawnTimer:Float = 10;
+  var spawnTimer:Float = 5;
 
   public function new() {
     super();
   }
 
   override public function update(elapsed:Float):Void {
-    if (Reg.started) {
+    if (Reg.started && Reg.score >= 3000) {
       spawnTimer -= elapsed;
       if (spawnTimer < 0) {
         spawnTimer = Reg.random.float(

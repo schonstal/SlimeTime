@@ -115,7 +115,7 @@ class PlayState extends FlxState
     }
     level.collideWithLevel(player);
 
-    if (Reg.started) Reg.difficulty += elapsed/90;
+    if (Reg.started) Reg.difficulty = Reg.score/50000;
     if (Reg.difficulty >= 1) Reg.difficulty = 1;
 
     FlxG.overlap(slime, enemyProjectileGroup, Projectile.handleCollision);

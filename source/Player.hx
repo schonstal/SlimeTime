@@ -124,7 +124,7 @@ class Player extends Enemy //YOU ARE THE MONSTER
     //FlxG.camera.shake(0.01, 0.2);
     Reg.playerLasesrService.shoot(x - (facing == FlxObject.RIGHT ? 3 : 4), y + height - 6, facing);
     canJumpTimer = canJumpThreshold;
-    FlxG.sound.play("assets/sounds/player/laser.wav");
+    FlxG.sound.play("assets/sounds/player/laser.wav", 0.6);
   }
 
   private function canJump():Bool {
