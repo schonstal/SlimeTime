@@ -17,11 +17,14 @@ class Enemy extends FlxSprite {
   var deathWidth:Float = 0;
   var deathHeight:Float = 0;
 
+  var points:Int;
+
   var explosionOffset:FlxPoint;
 
   public function new() {
     super();
     health = 5;
+    points = 50;
     flashTimer = new FlxTimer();
     explosionTimer = new FlxTimer();
     deathTimer = new FlxTimer();
@@ -39,6 +42,7 @@ class Enemy extends FlxSprite {
     setColorTransform();
     color = 0xff8c4a53;
     alive = false;
+    Reg.score += points;
 
     blowUp();
     die();

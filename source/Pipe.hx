@@ -50,6 +50,7 @@ class Pipe extends Enemy {
     //deathWidth = width;
     //deathHeight = height;
     //deathTime = 0.5;
+    points = 250;
   }
 
   public override function spawn():Void {

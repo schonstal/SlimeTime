@@ -61,6 +61,7 @@ class Player extends Enemy //YOU ARE THE MONSTER
   }
 
   public function init():Void {
+    Reg.player = this;
     jumpPressed = false;
 
     jumpTimer = 0;

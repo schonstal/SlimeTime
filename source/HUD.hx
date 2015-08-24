@@ -25,6 +25,7 @@ class HUD extends FlxSpriteGroup {
   }
 
   public override function update(elapsed:Float):Void {
+    scoreText.text = "" + Reg.score;
     super.update(elapsed);
   }
 }

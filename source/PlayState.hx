@@ -32,6 +32,7 @@ class PlayState extends FlxState
     Reg.random = new FlxRandom();
     Reg.started = false;
     Reg.difficulty = 0;
+    Reg.score = 0;
 
     playerProjectileGroup = new FlxSpriteGroup();
     playerLaserGroup = new FlxSpriteGroup();
@@ -96,7 +97,7 @@ class PlayState extends FlxState
     if (player.started) spawnGroup.exists = false;
     level.collideWithLevel(player);
 
-    if (Reg.started) Reg.difficulty += elapsed/1000;
+    if (Reg.started) Reg.difficulty += elapsed/60;
     if (Reg.difficulty >= 1) Reg.difficulty = 1;
 
     FlxG.overlap(slime, enemyProjectileGroup, Projectile.handleCollision);

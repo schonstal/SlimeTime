@@ -15,6 +15,7 @@ class Grenade extends Enemy {
     animation.add("explode", [4, 5, 6, 7], 15, false);
     animation.finishCallback = onAnimationComplete;
     animation.play("spin");
+    points = 50;
   }
 
   public override function spawn():Void {
