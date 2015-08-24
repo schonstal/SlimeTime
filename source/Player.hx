@@ -8,6 +8,8 @@ import flixel.system.FlxSound;
 import flixel.math.FlxRandom;
 import flixel.math.FlxVector;
 import flixel.group.FlxSpriteGroup;
+import flixel.util.FlxTimer;
+import flixel.util.FlxSpriteUtil;
 
 class Player extends Enemy //YOU ARE THE MONSTER
 {
@@ -15,6 +17,7 @@ class Player extends Enemy //YOU ARE THE MONSTER
   public static var gravity:Float = 800;
 
   public var started:Bool = false;
+  public var justHurt:Bool = false;
 
   var speed:Point;
   var terminalVelocity:Float = 200;
@@ -72,6 +75,7 @@ class Player extends Enemy //YOU ARE THE MONSTER
     facing = FlxObject.RIGHT;
     acceleration.y = 0;
     started = false;
+    health = 100;
   }
   
   private function start():Void {
@@ -81,6 +85,19 @@ class Player extends Enemy //YOU ARE THE MONSTER
     solid = true;
     alive = true;
     Reg.started = true;
+  }
+
+  public override function hurt(damage:Float):Void {
+    FlxG.camera.flash(0xccff1472, 0.5, null, true);
+    FlxG.camera.shake(0.005, 0.2);
+    Reg.combo = 0;
+
+    justHurt = true;
+    FlxSpriteUtil.flicker(this, 0.3, 0.04, true, true, function(flicker) {
+      justHurt = false;
+    });
+
+    super.hurt(damage);
   }
 
   private function isJumpPressed():Bool {

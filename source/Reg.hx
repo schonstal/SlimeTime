@@ -21,6 +21,7 @@ class Reg {
   public static var difficulty:Float = 1;
   public static var player:Player;
   public static var score:Int;
+  public static var combo:Int;
 
   public static var TAU:Float = 6.28318530718;
 }

@@ -33,6 +33,7 @@ class PlayState extends FlxState
     Reg.started = false;
     Reg.difficulty = 0;
     Reg.score = 0;
+    Reg.combo = 0;
 
     playerProjectileGroup = new FlxSpriteGroup();
     playerLaserGroup = new FlxSpriteGroup();
@@ -118,16 +119,19 @@ class PlayState extends FlxState
     level.collideWithLevel(enemyProjectileGroup, Projectile.handleCollision);
 
     FlxG.overlap(player, enemyProjectileGroup, function(player:FlxObject, projectile:FlxObject):Void {
+      if (cast(player, Player).justHurt) return;
+
       Projectile.handleCollision(player, projectile);
-      player.hurt(10);
+      player.hurt(25);
     });
 
     FlxG.overlap(player, enemyLaserGroup, function(player:FlxObject, laser:FlxObject):Void {
-      player.hurt(10);
+      if (cast(player, Player).justHurt) return;
+      player.hurt(100);
     });
 
     FlxG.overlap(player, slime, function(player:FlxObject, laser:FlxObject):Void {
-      player.hurt(10);
+      player.hurt(100);
     });
 
     super.update(elapsed);

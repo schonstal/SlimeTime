@@ -43,7 +43,8 @@ class Enemy extends FlxSprite {
     setColorTransform();
     color = 0xff8c4a53;
     alive = false;
-    Reg.score += points;
+    Reg.score += points * (Reg.combo + 1);
+    if (Reg.combo < 10) Reg.combo++;
 
     blowUp();
     die();
