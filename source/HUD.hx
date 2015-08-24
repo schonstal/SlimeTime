@@ -52,6 +52,11 @@ class HUD extends FlxSpriteGroup {
     comboText.y = 10;
     add(comboText);
 
+    maxCombo = new FlxSprite(0, 10);
+    maxCombo.loadGraphic("assets/images/hud/max.png");
+    maxCombo.x = FlxG.width/2 - maxCombo.width/2;
+    add(maxCombo);
+
     healthLabel = new FlxSprite(0, 2);
     healthLabel.loadGraphic("assets/images/hud/health.png");
     healthLabel.x = FlxG.width - 4 - healthLabel.width;
@@ -72,7 +77,20 @@ class HUD extends FlxSpriteGroup {
   public override function update(elapsed:Float):Void {
     scoreText.text = "" + Reg.score;
     comboText.text = "" + Reg.combo;
-    comboLabel.visible = comboText.visible = Reg.combo > 0;
+
+    if (Reg.combo > 0) {
+      comboLabel.visible = true;
+      if (Reg.combo >= 10) {
+        maxCombo.visible = true;
+        comboText.visible = false;
+      } else {
+        comboText.visible = true;
+      }
+    } else {
+      comboLabel.visible = false;
+      comboText.visible = false;
+      maxCombo.visible = false;
+    }
  
 
     var width:Int = Std.int((healthBarBackground.width - 8) * Reg.player.health/100);
