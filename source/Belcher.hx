@@ -14,6 +14,9 @@ import flixel.math.FlxPoint;
 class Belcher extends Enemy {
   var activeTween:FlxTween;
 
+  var shootTimer:Float = 2;
+  var shootTime:Float = 1.5;
+
   public function new() {
     super();
     loadGraphic("assets/images/enemies/belcher.png", true, 64, 64);
@@ -47,6 +50,11 @@ class Belcher extends Enemy {
   }
 
   public override function update(elapsed:Float):Void {
+    shootTimer -= elapsed;
+    if (shootTimer <= 0) {
+      explode();
+      shootTimer = shootTime;
+    }
     super.update(elapsed);
   }
 
