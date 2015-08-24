@@ -110,10 +110,6 @@ class PlayState extends FlxState
       cast(pipe, Pipe).hurt(1);
     });
 
-    FlxG.overlap(enemyGroup, playerLaserGroup, function(enemy:FlxObject, laser:FlxObject):Void {
-      if (enemy.y < FlxG.height - 14) enemy.hurt(1);
-    });
-
     level.collideWithLevel(playerProjectileGroup, Projectile.handleCollision);
     level.collideWithLevel(enemyProjectileGroup, Projectile.handleCollision);
 
@@ -130,7 +126,13 @@ class PlayState extends FlxState
       player.hurt(10);
     });
 
-    
     super.update(elapsed);
+
+    var laserSprite:FlxObject;
+    FlxG.overlap(enemyGroup, playerLaserGroup, function(enemy:FlxObject, laser:FlxObject):Void {
+      if (enemy.y < FlxG.height - 14) enemy.hurt(10);
+      laserSprite = laser;
+    });
+    if (laserSprite != null) laserSprite.solid = false;
   }
 }

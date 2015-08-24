@@ -17,6 +17,7 @@ class LaserGroup extends FlxSpriteGroup {
     super();
 
     particles = new FlxSpriteGroup(); 
+    particles.solid = false;
     add(particles);
 
     laserSprite = new FlxSprite();
@@ -24,6 +25,8 @@ class LaserGroup extends FlxSpriteGroup {
     laserSprite.animation.add("shoot", [0, 2, 0, 1, 2, 3, 4], 30, false);
     laserSprite.animation.finishCallback = onAnimationComplete;
     add(laserSprite);
+
+    laserSprite.solid = false;
   }
 
   public function initialize(X, Y):Void {
@@ -41,6 +44,7 @@ class LaserGroup extends FlxSpriteGroup {
     });
 
     spawnParticles();
+    laserSprite.solid = true;
   }
 
   function spawnParticles() {
@@ -55,11 +59,16 @@ class LaserGroup extends FlxSpriteGroup {
       new FlxTimer().start(Reg.random.float(0.2, 0.4), function(t) {
         particle.exists = false;
       });
+      particle.solid = false;
     }
     particles.exists = true;
   }
 
   function onAnimationComplete(name:String):Void {
     laserSprite.exists = false;
+  }
+
+  public override function update(elapsed:Float):Void {
+    super.update(elapsed);
   }
 }

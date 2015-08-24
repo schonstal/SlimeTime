@@ -9,6 +9,7 @@ import flixel.group.FlxSpriteGroup;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
 import flixel.util.FlxTimer;
+import flixel.math.FlxPoint;
 
 class Belcher extends Enemy {
   var activeTween:FlxTween;
@@ -16,19 +17,22 @@ class Belcher extends Enemy {
   public function new() {
     super();
     loadGraphic("assets/images/enemies/belcher.png", true, 64, 64);
-    animation.add("idle", [2, 1, 0], 5, true);
-    animation.add("shoot", [7, 3, 4, 5, 5, 6], 10, false);
-    animation.add("spawn", [7, 3, 4, 5], 10, false);
+    animation.add("idle", [0, 1, 2], 5, true);
+    animation.add("shoot", [3, 4, 5, 5, 6, 7], 10, false);
+    animation.callback = onAnimate;
     animation.finishCallback = onAnimationComplete;
     animation.play("idle");
+    explosionOffset.y = -20;
   }
 
   public override function spawn():Void {
     super.spawn();
 
-    animation.play("spawn");
-    health = 500;
+    animation.play("shoot");
+    health = 100;
 
+    height = 32;
+    offset.y = 32;
     y = FlxG.height;
     x = Reg.random.int(16, FlxG.width - 80);
     tweenIn();
@@ -37,7 +41,7 @@ class Belcher extends Enemy {
   function tweenIn():Void {
     if (activeTween != null) activeTween.cancel();
 
-    activeTween = FlxTween.tween(this, { y: FlxG.height - 72},
+    activeTween = FlxTween.tween(this, { y: FlxG.height - 40},
                                  0.5, { ease: FlxEase.quadOut });
   }
 
@@ -50,12 +54,17 @@ class Belcher extends Enemy {
     animation.play("shoot");
   }
 
-  function onAnimationComplete(name:String) {
-    if (name == "shoot") {
+  function onAnimationComplete(name:String):Void {
+    animation.play("idle");
+  }
+
+  function onAnimate(name:String, frameIndex:Int, frame:Int):Void {
+    if (name == "shoot" && frame == 6) {
     //FlxG.camera.shake(0.02, 0.2);
-      for(i in (0...8)) {
+      for(i in (1...9)) {
+        if(i == 8) return;
         Reg.enemyProjectileService.shoot(
-          x + 6, y + 6, new FlxVector(Math.cos(i/8 * Math.PI), Math.sin(i/8 * Math.PI))
+          x + 29, y + 6, new FlxVector(Math.cos(i/8 * Math.PI + Math.PI), Math.sin(i/8 * Math.PI + Math.PI))
         );
       }
     }

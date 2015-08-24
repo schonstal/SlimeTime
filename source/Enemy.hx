@@ -3,6 +3,7 @@ package;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.util.FlxTimer;
+import flixel.math.FlxPoint;
 
 import flash.geom.ColorTransform;
 
@@ -16,12 +17,15 @@ class Enemy extends FlxSprite {
   var deathWidth:Float = 0;
   var deathHeight:Float = 0;
 
+  var explosionOffset:FlxPoint;
+
   public function new() {
     super();
     health = 5;
     flashTimer = new FlxTimer();
     explosionTimer = new FlxTimer();
     deathTimer = new FlxTimer();
+    explosionOffset = new FlxPoint(0, 0);
   }
 
   public override function hurt(damage:Float):Void {
@@ -42,7 +46,9 @@ class Enemy extends FlxSprite {
 
   function blowUp():Void {
     FlxG.camera.shake(0.005, 0.2);
-    Reg.enemyExplosionService.explode(x + width/2, y + width/2, deathWidth, deathHeight);
+    Reg.enemyExplosionService.explode(x + width/2 + explosionOffset.x,
+                                      y + width/2 + explosionOffset.y,
+                                      deathWidth, deathHeight);
   }
 
   function die():Void {
