@@ -21,6 +21,7 @@ class PlayState extends FlxState
   var pipes:WallPipes;
 
   var pointGroup:FlxSpriteGroup;
+  var gameOverGroup:GameOverGroup;
 
   var spawnGroup:SpawnGroup;
   var player:Player;
@@ -95,6 +96,10 @@ class PlayState extends FlxState
     hud.exists = false;
     add(hud);
 
+    gameOverGroup = new GameOverGroup();
+    gameOverGroup.exists = false;
+    add(gameOverGroup);
+
     //DEBUGGER
     FlxG.debugger.drawDebug = true;
   }
@@ -154,5 +159,13 @@ class PlayState extends FlxState
       laserSprite = laser;
     });
     if (laserSprite != null) laserSprite.solid = false;
+
+    if (FlxG.save.data.highScore == null) FlxG.save.data.highScore = 0;
+    if (Reg.score > FlxG.save.data.highScore) FlxG.save.data.highScore = Reg.score;
+
+    if (player.alive == false) {
+      gameOverGroup.exists = true;
+      hud.exists = false;
+    }
   }
 }

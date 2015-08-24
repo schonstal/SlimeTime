@@ -78,7 +78,7 @@ class HUD extends FlxSpriteGroup {
     scoreText.text = "" + Reg.score;
     comboText.text = "" + Reg.combo;
 
-    if (Reg.combo > 0) {
+    if (Reg.combo > 1) {
       comboLabel.visible = true;
       if (Reg.combo >= 10) {
         maxCombo.visible = true;

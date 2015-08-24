@@ -206,8 +206,8 @@ class Player extends Enemy //YOU ARE THE MONSTER
     alive = false;
     started = false;
     solid = false;
+    exists = false;
     acceleration.y = acceleration.x = velocity.x = velocity.y = 0;
-    FlxG.switchState(new PlayState());
   }
 
   private function updateTimers():Void {
