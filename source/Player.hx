@@ -211,6 +211,7 @@ class Player extends Enemy //YOU ARE THE MONSTER
     solid = false;
     exists = false;
     acceleration.y = acceleration.x = velocity.x = velocity.y = 0;
+    FlxG.sound.play("assets/sounds/player/die.wav");
   }
 
   private function updateTimers():Void {

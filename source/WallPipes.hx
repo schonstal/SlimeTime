@@ -32,8 +32,8 @@ class WallPipes extends FlxSpriteGroup {
       if (spawnTimer <= 0) {
         spawnPipe();
         spawnTimer = Reg.random.float(
-          FlxMath.lerp(6, 3, Reg.difficulty),
-          FlxMath.lerp(9, 5, Reg.difficulty)
+          FlxMath.lerp(7, 4, Reg.difficulty),
+          FlxMath.lerp(10, 6, Reg.difficulty)
         );
       }
     }

@@ -17,7 +17,7 @@ class Health extends FlxSprite {
   public function spawn():Void {
     if (!initialized) {
       loadGraphic("assets/images/healthPickup.png", true, 15, 15);
-      animation.add("flash", [0, 1], 5, true);
+      animation.add("flash", [0, 1], 10, true);
       animation.play("flash");
     }
     initialized = true;

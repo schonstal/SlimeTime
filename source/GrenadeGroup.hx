@@ -21,8 +21,8 @@ class GrenadeGroup extends FlxSpriteGroup {
       spawnTimer -= elapsed;
       if (spawnTimer < 0) {
         spawnTimer = Reg.random.float(
-          FlxMath.lerp(1.25, 0.25, Reg.difficulty),
-          FlxMath.lerp(1.75, 0.75, Reg.difficulty)
+          FlxMath.lerp(1.25, 0.5, Reg.difficulty),
+          FlxMath.lerp(1.75, 1, Reg.difficulty)
         );
         var g = recycle(Grenade);
         cast(g, Grenade).spawn();

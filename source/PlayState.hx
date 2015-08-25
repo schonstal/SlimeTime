@@ -120,7 +120,7 @@ class PlayState extends FlxState
     }
     level.collideWithLevel(player);
 
-    if (Reg.started) Reg.difficulty = Reg.score/25000;
+    if (Reg.started) Reg.difficulty = Reg.score/50000;
     if (Reg.difficulty >= 1) Reg.difficulty = 1;
 
     FlxG.overlap(slime, enemyProjectileGroup, Projectile.handleCollision);
@@ -157,11 +157,11 @@ class PlayState extends FlxState
     });
 
     FlxG.overlap(player, healthGroup, function(player:FlxObject, health:FlxObject):Void {
-      player.health += 50;
+      player.health += 25;
       if (player.health >= 100) player.health = 100;
       FlxG.camera.flash(0xccffffff);
       health.kill();
-      FlxG.sound.play("assets/sounds/player/heal.wav");
+      FlxG.sound.play("assets/sounds/player/heal.wav", 0.6);
     });
 
     super.update(elapsed);

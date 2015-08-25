@@ -10,7 +10,7 @@ import flixel.math.FlxVector;
 import flixel.math.FlxMath;
 
 class BelcherGroup extends FlxSpriteGroup {
-  var spawnTimer:Float = 2;
+  var spawnTimer:Float = 1;
 
   public function new() {
     super();
