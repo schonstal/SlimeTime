@@ -26,6 +26,8 @@ class PlayState extends FlxState
   var spawnGroup:SpawnGroup;
   var player:Player;
 
+  var healthGroup:HealthGroup;
+
   var level:Room;
   var slime:Slime;
   var hud:HUD;
@@ -75,6 +77,9 @@ class PlayState extends FlxState
 
     add(playerLaserGroup);
     add(enemyLaserGroup);
+
+    healthGroup = new HealthGroup();
+    add(healthGroup);
 
     add(new OozeGlow());
 
@@ -149,6 +154,14 @@ class PlayState extends FlxState
 
     FlxG.overlap(player, slime, function(player:FlxObject, laser:FlxObject):Void {
       player.hurt(100);
+    });
+
+    FlxG.overlap(player, healthGroup, function(player:FlxObject, health:FlxObject):Void {
+      player.health += 50;
+      if (player.health >= 100) player.health = 100;
+      FlxG.camera.flash(0xccffffff);
+      health.kill();
+      FlxG.sound.play("assets/sounds/player/heal.wav");
     });
 
     super.update(elapsed);
