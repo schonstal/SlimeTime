@@ -159,7 +159,7 @@ class PlayState extends FlxState
     FlxG.overlap(player, healthGroup, function(player:FlxObject, health:FlxObject):Void {
       player.health += 25;
       if (player.health >= 100) player.health = 100;
-      FlxG.camera.flash(0xccffffff);
+      FlxG.camera.flash(0xccffffff, 0.5, null, true);
       health.kill();
       FlxG.sound.play("assets/sounds/player/heal.wav", 0.6);
     });
