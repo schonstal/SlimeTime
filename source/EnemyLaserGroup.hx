@@ -52,6 +52,7 @@ class EnemyLaserGroup extends FlxSpriteGroup {
     this.duration = duration;
     for(laserSprite in members) {
       laserSprite.animation.play("shoot");
+      laserSprite.solid = true;
       laserSprite.facing = facing;
     }
   }
@@ -60,6 +61,7 @@ class EnemyLaserGroup extends FlxSpriteGroup {
     if (name == "shoot" && frame == 3) {
       if (duration <= 0) {
         for(laserSprite in members) {
+          laserSprite.solid = false;
           laserSprite.animation.play("fade");
         }
 
