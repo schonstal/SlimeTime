@@ -93,7 +93,7 @@ class Player extends Enemy //YOU ARE THE MONSTER
     Reg.combo = 0;
 
     justHurt = true;
-    FlxSpriteUtil.flicker(this, 0.3, 0.04, true, true, function(flicker) {
+    FlxSpriteUtil.flicker(this, 0.6, 0.04, true, true, function(flicker) {
       justHurt = false;
     });
     FlxG.sound.play("assets/sounds/player/hurt.wav");
