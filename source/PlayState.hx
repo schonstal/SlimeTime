@@ -114,13 +114,13 @@ class PlayState extends FlxState
   }
 
   override public function update(elapsed:Float):Void {
-    if (player.alive == false) {
-      gameOverGroup.exists = true;
-      hud.exists = false;
-    }
     if (Reg.started) {
       spawnGroup.exists = false;
       hud.exists = true;
+    }
+    if (player.alive == false) {
+      gameOverGroup.exists = true;
+      hud.exists = false;
     }
 
     super.update(elapsed);
