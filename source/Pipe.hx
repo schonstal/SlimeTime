@@ -58,6 +58,7 @@ class Pipe extends Enemy {
     super.spawn();
     tweenIn();
     health = 5;
+    laserTimer = 0.5;
   }
 
   function tweenIn():Void {
