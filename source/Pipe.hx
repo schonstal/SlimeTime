@@ -69,13 +69,16 @@ class Pipe extends Enemy {
   }
 
   public function shoot():Void {
+    var chargeSound = FlxG.sound.play("assets/sounds/pipeCharge.wav", 0.75);
+    chargeSound.pan = facing == FlxObject.LEFT ? -0.4 : 0.4;
     animation.play("charge");
     laserTimer = Reg.random.float(3, 6);
   }
 
   public function onAnimationComplete(name:String):Void {
     if (name == "charge") {
-      FlxG.sound.play("assets/sounds/pipeShoot.wav");
+      var shootSound = FlxG.sound.play("assets/sounds/pipeShoot.wav");
+      shootSound.pan = facing == FlxObject.LEFT ? -0.25 : 0.25;
       Reg.enemyLaserService.shoot(y, facing, 0.5, tweenIn);
       x += facing == FlxObject.LEFT ? -5 : 5;
       animation.play("sploosh");
