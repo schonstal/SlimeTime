@@ -114,10 +114,17 @@ class PlayState extends FlxState
   }
 
   override public function update(elapsed:Float):Void {
+    if (player.alive == false) {
+      gameOverGroup.exists = true;
+      hud.exists = false;
+    }
     if (Reg.started) {
       spawnGroup.exists = false;
       hud.exists = true;
     }
+
+    super.update(elapsed);
+
     level.collideWithLevel(player);
 
     if (Reg.started) Reg.difficulty = Reg.score/50000;
@@ -164,8 +171,6 @@ class PlayState extends FlxState
       FlxG.sound.play("assets/sounds/player/heal.wav", 0.6);
     });
 
-    super.update(elapsed);
-
     var laserSprite:FlxObject;
     FlxG.overlap(enemyGroup, playerLaserGroup, function(enemy:FlxObject, laser:FlxObject):Void {
       if (enemy.y < FlxG.height - 14) enemy.hurt(10);
@@ -175,10 +180,5 @@ class PlayState extends FlxState
 
     if (FlxG.save.data.highScore == null) FlxG.save.data.highScore = 0;
     if (Reg.score > FlxG.save.data.highScore) FlxG.save.data.highScore = Reg.score;
-
-    if (player.alive == false) {
-      gameOverGroup.exists = true;
-      hud.exists = false;
-    }
   }
 }
