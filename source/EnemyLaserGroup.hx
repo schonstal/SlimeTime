@@ -13,14 +13,14 @@ class EnemyLaserGroup extends FlxSpriteGroup {
 
   var duration:Float = 0;
 
-  public function new(Y):Void {
+  public function new(Y:Float):Void {
     super();
 
     for (i in (0...Std.int((FlxG.width - 32)/32))) {
       var laserSprite = new FlxSprite(16 + i * 32, 0);
       laserSprite.loadGraphic("assets/images/projectiles/enemy/laser.png", true, 32, 32);
-      laserSprite.height = 16;
-      laserSprite.offset.y = 8;
+      laserSprite.height = 6;
+      laserSprite.offset.y = 13;
       laserSprite.animation.add("shoot", [0, 1, 2, 3], 30, true);
       laserSprite.animation.add("fade", [4, 5, 6, 7, 8], 30, false);
       laserSprite.immovable = true;
@@ -31,15 +31,15 @@ class EnemyLaserGroup extends FlxSpriteGroup {
       add(laserSprite);
     }
 
-    y = Y;
+    y = Y + 5;
   }
 
-  public function initialize(Y):Void {
+  public function initialize(Y:Float):Void {
     exists = true;
     for(laserSprite in members) {
       laserSprite.exists = true;
     }
-    y = Y;
+    y = Y + 5;
   }
 
   public override function update(elapsed:Float):Void {
