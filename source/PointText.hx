@@ -11,7 +11,7 @@ import flixel.text.FlxText.FlxTextAlign;
 import flixel.util.FlxSpriteUtil;
 
 class PointText extends FlxSpriteGroup {
-  var scoreText:BitmapText;
+  var scoreText:FlxBitmapText;
 
   public function new(X:Float, Y:Float, amount:Int):Void {
     super();
@@ -22,7 +22,7 @@ class PointText extends FlxSpriteGroup {
       new FlxPoint(8, 8)
     );
 
-    scoreText = new BitmapText(font);
+    scoreText = new FlxBitmapText(font);
     scoreText.letterSpacing = -1;
     initialize(X, Y, amount);
     add(scoreText);

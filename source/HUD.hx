@@ -8,8 +8,8 @@ import flixel.text.FlxBitmapText;
 import flixel.math.FlxPoint;
 
 class HUD extends FlxSpriteGroup {
-  var scoreText:BitmapText;
-  var comboText:BitmapText;
+  var scoreText:FlxBitmapText;
+  var comboText:FlxBitmapText;
 
   var scoreLabel:FlxSprite;
   var comboLabel:FlxSprite;
@@ -29,7 +29,7 @@ class HUD extends FlxSpriteGroup {
       new FlxPoint(16, 16)
     );
 
-    scoreText = new BitmapText(font);
+    scoreText = new FlxBitmapText(font);
     scoreText.letterSpacing = -2;
     scoreText.text = "34500";
     scoreText.x = 4;
@@ -45,7 +45,7 @@ class HUD extends FlxSpriteGroup {
     comboLabel.x = FlxG.width/2 - comboLabel.width/2;
     add(comboLabel);
 
-    comboText = new BitmapText(font);
+    comboText = new FlxBitmapText(font);
     comboText.letterSpacing = -2;
     comboText.text = "0";
     comboText.x = FlxG.width/2 - 8;

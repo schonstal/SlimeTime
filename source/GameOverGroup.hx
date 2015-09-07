@@ -8,8 +8,8 @@ import flixel.text.FlxBitmapText;
 import flixel.math.FlxPoint;
 
 class GameOverGroup extends FlxSpriteGroup {
-  var scoreText:BitmapText;
-  var highScoreText:BitmapText;
+  var scoreText:FlxBitmapText;
+  var highScoreText:FlxBitmapText;
 
   var scoreLabel:FlxSprite;
   var highScoreLabel:FlxSprite;
@@ -32,7 +32,7 @@ class GameOverGroup extends FlxSpriteGroup {
     scoreLabel.loadGraphic("assets/images/scoreFinal.png");
     add(scoreLabel);
 
-    scoreText = new BitmapText(font);
+    scoreText = new FlxBitmapText(font);
     scoreText.letterSpacing = -2;
     scoreText.text = "0";
     scoreText.x = 4;
@@ -44,7 +44,7 @@ class GameOverGroup extends FlxSpriteGroup {
     highScoreLabel.x = FlxG.width/2 - highScoreLabel.width/2;
     add(highScoreLabel);
 
-    highScoreText = new BitmapText(font);
+    highScoreText = new FlxBitmapText(font);
     highScoreText.letterSpacing = -2;
     highScoreText.text = "0";
     highScoreText.x = FlxG.width/2 - 8;
