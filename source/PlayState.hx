@@ -148,14 +148,11 @@ class PlayState extends FlxState
     level.collideWithLevel(enemyProjectileGroup, Projectile.handleCollision);
 
     FlxG.overlap(player, enemyProjectileGroup, function(player:FlxObject, projectile:FlxObject):Void {
-      if (cast(player, Player).justHurt) return;
-
       Projectile.handleCollision(player, projectile);
       player.hurt(25);
     });
 
     FlxG.overlap(player, enemyLaserGroup, function(player:FlxObject, laser:FlxObject):Void {
-      if (cast(player, Player).justHurt) return;
       player.hurt(100);
     });
 
