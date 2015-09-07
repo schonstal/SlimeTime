@@ -149,6 +149,7 @@ class PlayState extends FlxState
 
     FlxG.overlap(player, enemyProjectileGroup, function(player:FlxObject, projectile:FlxObject):Void {
       if (!cast(projectile, ProjectileSprite).isDangerous()) return;
+      if (cast(player, Player).justHurt) return;
       Projectile.handleCollision(player, projectile);
       player.hurt(25);
     });
