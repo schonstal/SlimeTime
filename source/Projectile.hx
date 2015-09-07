@@ -66,6 +66,7 @@ class Projectile extends FlxSpriteGroup
     this.facing = facing;
 
     projectile.updateHitbox();
+    projectile.initialize();
 
     exists = projectile.exists = particleGroup.exists = explosionSprite.exists = true;
     if (showParticles) spawnParticle();

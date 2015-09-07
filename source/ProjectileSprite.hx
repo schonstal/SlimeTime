@@ -8,6 +8,8 @@ class ProjectileSprite extends FlxSprite {
   var WIDTH = 6;
   var HEIGHT = 6;
   var name:String;
+  var dangerTimer:Float = 0;
+  var dangerTime:Float = 0.04;
 
   public var onCollisionCallback:Void->Void;
 
@@ -31,6 +33,10 @@ class ProjectileSprite extends FlxSprite {
     if(onCollisionCallback != null) onCollisionCallback();
   }
 
+  public function initialize():Void {
+    dangerTimer = 0;
+  }
+
   override public function updateHitbox():Void
   {
     var newWidth:Float = scale.x * WIDTH;
@@ -43,5 +49,15 @@ class ProjectileSprite extends FlxSprite {
     if (name == "player") {
       offset.x += (facing == FlxObject.LEFT ? 4 : -4);
     }
+  }
+
+  public function isDangerous():Bool {
+    return dangerTimer >= dangerTime;
+  }
+
+  override public function update(elapsed:Float):Void {
+    dangerTimer += elapsed;
+
+    super.update(elapsed);
   }
 }
