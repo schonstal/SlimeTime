@@ -18,6 +18,7 @@ class Reg {
 
   public static var random:FlxRandom;
 
+  public static var initialized:Bool = false;
   public static var started:Bool = false;
   public static var difficulty:Float = 1;
   public static var player:Player;

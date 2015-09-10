@@ -48,8 +48,6 @@
 	<!--Enable the Flixel core recording system-->
 	<!--haxedef name="FLX_RECORD" /-->
 	
-	<haxedef name="FLX_NO_MOUSE" />
-	
 	<!--Disable the Native cursor api for Flash target-->
 	<!--haxedef name="FLX_NO_NATIVE_CURSOR" /-->
 	

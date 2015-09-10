@@ -16,7 +16,6 @@ class Player extends Enemy //YOU ARE THE MONSTER
   public static var RUN_SPEED:Float = 200;
   public static var gravity:Float = 800;
 
-  public var started:Bool = false;
   public var justHurt:Bool = false;
 
   var speed:Point;
@@ -74,13 +73,12 @@ class Player extends Enemy //YOU ARE THE MONSTER
 
     facing = FlxObject.RIGHT;
     acceleration.y = 0;
-    started = false;
+    Reg.started = false;
     health = 100;
   }
   
   private function start():Void {
     acceleration.y = gravity;
-    started = true;
     visible = true;
     solid = true;
     alive = true;
@@ -194,9 +192,12 @@ class Player extends Enemy //YOU ARE THE MONSTER
   override public function update(elapsed:Float):Void {
     this.elapsed = elapsed;
 
-    if(!started && (justPressed("left") || justPressed("right") || justPressed("jump"))) start();
+    if(!Reg.started && Reg.initialized &&
+      (justPressed("left") || justPressed("right") || justPressed("jump"))) {
+      start();
+    }
 
-    if(alive && started) {
+    if(alive && Reg.started) {
       handleMovement();
       tryJumping();
       computeTerminalVelocity();
@@ -209,7 +210,7 @@ class Player extends Enemy //YOU ARE THE MONSTER
   public override function kill():Void {
     visible = false;
     alive = false;
-    started = false;
+    Reg.started = false;
     solid = false;
     exists = false;
     acceleration.y = acceleration.x = velocity.x = velocity.y = 0;

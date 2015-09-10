@@ -24,6 +24,7 @@ class PlayState extends FlxState
   var gameOverGroup:GameOverGroup;
 
   var spawnGroup:SpawnGroup;
+  var titleGroup:TitleGroup;
   var player:Player;
 
   var healthGroup:HealthGroup;
@@ -67,6 +68,9 @@ class PlayState extends FlxState
     spawnGroup = new SpawnGroup();
     add(spawnGroup);
 
+    titleGroup = new TitleGroup();
+    add(titleGroup);
+
     player = new Player(spawnGroup.x + 6, spawnGroup.y + 6);
     player.init();
     add(player);
@@ -107,6 +111,7 @@ class PlayState extends FlxState
 
     //DEBUGGER
     FlxG.debugger.drawDebug = true;
+    FlxG.mouse.useSystemCursor = true;
   }
 
   override public function destroy():Void {
