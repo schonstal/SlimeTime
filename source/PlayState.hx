@@ -35,7 +35,9 @@ class PlayState extends FlxState
 
   override public function create():Void {
     super.create();
-    FlxG.camera.flash(0xffffffff, 1);
+    if (Reg.initialized) {
+      FlxG.camera.flash(0xffffffff, 1);
+    }
     Reg.random = new FlxRandom();
     Reg.started = false;
     Reg.difficulty = 0;
@@ -68,10 +70,9 @@ class PlayState extends FlxState
     spawnGroup = new SpawnGroup();
     add(spawnGroup);
 
-    titleGroup = new TitleGroup();
-    add(titleGroup);
-
-    player = new Player(spawnGroup.x + 6, spawnGroup.y + 6);
+    player = new Player(0, 0);
+    player.x = FlxG.width/2 - player.width/2;
+    player.y = 80;
     player.init();
     add(player);
 
@@ -109,6 +110,11 @@ class PlayState extends FlxState
     gameOverGroup.exists = false;
     add(gameOverGroup);
 
+    if (!Reg.initialized) {
+      titleGroup = new TitleGroup();
+      add(titleGroup);
+    }
+
     //DEBUGGER
     FlxG.debugger.drawDebug = true;
     FlxG.mouse.useSystemCursor = true;
@@ -122,8 +128,11 @@ class PlayState extends FlxState
     if (Reg.started) {
       spawnGroup.exists = false;
       hud.exists = true;
+    } else {
+      spawnGroup.exists = Reg.initialized;
     }
     if (player.alive == false) {
+      spawnGroup.exists = false;
       gameOverGroup.exists = true;
       hud.exists = false;
     }
