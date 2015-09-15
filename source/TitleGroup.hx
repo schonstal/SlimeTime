@@ -36,10 +36,8 @@ class TitleGroup extends FlxSpriteGroup {
 
     FlxTween.tween(title, { angle: 0 }, 1, { ease: FlxEase.elasticOut });
     FlxTween.tween(title.scale, { x: 1, y: 1 }, 1, { ease: FlxEase.elasticOut, onComplete: function(t) {
-      new FlxTimer().start(0.5, function(t) {
-        FlxG.camera.flash();
-        clickToBegin.visible = true;
-      });
+      FlxG.camera.flash();
+      clickToBegin.visible = true;
     }});
   }
 
