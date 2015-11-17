@@ -56,6 +56,8 @@ class Pipe extends Enemy {
 
   public override function spawn():Void {
     super.spawn();
+    visible = true;
+    resetX();
     tweenIn();
     health = 5;
     laserTimer = 0.5;
@@ -102,12 +104,13 @@ class Pipe extends Enemy {
     super.kill();
     animation.play("idle");
     activeTween.cancel();
-
-    //activeTween = FlxTween.tween(this, { x: facing == FlxObject.LEFT ? -width : FlxG.width },
-    //                             deathTime, { ease: FlxEase.quadOut });
-
-    x = facing == FlxObject.LEFT ? -width : FlxG.width;
+    visible = false;
+    resetX();
   }
 
   override function die():Void { return; }
+
+  function resetX():Void {
+    x = facing == FlxObject.LEFT ? -width : FlxG.width;
+  }
 }
