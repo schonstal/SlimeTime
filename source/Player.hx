@@ -214,6 +214,7 @@ class Player extends Enemy //YOU ARE THE MONSTER
     solid = false;
     exists = false;
     acceleration.y = acceleration.x = velocity.x = velocity.y = 0;
+    Reg.enemyExplosionService.explode(x + width/2, y + height/2 + explosionOffset.y, 0, 0, true);
     FlxG.sound.play("assets/sounds/player/die.wav");
   }
 
