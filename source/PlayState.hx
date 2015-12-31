@@ -7,6 +7,8 @@ import flixel.FlxState;
 import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxRandom;
 import flixel.util.FlxTimer;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
 
 class PlayState extends FlxState
 {
@@ -27,6 +29,8 @@ class PlayState extends FlxState
   var titleGroup:TitleGroup;
   var player:Player;
 
+  var gameOver:Bool = false;
+
   var healthGroup:HealthGroup;
 
   var level:Room;
@@ -35,6 +39,7 @@ class PlayState extends FlxState
 
   override public function create():Void {
     super.create();
+    FlxG.timeScale = 1;
     if (Reg.initialized) {
       FlxG.camera.flash(0xffffffff, 1);
     }
@@ -133,8 +138,18 @@ class PlayState extends FlxState
     }
     if (player.alive == false) {
       spawnGroup.exists = false;
-      gameOverGroup.exists = true;
-      hud.exists = false;
+
+      if (!gameOver) {
+        FlxG.timeScale = 0.2;
+        new FlxTimer().start(0.1, function(t) {
+          gameOverGroup.exists = true;
+          hud.exists = false;
+          FlxTween.tween(FlxG, { timeScale: 1 }, 0.5, { ease: FlxEase.quartOut, onComplete: function(t) {
+            FlxG.timeScale = 1;
+          }});
+        });
+      }
+      gameOver = true;
     }
 
     super.update(elapsed);
