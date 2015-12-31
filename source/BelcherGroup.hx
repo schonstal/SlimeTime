@@ -17,7 +17,7 @@ class BelcherGroup extends FlxSpriteGroup {
   }
 
   override public function update(elapsed:Float):Void {
-    if (Reg.started && Reg.score >= 1000) {
+    if (Reg.started && Reg.score >= 2500) {
       spawnTimer -= elapsed;
       if (spawnTimer < 0) {
         spawnTimer = Reg.random.float(
