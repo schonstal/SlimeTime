@@ -38,7 +38,7 @@ class Player extends Enemy //YOU ARE THE MONSTER
     super();
     x = X;
     y = Y;
-    loadGraphic("assets/images/player.png", true, 12, 12);
+    loadGraphic("assets/images/player/player.png", true, 12, 12);
 
     animation.add("jump start", [0], 15, true);
     animation.add("jump peak", [1], 15, true);

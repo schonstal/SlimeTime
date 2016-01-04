@@ -21,7 +21,7 @@ class SpawnGroup extends FlxSpriteGroup {
     squares = new FlxSpriteGroup();
 
     var square = new FlxSprite();
-    square.loadGraphic("assets/images/playerSpawn.png");
+    square.loadGraphic("assets/images/player/spawn.png");
     square.color = 0xffffff00;
     square.blend = BlendMode.ADD;
     square.y = 70;
@@ -29,7 +29,7 @@ class SpawnGroup extends FlxSpriteGroup {
     squares.add(square);
     
     square = new FlxSprite();
-    square.loadGraphic("assets/images/playerSpawn.png");
+    square.loadGraphic("assets/images/player/spawn.png");
     square.color = 0xffff00ff;
     square.blend = BlendMode.ADD;
     square.y = 70;
@@ -37,7 +37,7 @@ class SpawnGroup extends FlxSpriteGroup {
     squares.add(square);
 
     square = new FlxSprite();
-    square.loadGraphic("assets/images/playerSpawn.png");
+    square.loadGraphic("assets/images/player/spawn.png");
     square.color = 0xff00ffff;
     square.blend = BlendMode.ADD;
     square.y = 70;
