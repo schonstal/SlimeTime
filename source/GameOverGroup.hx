@@ -10,6 +10,7 @@ import flixel.math.FlxPoint;
 class GameOverGroup extends FlxSpriteGroup {
   var scoreText:FlxBitmapText;
   var highScoreText:FlxBitmapText;
+  var restartText:LabelText;
 
   var scoreLabel:FlxSprite;
   var highScoreLabel:FlxSprite;
@@ -27,6 +28,11 @@ class GameOverGroup extends FlxSpriteGroup {
     gameOverSprite = new FlxSprite();
     gameOverSprite.loadGraphic("assets/images/gameOver.png");
     add(gameOverSprite);
+
+    restartText = new LabelText("SHOOT to try again");
+    restartText.x = FlxG.width/2 - restartText.width/2;
+    restartText.y = FlxG.height - FlxG.height/3;
+    add(restartText);
 
     scoreLabel = new FlxSprite(4, 88);
     scoreLabel.loadGraphic("assets/images/scoreFinal.png");
