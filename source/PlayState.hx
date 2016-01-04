@@ -37,8 +37,6 @@ class PlayState extends FlxState
   var slime:Slime;
   var hud:HUD;
 
-  var chute:Chute;
-
   override public function create():Void {
     super.create();
     FlxG.timeScale = 1;
@@ -74,12 +72,7 @@ class PlayState extends FlxState
     level = new Room("assets/tilemaps/level.tmx");
     add(level.backgroundTiles);
 
-    for(i in (0...3)) {
-    chute = new Chute();
-    chute.x = 39 + i * 100;
-    chute.y = 115;
-    add(chute);
-    }
+    add(new ChuteGroup());
 
     spawnGroup = new SpawnGroup();
     add(spawnGroup);
