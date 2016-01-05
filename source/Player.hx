@@ -86,7 +86,7 @@ class Player extends Enemy //YOU ARE THE MONSTER
   }
 
   public override function hurt(damage:Float):Void {
-    if(justHurt) return;
+    if(justHurt && damage < 100) return;
 
     FlxG.camera.flash(0xccff1472, 0.5, null, true);
     FlxG.camera.shake(0.005, 0.2);
