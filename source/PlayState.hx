@@ -72,6 +72,10 @@ class PlayState extends FlxState
     level = new Room("assets/tilemaps/level.tmx");
     add(level.backgroundTiles);
 
+    var background = new FlxSprite();
+    background.loadGraphic("assets/images/background.png");
+    add(background);
+
     add(new ChuteGroup());
 
     spawnGroup = new SpawnGroup();
