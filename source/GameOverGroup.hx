@@ -29,7 +29,7 @@ class GameOverGroup extends FlxSpriteGroup {
     gameOverSprite.loadGraphic("assets/images/gameOver.png");
     add(gameOverSprite);
 
-    restartText = new LabelText("SHOOT to try again");
+    restartText = new LabelText("LASER to try again");
     restartText.x = FlxG.width/2 - restartText.width/2;
     restartText.y = FlxG.height - FlxG.height/3;
     add(restartText);
@@ -59,7 +59,7 @@ class GameOverGroup extends FlxSpriteGroup {
   }
 
   public override function update(elapsed:Float):Void {
-    if (FlxG.keys.justPressed.X) FlxG.switchState(new PlayState());
+    if (FlxG.keys.justPressed.UP || FlxG.keys.justPressed.DOWN) FlxG.switchState(new PlayState());
 
     scoreText.text = "" + Reg.score;
     highScoreText.text = "" + FlxG.save.data.highScore;
