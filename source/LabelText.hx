@@ -13,7 +13,7 @@ class LabelText extends FlxBitmapText {
     var font = FlxBitmapFont.fromMonospace(
       "assets/images/fonts/alphabetRed.png",
       "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
-      new FlxPoint(8, 8)
+      new FlxPoint(8, 9)
     );
 
     super(font);
