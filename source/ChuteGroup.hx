@@ -17,12 +17,15 @@ class ChuteGroup extends FlxSpriteGroup {
 
     var chute:Chute;
 
-    for(i in (0...3)) {
-      chute = new Chute();
-      chute.x = 39 + i * 100;
-      chute.y = 115;
-      add(chute);
-    }
+    chute = new Chute();
+    chute.x = 53;
+    chute.y = 108;
+    add(chute);
+
+    chute = new Chute(2);
+    chute.x = 212;
+    chute.y = 108;
+    add(chute);
   }
 
   override public function update(elapsed:Float):Void {

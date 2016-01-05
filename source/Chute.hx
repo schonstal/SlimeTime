@@ -16,7 +16,7 @@ class Chute extends FlxSpriteGroup {
   var ooze:FlxSprite;
   var initialized:Bool = false;
 
-  public function new() {
+  public function new(startFrame:Int = 0) {
     super();
     chute = new FlxSprite();
     chute.loadGraphic("assets/images/chute.png");
@@ -26,7 +26,7 @@ class Chute extends FlxSpriteGroup {
     ooze.loadGraphic("assets/images/chuteOoze.png", true, 32, 96);
     ooze.animation.add("flow", [0, 1, 2, 3], 5, true);
     ooze.animation.play("flow");
-    ooze.animation.curAnim.curFrame = new FlxRandom().int(0, 3);
+    ooze.animation.curAnim.curFrame = startFrame;
     ooze.y = 29;
     ooze.x = chute.width/2 - ooze.width/2;
     add(ooze);
