@@ -27,7 +27,7 @@ class Chute extends FlxSpriteGroup {
     ooze.animation.add("flow", [0, 1, 2, 3], 5, true);
     ooze.animation.play("flow");
     ooze.animation.curAnim.curFrame = startFrame;
-    ooze.y = 29;
+    ooze.y = 30;
     ooze.x = chute.width/2 - ooze.width/2;
     add(ooze);
   }
