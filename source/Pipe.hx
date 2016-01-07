@@ -92,7 +92,7 @@ class Pipe extends Enemy {
   }
 
   public override function update(elapsed:Float):Void {
-    if (alive && Reg.started) {
+    if (alive) {
       laserTimer -= elapsed;
       if (laserTimer <= 0) {
         shoot();
