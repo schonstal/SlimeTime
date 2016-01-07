@@ -18,6 +18,8 @@ class PlayState extends FlxState
   var enemyProjectileGroup:FlxSpriteGroup;
   var enemyLaserGroup:FlxSpriteGroup;
 
+  var splashParticleGroup:FlxSpriteGroup;
+
   var enemyGroup:FlxSpriteGroup;
   var enemyExplosionGroup:FlxSpriteGroup;
   var pipes:WallPipes;
@@ -86,6 +88,10 @@ class PlayState extends FlxState
     player.y = 80;
     player.init();
     add(player);
+
+    splashParticleGroup = new FlxSpriteGroup();
+    add(splashParticleGroup);
+    Reg.splashParticleService = new ParticleService(splashParticleGroup);
 
     enemyGroup.add(new GrenadeGroup());
     enemyGroup.add(new BelcherGroup());

@@ -13,6 +13,7 @@ class Reg {
   public static var enemyLaserService:EnemyLaserService;
   public static var enemyExplosionService:EnemyExplosionService;
   public static var pointService:PointService;
+  public static var splashParticleService:ParticleService;
 
   public static var enemyGroup:FlxSpriteGroup;
 
