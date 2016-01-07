@@ -55,6 +55,7 @@ class Pipe extends Enemy {
   }
 
   public override function spawn():Void {
+    if (alive) return;
     super.spawn();
     visible = true;
     resetX();
