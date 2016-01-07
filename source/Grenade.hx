@@ -52,8 +52,12 @@ class Grenade extends Enemy {
     explode();
   }
 
+  function despawn():Void {
+    exists = false;
+  }
+
   function explode():Void {
-    animation.play("explode");
+    despawn();
     alive = false;
     //FlxG.camera.shake(0.02, 0.2);
     for(i in (0...8)) {
@@ -61,9 +65,5 @@ class Grenade extends Enemy {
         x + 6, y + 6, new FlxVector(Math.cos(i/8 * Reg.TAU + Math.PI/8), Math.sin(i/8 * Reg.TAU + Math.PI/8))
       );
     }
-  }
-
-  function onAnimationComplete(name:String) {
-    if (name == "explode") exists = false;
   }
 }
