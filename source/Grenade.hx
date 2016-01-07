@@ -44,6 +44,9 @@ class Grenade extends Enemy {
   }
 
   public override function update(elapsed:Float):Void {
+    if (y > FlxG.height) {
+      despawn();
+    }
     super.update(elapsed);
   }
 
