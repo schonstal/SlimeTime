@@ -4,18 +4,24 @@ import flixel.FlxObject;
 import flash.geom.Point;
 import flixel.system.FlxSound;
 import flixel.math.FlxRandom;
+import flixel.math.FlxMath;
 import flixel.math.FlxVector;
 import flixel.group.FlxSpriteGroup;
+import flixel.util.FlxTimer;
 
 class Grenade extends Enemy {
+  var rng:FlxRandom;
+  var particles:Array<SlimeParticle>;
+
   public function new() {
     super();
     loadGraphic("assets/images/enemies/canister.png", true, 16, 16);
     animation.add("spin", [1, 2, 3, 0], 15, true);
-    animation.add("explode", [4, 5, 6, 7], 15, false);
-    animation.finishCallback = onAnimationComplete;
     animation.play("spin");
     points = 50;
+
+    rng = new FlxRandom();
+    particles = new Array<SlimeParticle>();
   }
 
   public override function spawn():Void {
@@ -28,6 +34,13 @@ class Grenade extends Enemy {
 
     y = FlxG.height;
     x = Reg.random.int(16, FlxG.width - 32);
+
+    for(i in (0...8)) {
+      particles[i] = Reg.splashParticleService.spawn(x, y);
+      particles[i].acceleration.y = 800;
+      particles[i].velocity.y = FlxMath.lerp(-150, velocity.y/2, i/8);
+      particles[i].velocity.x = rng.int(-25, 25);
+    }
   }
 
   public override function update(elapsed:Float):Void {
