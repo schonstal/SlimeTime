@@ -27,7 +27,7 @@ class WallPipes extends FlxSpriteGroup {
   }
 
   override public function update(elapsed:Float):Void {
-    if (Reg.started && Reg.score >= 500) {
+    if (Reg.started && Reg.difficulty >= 0.01) {
       spawnTimer -= elapsed;
       if (spawnTimer <= 0) {
         spawnPipe();
