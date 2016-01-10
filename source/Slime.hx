@@ -14,7 +14,7 @@ class Slime extends FlxSpriteGroup {
     for (i in (0...Std.int((FlxG.width - 32)/16))) {
       var slimeSprite = new FlxSprite(16 + i * 16, FlxG.height - 16);
       slimeSprite.loadGraphic("assets/images/ooze.png", true, 16, 32);
-      slimeSprite.animation.add("pulse", [0, 1, 2, 3], 5, true);
+      slimeSprite.animation.add("pulse", [0, 1, 2, 3], 10, true);
       slimeSprite.animation.play("pulse");
       slimeSprite.immovable = true;
       add(slimeSprite);
