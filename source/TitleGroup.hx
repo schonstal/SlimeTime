@@ -10,15 +10,22 @@ import flixel.math.FlxVector;
 import flash.display.BlendMode;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
+import flixel.addons.effects.FlxWaveSprite;
 
 class TitleGroup extends FlxSpriteGroup {
-  var title:FlxSprite;
+  var title:FlxWaveSprite;
   var clickToBegin:FlxSprite;
+  var bg:FlxSprite;
 
   var sinAmt:Float = 0;
 
   public function new():Void {
     super();
+
+    bg = new FlxSprite();
+    bg.makeGraphic(FlxG.width, FlxG.height, 0xff000000);
+    add(bg);
+
     clickToBegin = new FlxSprite();
     clickToBegin.loadGraphic("assets/images/clickToBegin.png");
     clickToBegin.x = FlxG.width/2 - clickToBegin.width/2;
@@ -26,18 +33,27 @@ class TitleGroup extends FlxSpriteGroup {
     clickToBegin.visible = false;
     add(clickToBegin);
 
-    title = new FlxSprite();
-    title.loadGraphic("assets/images/logo.png");
-    title.x = FlxG.width/2 - title.width/2;
-    title.y = 37;
-    title.angle = 360;
-    title.scale.x = title.scale.y = 0;
+    var titleTemplate = new FlxSprite();
+    titleTemplate.loadGraphic("assets/images/logo.png");
+    titleTemplate.x = FlxG.width/2 - titleTemplate.width/2;
+    titleTemplate.y = 37;
+
+    title = new FlxWaveSprite(titleTemplate, FlxWaveMode.START, 0, -1, 3, 7);
     add(title);
 
-    FlxTween.tween(title, { angle: 0 }, 1, { ease: FlxEase.elasticOut });
-    FlxTween.tween(title.scale, { x: 1, y: 1 }, 1, { ease: FlxEase.elasticOut, onComplete: function(t) {
-      FlxG.camera.flash();
-      clickToBegin.visible = true;
+    title.center = Std.int(titleTemplate.height) * 2;
+    title.scale.y = 0;
+
+    title.strength = 400;
+    title.speed = 50;
+    title.scale.y = 0;
+
+    FlxTween.tween(title.scale, { y: 1 }, 1, { ease: FlxEase.quadOut, onComplete: function(t) {
+      FlxTween.tween(title, { strength: 0, speed: 25 }, 1, { ease: FlxEase.quartOut, onComplete: function(t) {
+        FlxG.camera.flash();
+        bg.visible = false;
+        clickToBegin.visible = true;
+      }});
     }});
   }
 
@@ -46,6 +62,9 @@ class TitleGroup extends FlxSpriteGroup {
       exists = false;
       Reg.initialized = true;
       FlxG.mouse.visible = false;
+    }
+
+    if (FlxG.keys.justPressed.SPACE) {
     }
 
     super.update(elapsed);

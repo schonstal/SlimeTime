@@ -40,8 +40,8 @@ class EnemyLaserGroup extends FlxSpriteGroup {
     var particleSprite = new FlxSprite();
     particleSprite.loadGraphic("assets/images/projectiles/enemy/laserSplash.png", true, 16, 48);
     particleSprite.animation.add("splash", [0, 1, 2, 3], 15, true);
-    particleSprite.setFacingFlip(FlxObject.RIGHT, true, false);
-    particleSprite.setFacingFlip(FlxObject.LEFT, false, false);
+    particleSprite.setFacingFlip(FlxObject.LEFT, true, false);
+    particleSprite.setFacingFlip(FlxObject.RIGHT, false, false);
     particleSprite.y = -22;
     particles.add(particleSprite);
 
@@ -86,7 +86,7 @@ class EnemyLaserGroup extends FlxSpriteGroup {
     for(particleSprite in particles.members) {
       particleSprite.animation.play("splash");
       particleSprite.facing = facing;
-      particleSprite.x = facing == FlxObject.RIGHT ? 16 : FlxG.width - 16 - particleSprite.width;
+      particleSprite.x = facing == FlxObject.LEFT ? 16 : FlxG.width - 16 - particleSprite.width;
     }
   }
 
