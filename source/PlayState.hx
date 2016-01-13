@@ -110,8 +110,15 @@ class PlayState extends FlxState
     pipes = new WallPipes();
     add(pipes);
 
+    if (!Reg.initialized) {
+      titleGroup = new TitleGroup();
+      add(titleGroup.belchers);
+    }
+
     slime = new Slime();
     add(slime);
+
+    add(titleGroup);
 
     add(playerProjectileGroup);
     add(enemyProjectileGroup);
@@ -126,11 +133,6 @@ class PlayState extends FlxState
     gameOverGroup = new GameOverGroup();
     gameOverGroup.exists = false;
     add(gameOverGroup);
-
-    if (!Reg.initialized) {
-      titleGroup = new TitleGroup();
-      add(titleGroup);
-    }
 
     //DEBUGGER
     FlxG.debugger.drawDebug = true;
