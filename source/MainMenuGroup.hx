@@ -13,20 +13,19 @@ import flixel.tweens.FlxEase;
 import flixel.addons.effects.FlxWaveSprite;
 
 class MainMenuGroup extends FlxSpriteGroup {
-  var buttons:Array<MenuText>;
+  var buttons:Array<MainMenuButton>;
   var selectedIndex:Int = 1;
 
   public function new():Void {
     super();
 
-    buttons = new Array<MenuText>();
-    buttons[0] = new MenuText("options");
-    buttons[1] = new MenuText("start");
-    buttons[2] = new MenuText("credits");
+    buttons = new Array<MainMenuButton>();
+    buttons[0] = new MainMenuButton("options");
+    buttons[1] = new MainMenuButton("start");
+    buttons[2] = new MainMenuButton("credits");
 
     for (i in (0...3)) {
-      buttons[i].y = 180;
-      buttons[i].x = (i + 1) * 80 - buttons[i].width/2;
+      buttons[i].x = (i + 1) * 80;
       add(buttons[i]);
     }
   }
@@ -34,8 +33,7 @@ class MainMenuGroup extends FlxSpriteGroup {
   public override function update(elapsed:Float):Void {
     buttons[selectedIndex].select();
     for (i in (0...3)) {
-      if (FlxG.mouse.x > buttons[i].x && FlxG.mouse.x < buttons[i].x + buttons[i].width &&
-          FlxG.mouse.y > buttons[i].y && FlxG.mouse.y < buttons[i].y + buttons[i].height) {
+      if (buttons[i].overlapsMouse()) {
         selectedIndex = i;
       }
       if (i == selectedIndex) {
@@ -44,6 +42,10 @@ class MainMenuGroup extends FlxSpriteGroup {
         buttons[i].deselect();
       }
     }
+
+    if (selectedIndex == 0) FlxTween.tween(buttons[1], { x: 170 }, 0.05, { ease: FlxEase.quadOut });
+    if (selectedIndex == 1) FlxTween.tween(buttons[1], { x: 160 }, 0.05, { ease: FlxEase.quadOut });
+    if (selectedIndex == 2) FlxTween.tween(buttons[1], { x: 150 }, 0.05, { ease: FlxEase.quadOut });
 
     if (FlxG.keys.justPressed.LEFT) selectedIndex--;
     if (FlxG.keys.justPressed.RIGHT) selectedIndex++;

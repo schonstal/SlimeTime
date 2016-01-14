@@ -31,7 +31,7 @@ class TitleGroup extends FlxSpriteGroup {
     var titleTemplate = new FlxSprite();
     titleTemplate.loadGraphic("assets/images/logo.png");
     titleTemplate.x = FlxG.width/2 - titleTemplate.width/2;
-    titleTemplate.y = 37;
+    titleTemplate.y = 32;
 
     title = new FlxWaveSprite(titleTemplate, FlxWaveMode.START, 0, -1, 3, 7);
     add(title);

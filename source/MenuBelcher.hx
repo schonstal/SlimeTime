@@ -18,19 +18,35 @@ class MenuBelcher extends FlxSprite {
     super();
     loadGraphic("assets/images/enemies/belcher.png", true, 64, 64);
     animation.add("idle", [0, 1, 2], 5, true);
-    animation.add("shoot", [3, 4, 5, 5, 6, 7], 10, false);
+    animation.add("spawn", [3, 4, 5, 5, 6, 7], 10, false);
+    animation.add("leave", [3, 4, 5], 10, false);
     animation.finishCallback = onAnimationComplete;
     animation.play("idle");
+
+    y = FlxG.height;
   }
 
   public function spawn(X:Float):Void {
-    animation.play("shoot", true);
+    animation.play("spawn", true);
 
     height = 32;
     offset.y = 32;
     y = FlxG.height;
     x = X - width/2;
     tweenIn();
+  }
+
+  public function despawn():Void {
+    animation.play("leave", true);
+    tweenOut();
+  }
+
+  public function select():Void {
+    visible = false;
+    FlxG.camera.shake(0.005, 0.2);
+    for(i in 0...8) {
+      Reg.enemyExplosionService.explode(x, y, width, height/2);
+    }
   }
 
   function tweenIn():Void {
@@ -40,7 +56,14 @@ class MenuBelcher extends FlxSprite {
                                  0.5, { ease: FlxEase.quadOut });
   }
 
+  function tweenOut():Void {
+    if (activeTween != null) activeTween.cancel();
+
+    activeTween = FlxTween.tween(this, { y: FlxG.height + 5},
+                                 0.25, { ease: FlxEase.cubeIn });
+  }
+
   function onAnimationComplete(name:String):Void {
-    animation.play("idle");
+    if (name == "spawn") animation.play("idle");
   }
 }
