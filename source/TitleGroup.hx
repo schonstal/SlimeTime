@@ -23,7 +23,6 @@ class TitleGroup extends FlxSpriteGroup {
 
     mainMenuGroup = new MainMenuGroup();
     mainMenuGroup.visible = false;
-    add(mainMenuGroup);
 
     bg = new FlxSprite();
     bg.makeGraphic(FlxG.width, FlxG.height, 0xff000000);
