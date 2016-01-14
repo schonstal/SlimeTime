@@ -46,8 +46,8 @@ class Projectile extends FlxSpriteGroup
       explosionSprite.setFacingFlip(2, true, true);
       explosionSprite.setFacingFlip(3, false, true);
     } else {
-      explosionSprite.setFacingFlip(FlxObject.LEFT, true, false);
-      explosionSprite.setFacingFlip(FlxObject.RIGHT, false, false);
+      explosionSprite.setFacingFlip(FlxObject.LEFT, false, false);
+      explosionSprite.setFacingFlip(FlxObject.RIGHT, true, false);
     }
     explosionSprite.animation.finishCallback = explosionFinished;
     add(explosionSprite);
