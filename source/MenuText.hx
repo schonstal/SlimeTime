@@ -20,9 +20,21 @@ class MenuText extends FlxBitmapText {
 
     letterSpacing = -1;
     text = content;
+
+    deselect();
   }
 
   public override function update(elapsed:Float):Void {
     super.update(elapsed);
+  }
+
+  public function select():Void {
+    color = 0xffffffff;
+    scale.x = scale.y = 2;
+  }
+
+  public function deselect():Void {
+    color = 0xff9777a1;
+    scale.x = scale.y = 1;
   }
 }

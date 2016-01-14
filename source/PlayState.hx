@@ -112,7 +112,7 @@ class PlayState extends FlxState
 
     if (!Reg.initialized) {
       titleGroup = new TitleGroup();
-      add(titleGroup.belchers);
+      add(titleGroup.mainMenuGroup);
     }
 
     slime = new Slime();
