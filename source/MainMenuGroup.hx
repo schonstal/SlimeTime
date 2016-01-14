@@ -13,53 +13,42 @@ import flixel.tweens.FlxEase;
 import flixel.addons.effects.FlxWaveSprite;
 
 class MainMenuGroup extends FlxSpriteGroup {
-  var lastMouseX:Float = 0;
-
-  var optionsText:MenuText;
-  var startText:MenuText;
-  var creditsText:MenuText;
+  var buttons:Array<MenuText>;
+  var selectedIndex:Int = 1;
 
   public function new():Void {
     super();
 
-    optionsText = new MenuText("options");
-    optionsText.y = 180;
-    optionsText.x = 80 - optionsText.width/2;
-    optionsText.visible = false;
-    add(optionsText);
+    buttons = new Array<MenuText>();
+    buttons[0] = new MenuText("options");
+    buttons[1] = new MenuText("start");
+    buttons[2] = new MenuText("credits");
 
-    startText = new MenuText("start");
-    startText.y = 180;
-    startText.x = FlxG.width/2 - startText.width/2;
-    startText.scale.x = startText.scale.y = 2;
-    startText.visible = false;
-    add(startText);
-
-    creditsText = new MenuText("credits");
-    creditsText.y = 180;
-    creditsText.x = 240 - creditsText.width/2;
-    creditsText.visible = false;
-    add(creditsText);
+    for (i in (0...3)) {
+      buttons[i].y = 180;
+      buttons[i].x = (i + 1) * 80 - buttons[i].width/2;
+      add(buttons[i]);
+    }
   }
 
   public override function update(elapsed:Float):Void {
-    optionsText.deselect();
-    startText.deselect();
-    creditsText.deselect();
-
-    if (FlxG.mouse.x < FlxG.width / 3) {
-      optionsText.select();
-    } else if (FlxG.mouse.x < 2 * FlxG.width / 3) {
-      startText.select();
-    } else {
-      creditsText.select();
+    buttons[selectedIndex].select();
+    for (i in (0...3)) {
+      if (FlxG.mouse.x > buttons[i].x && FlxG.mouse.x < buttons[i].x + buttons[i].width &&
+          FlxG.mouse.y > buttons[i].y && FlxG.mouse.y < buttons[i].y + buttons[i].height) {
+        selectedIndex = i;
+      }
+      if (i == selectedIndex) {
+        buttons[i].select();
+      } else {
+        buttons[i].deselect();
+      }
     }
 
-    lastMouseX = FlxG.mouse.x;
-
-    optionsText.x = 80 - optionsText.width/2;
-    startText.x = FlxG.width/2 - startText.width/2;
-    creditsText.x = 240 - creditsText.width/2;
+    if (FlxG.keys.justPressed.LEFT) selectedIndex--;
+    if (FlxG.keys.justPressed.RIGHT) selectedIndex++;
+    if (selectedIndex < 0) selectedIndex = buttons.length - 1;
+    if (selectedIndex >= buttons.length) selectedIndex = 0;
 
     super.update(elapsed);
   }

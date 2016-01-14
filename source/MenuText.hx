@@ -7,8 +7,13 @@ import flixel.math.FlxPoint;
 import flixel.util.FlxTimer;
 import flixel.text.FlxText.FlxTextAlign;
 import flixel.util.FlxSpriteUtil;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
 
 class MenuText extends FlxBitmapText {
+  var selected = false;
+  var activeTween:FlxTween;
+
   public function new(content:String, X:Float = 0, Y:Float = 0):Void {
     var font = FlxBitmapFont.fromMonospace(
       "assets/images/fonts/alphabetMono.png",
@@ -21,7 +26,11 @@ class MenuText extends FlxBitmapText {
     letterSpacing = -1;
     text = content;
 
-    deselect();
+    offset.y = -height/2;
+    y -= height/2;
+    height = 2 * height;
+
+    color = 0xff9777a1;
   }
 
   public override function update(elapsed:Float):Void {
@@ -29,12 +38,26 @@ class MenuText extends FlxBitmapText {
   }
 
   public function select():Void {
+    if (selected) return;
+    selected = true;
+
     color = 0xffffffff;
-    scale.x = scale.y = 2;
+    if (activeTween != null) activeTween.cancel();
+    activeTween = FlxTween.tween(scale, { x: 2, y: 2 }, 0.05, { ease: FlxEase.quadOut });
+    width = 2 * width;
+    offset.x = -width/4;
+    x -= width/4;
   }
 
   public function deselect():Void {
+    if (!selected) return;
+    selected = false;
+
     color = 0xff9777a1;
-    scale.x = scale.y = 1;
+    if (activeTween != null) activeTween.cancel();
+    activeTween = FlxTween.tween(scale, { x: 1, y: 1 }, 0.05, { ease: FlxEase.quadOut });
+    width = width/2;
+    offset.x = 0;
+    x += width/2;
   }
 }
