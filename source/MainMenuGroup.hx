@@ -43,10 +43,6 @@ class MainMenuGroup extends FlxSpriteGroup {
       }
     }
 
-    if (selectedIndex == 0) FlxTween.tween(buttons[1], { x: 170 }, 0.05, { ease: FlxEase.quadOut });
-    if (selectedIndex == 1) FlxTween.tween(buttons[1], { x: 160 }, 0.05, { ease: FlxEase.quadOut });
-    if (selectedIndex == 2) FlxTween.tween(buttons[1], { x: 150 }, 0.05, { ease: FlxEase.quadOut });
-
     if (FlxG.keys.justPressed.LEFT) selectedIndex--;
     if (FlxG.keys.justPressed.RIGHT) selectedIndex++;
     if (selectedIndex < 0) selectedIndex = buttons.length - 1;
