@@ -23,6 +23,9 @@ class TitleGroup extends FlxSpriteGroup {
 
     mainMenuGroup = new MainMenuGroup();
     mainMenuGroup.visible = false;
+    mainMenuGroup.startGame = startGame;
+    mainMenuGroup.showOptions = showOptions;
+    mainMenuGroup.showCredits = showCredits;
 
     bg = new FlxSprite();
     bg.makeGraphic(FlxG.width, FlxG.height, 0xff000000);
@@ -54,11 +57,23 @@ class TitleGroup extends FlxSpriteGroup {
 
   override public function update(elapsed:Float):Void {
     if (FlxG.mouse.justPressed) {
-      exists = false;
-      Reg.initialized = true;
-      FlxG.mouse.visible = false;
     }
 
     super.update(elapsed);
+  }
+
+  function showOptions():Void {
+    FlxG.camera.flash();
+  }
+
+  function startGame():Void {
+    exists = false;
+    mainMenuGroup.exists = false;
+    Reg.initialized = true;
+    FlxG.mouse.visible = false;
+  }
+
+  function showCredits():Void {
+    FlxG.camera.flash();
   }
 }
