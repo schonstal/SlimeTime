@@ -16,8 +16,8 @@ class MenuText extends FlxBitmapText {
 
   public function new(content:String, X:Float = 0, Y:Float = 0):Void {
     var font = FlxBitmapFont.fromMonospace(
-      "assets/images/fonts/alphabetMono.png",
-      "abcdefghijklmnopqrstuvwxyz",
+      "assets/images/fonts/alphabetRed.png",
+      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
       new FlxPoint(8, 9)
     );
 
