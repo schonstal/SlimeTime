@@ -63,7 +63,6 @@ class TitleGroup extends FlxSpriteGroup {
   }
 
   function showOptions():Void {
-    FlxG.camera.flash();
   }
 
   function startGame():Void {
@@ -74,6 +73,5 @@ class TitleGroup extends FlxSpriteGroup {
   }
 
   function showCredits():Void {
-    FlxG.camera.flash();
   }
 }
