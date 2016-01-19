@@ -16,10 +16,19 @@ class MenuButton extends FlxSpriteGroup {
   }
 
   public function select():Void {
+    if (selected) return;
+    selected = true;
+    onSelect();
   }
 
   public function deselect():Void {
+    if (!selected) return;
+    selected = false;
+    onDeselect();
   }
+
+  function onSelect():Void {}
+  function onDeselect():Void {}
 
   public function activate():Void {
     if (callback != null) callback();

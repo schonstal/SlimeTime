@@ -29,20 +29,14 @@ class MainMenuButton extends MenuButton {
     add(menuText);
   }
 
-  public override function select():Void {
-    if (selected) return;
-
+  public override function onSelect():Void {
     menuText.select();
     belcher.spawn(x);
-    selected = true;
   }
 
-  public override function deselect():Void {
-    if (!selected) return;
-
+  public override function onDeselect():Void {
     menuText.deselect();
     belcher.despawn();
-    selected = false;
   }
 
   public override function activate():Void {

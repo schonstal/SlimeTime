@@ -32,18 +32,12 @@ class PipeButton extends MenuButton {
     pipe.tweenIn();
   }
 
-  public override function select():Void {
-    if (selected) return;
-    selected = true;
-
+  public override function onSelect():Void {
     menuText.select();
     pipe.shoot();
   }
 
-  public override function deselect():Void {
-    if (!selected) return;
-    selected = false;
-
+  public override function onDeselect():Void {
     menuText.deselect();
     pipe.stopShooting();
   }
