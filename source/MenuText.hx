@@ -13,8 +13,9 @@ import flixel.tweens.FlxEase;
 class MenuText extends FlxBitmapText {
   var selected = false;
   var activeTween:FlxTween;
+  var scales:Bool = true;
 
-  public function new(content:String, X:Float = 0, Y:Float = 0):Void {
+  public function new(content:String, scale:Bool = true):Void {
     var font = FlxBitmapFont.fromMonospace(
       "assets/images/fonts/alphabetRed.png",
       "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
@@ -31,6 +32,7 @@ class MenuText extends FlxBitmapText {
     height = 2 * height;
 
     color = 0xff9777a1;
+    scales = scale;
   }
 
   public override function update(elapsed:Float):Void {
@@ -40,24 +42,28 @@ class MenuText extends FlxBitmapText {
   public function select():Void {
     if (selected) return;
     selected = true;
-
     color = 0xffffffff;
-    if (activeTween != null) activeTween.cancel();
-    activeTween = FlxTween.tween(scale, { x: 2, y: 2 }, 0.05, { ease: FlxEase.quadOut });
-    width = 2 * width;
-    offset.x = -width/4;
-    x -= width/4;
+
+    if (scales) {
+      if (activeTween != null) activeTween.cancel();
+      activeTween = FlxTween.tween(scale, { x: 2, y: 2 }, 0.05, { ease: FlxEase.quadOut });
+      width = 2 * width;
+      offset.x = -width/4;
+      x -= width/4;
+    }
   }
 
   public function deselect():Void {
     if (!selected) return;
     selected = false;
-
     color = 0xff9777a1;
-    if (activeTween != null) activeTween.cancel();
-    activeTween = FlxTween.tween(scale, { x: 1, y: 1 }, 0.05, { ease: FlxEase.quadOut });
-    width = width/2;
-    offset.x = 0;
-    x += width/2;
+
+    if (scales) {
+      if (activeTween != null) activeTween.cancel();
+      activeTween = FlxTween.tween(scale, { x: 1, y: 1 }, 0.05, { ease: FlxEase.quadOut });
+      width = width/2;
+      offset.x = 0;
+      x += width/2;
+    }
   }
 }

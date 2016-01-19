@@ -80,6 +80,7 @@ class Pipe extends Enemy {
 
   public function onAnimationComplete(name:String):Void {
     if (name == "charge") {
+      FlxG.camera.shake(0.02, 0.1, null, true);
       var shootSound = FlxG.sound.play("assets/sounds/pipeShoot.wav");
       shootSound.pan = facing == FlxObject.LEFT ? -0.25 : 0.25;
       Reg.enemyLaserService.shoot(y, facing, 0.5, tweenIn);

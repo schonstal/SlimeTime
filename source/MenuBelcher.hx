@@ -49,6 +49,12 @@ class MenuBelcher extends FlxSprite {
     }
   }
 
+  public function initialize():Void {
+    visible = true;
+    animation.play("idle");
+    y = FlxG.height;
+  }
+
   function tweenIn():Void {
     if (activeTween != null) activeTween.cancel();
 

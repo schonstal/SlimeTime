@@ -19,7 +19,6 @@ class EnemyLaserService {
     group.add(laserGroup);
     laserGroup.shoot(facing, duration);
     laserGroup.onCompleteCallback = onComplete;
-    FlxG.camera.shake(0.02, 0.1, null, true);
 
     return laserGroup;
   }

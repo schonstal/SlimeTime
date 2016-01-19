@@ -12,14 +12,12 @@ import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
 import flixel.addons.effects.FlxWaveSprite;
 
-class MainMenuButton extends FlxSpriteGroup {
-  var selected = false;
+class MainMenuButton extends MenuButton {
   var belcher:MenuBelcher;
   var menuText:MenuText;
-  var callback:Void->Void;
 
   public function new(text:String, onPress:Void->Void):Void {
-    super();
+    super(onPress);
 
     menuText = new MenuText(text);
     menuText.y = 172;
@@ -29,11 +27,9 @@ class MainMenuButton extends FlxSpriteGroup {
 
     add(belcher);
     add(menuText);
-
-    callback = onPress;
   }
 
-  public function select():Void {
+  public override function select():Void {
     if (selected) return;
 
     menuText.select();
@@ -41,7 +37,7 @@ class MainMenuButton extends FlxSpriteGroup {
     selected = true;
   }
 
-  public function deselect():Void {
+  public override function deselect():Void {
     if (!selected) return;
 
     menuText.deselect();
@@ -49,13 +45,20 @@ class MainMenuButton extends FlxSpriteGroup {
     selected = false;
   }
 
-  public function activate():Void {
-    if (callback != null) callback();
+  public override function activate():Void {
+    super.activate();
     belcher.select();
+    menuText.deselect();
+    FlxG.camera.flash(0x88ffffff, 0.2);
   }
 
-  public function overlapsMouse():Bool {
+  public function initialize():Void {
+    deselect();
+    belcher.initialize();
+  }
+
+  public override function overlapsMouse():Bool {
     return FlxG.mouse.x > menuText.x && FlxG.mouse.x < menuText.x + menuText.width &&
-           FlxG.mouse.y > menuText.y && FlxG.mouse.y < menuText.y + menuText.height;
+           FlxG.mouse.y > menuText.y;
   }
 }

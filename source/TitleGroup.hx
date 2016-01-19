@@ -14,6 +14,7 @@ import flixel.addons.effects.FlxWaveSprite;
 
 class TitleGroup extends FlxSpriteGroup {
   public var mainMenuGroup:MainMenuGroup;
+  public var optionsGroup:OptionsGroup;
 
   var title:FlxWaveSprite;
   var bg:FlxSprite;
@@ -26,6 +27,9 @@ class TitleGroup extends FlxSpriteGroup {
     mainMenuGroup.startGame = startGame;
     mainMenuGroup.showOptions = showOptions;
     mainMenuGroup.showCredits = showCredits;
+
+    optionsGroup = new OptionsGroup();
+    optionsGroup.showMainMenu = showMainMenu;
 
     bg = new FlxSprite();
     bg.makeGraphic(FlxG.width, FlxG.height, 0xff000000);
@@ -62,7 +66,16 @@ class TitleGroup extends FlxSpriteGroup {
     super.update(elapsed);
   }
 
-  function showOptions():Void {
+  function showMainMenu(index:Int = 1):Void {
+    optionsGroup.exists = false;
+    title.exists = true;
+    mainMenuGroup.initialize(index);
+  }
+
+  function showOptions(index:Int = 0):Void {
+    mainMenuGroup.exists = false;
+    title.exists = false;
+    optionsGroup.initialize(index);
   }
 
   function startGame():Void {

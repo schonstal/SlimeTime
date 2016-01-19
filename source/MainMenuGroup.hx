@@ -17,14 +17,14 @@ class MainMenuGroup extends FlxSpriteGroup {
   var selectedIndex:Int = 1;
 
   public var startGame:Void->Void;
-  public var showOptions:Void->Void;
+  public var showOptions:Int->Void;
   public var showCredits:Void->Void;
 
   public function new():Void {
     super();
 
     buttons = new Array<MainMenuButton>();
-    buttons[0] = new MainMenuButton("options", function() { showOptions(); });
+    buttons[0] = new MainMenuButton("options", function() { showOptions(0); });
     buttons[1] = new MainMenuButton("start", function() { startGame(); });
     buttons[2] = new MainMenuButton("credits", function() { showCredits(); });
 
@@ -32,6 +32,14 @@ class MainMenuGroup extends FlxSpriteGroup {
       buttons[i].x = (i + 1) * 80;
       add(buttons[i]);
     }
+  }
+
+  public function initialize(index:Int = 1):Void {
+    for (button in buttons) {
+      button.initialize();
+    }
+    selectedIndex = index;
+    exists = true;
   }
 
   public override function update(elapsed:Float):Void {

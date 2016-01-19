@@ -74,6 +74,15 @@ class EnemyLaserGroup extends FlxSpriteGroup {
     super.update(elapsed);
   }
 
+  public function stopShooting():Void {
+    duration = 0;
+
+    for(laserSprite in lasers.members) {
+      laserSprite.solid = false;
+      laserSprite.animation.play("fade");
+    }
+  }
+
   public function shoot(facing:Int, duration:Float):Void {
     this.duration = duration;
 
@@ -97,10 +106,7 @@ class EnemyLaserGroup extends FlxSpriteGroup {
           particleSprite.exists = false;
         }
 
-        for(laserSprite in lasers.members) {
-          laserSprite.solid = false;
-          laserSprite.animation.play("fade");
-        }
+        stopShooting();
 
         if (onCompleteCallback != null) onCompleteCallback();
       }
