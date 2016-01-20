@@ -3,14 +3,7 @@ package;
 import flixel.group.FlxSpriteGroup;
 import flixel.FlxSprite;
 import flixel.FlxG;
-import flixel.util.FlxTimer;
 import flixel.FlxObject;
-import flixel.util.FlxColor;
-import flixel.math.FlxVector;
-import flash.display.BlendMode;
-import flixel.tweens.FlxTween;
-import flixel.tweens.FlxEase;
-import flixel.addons.effects.FlxWaveSprite;
 
 class MainMenuGroup extends FlxSpriteGroup {
   var buttons:Array<MainMenuButton>;
