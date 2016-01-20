@@ -59,13 +59,13 @@ class OptionsGroup extends FlxSpriteGroup {
     buttons[selectedIndex].select();
 
     for (i in 0...buttons.length) {
-      if (buttons[i].overlapsMouse()) {
+      if (Reg.mouseSelect && buttons[i].overlapsMouse()) {
         selectedIndex = i;
         if (FlxG.mouse.justPressed) buttons[i].activate();
       }
       if (i == selectedIndex) {
         buttons[i].select();
-        if (FlxG.keys.justPressed.ENTER) buttons[i].activate();
+        if (FlxG.keys.justPressed.ENTER || FlxG.keys.justPressed.SPACE) buttons[i].activate();
       } else {
         buttons[i].deselect();
       }

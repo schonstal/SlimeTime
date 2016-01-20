@@ -11,16 +11,21 @@ import flash.display.BlendMode;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
 import flixel.addons.effects.FlxWaveSprite;
+import flixel.math.FlxPoint;
 
 class TitleGroup extends FlxSpriteGroup {
   public var mainMenuGroup:MainMenuGroup;
   public var optionsGroup:OptionsGroup;
+
+  var lastMousePosition:FlxPoint;
 
   var title:FlxWaveSprite;
   var bg:FlxSprite;
 
   public function new():Void {
     super();
+
+    lastMousePosition = FlxG.mouse.toPoint();
 
     mainMenuGroup = new MainMenuGroup();
     mainMenuGroup.visible = false;
@@ -60,7 +65,17 @@ class TitleGroup extends FlxSpriteGroup {
   }
 
   override public function update(elapsed:Float):Void {
-    if (FlxG.mouse.justPressed) {
+    var nextMousePosition = FlxG.mouse.toPoint();
+    if (!lastMousePosition.equals(nextMousePosition)) {
+      Reg.mouseSelect = true;
+    }
+    lastMousePosition.put();
+    lastMousePosition = nextMousePosition;
+
+    if (FlxG.keys.justPressed.UP || FlxG.keys.justPressed.DOWN ||
+        FlxG.keys.justPressed.LEFT || FlxG.keys.justPressed.RIGHT ||
+        FlxG.keys.justPressed.ENTER || FlxG.keys.justPressed.SPACE) {
+      Reg.mouseSelect = false;
     }
 
     super.update(elapsed);

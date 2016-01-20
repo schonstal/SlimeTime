@@ -26,5 +26,7 @@ class Reg {
   public static var score:Int;
   public static var combo:Int;
 
+  public static var mouseSelect:Bool = false;
+
   public static var TAU:Float = 6.28318530718;
 }
