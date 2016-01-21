@@ -16,8 +16,8 @@ class PipeButton extends MenuButton {
   var pipe:MenuPipe;
   var menuText:MenuText;
 
-  public function new(text:String, side:Int, onPress:Void->Void):Void {
-    super(onPress);
+  public function new(text:String, side:Int):Void {
+    super(null);
 
     menuText = new MenuText(text, false);
     menuText.y = 8;

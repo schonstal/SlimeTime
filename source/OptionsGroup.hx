@@ -18,6 +18,8 @@ class OptionsGroup extends FlxSpriteGroup {
   var selectedIndex:Int = 0;
   var optionsLabel:LabelText;
 
+  var toggles:Array<MenuToggle>;
+
   public var showMainMenu:Int->Void;
 
   public function new():Void {
@@ -31,20 +33,31 @@ class OptionsGroup extends FlxSpriteGroup {
     add(optionsLabel);
 
     buttons = new Array<MenuButton>();
-    buttons[0] = new PipeButton("volume", FlxObject.LEFT, function() { });
-    buttons[1] = new PipeButton("music", FlxObject.RIGHT, function() { });
-    buttons[2] = new PipeButton("invert x", FlxObject.LEFT, function() { });
+    buttons[0] = new PipeButton("mute", FlxObject.LEFT);
+    buttons[1] = new PipeButton("music", FlxObject.RIGHT);
+    buttons[2] = new PipeButton("invert x", FlxObject.LEFT);
 
     mainMenuButton = new MainMenuButton("main menu", function() { showMainMenu(0); });
     buttons[3] = mainMenuButton;
 
+    mainMenuButton.x = 161;
+    add(mainMenuButton);
+
+    toggles = new Array<MenuToggle>();
+    toggles[0] = new MenuBooleanToggle(false);
+    toggles[1] = new MenuBooleanToggle(true);
+    toggles[2] = new MenuBooleanToggle(false);
+
     for (i in 0...3) {
       buttons[i].y = i * 32 + 64;
-      add(buttons[i]);
-    }
+      buttons[i].x = -6;
 
-    mainMenuButton.x = 160;
-    add(mainMenuButton);
+      toggles[i].x = FlxG.width/2 + 6;
+      toggles[i].y = buttons[i].y + 12.5;
+
+      add(buttons[i]);
+      add(toggles[i]);
+    }
 
     exists = false;
   }
@@ -66,6 +79,9 @@ class OptionsGroup extends FlxSpriteGroup {
       if (i == selectedIndex) {
         buttons[i].select();
         if (FlxG.keys.justPressed.ENTER || FlxG.keys.justPressed.SPACE) buttons[i].activate();
+        if (FlxG.keys.justPressed.ENTER && i < toggles.length) toggles[i].activate();
+        if (FlxG.keys.justPressed.LEFT && i < toggles.length) toggles[i].decrement();
+        if (FlxG.keys.justPressed.RIGHT && i < toggles.length) toggles[i].increment();
       } else {
         buttons[i].deselect();
       }
