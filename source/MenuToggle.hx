@@ -10,7 +10,7 @@ class MenuToggle extends MenuButton {
     super(toggle);
   }
 
-  function toggle():Void {}
+  public function toggle():Void {}
 
   public function increment():Void { toggle(); }
   public function decrement():Void { toggle(); }

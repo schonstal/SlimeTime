@@ -15,6 +15,9 @@ class MenuText extends FlxBitmapText {
   var activeTween:FlxTween;
   var scales:Bool = true;
 
+  public var selectedColor:Int = 0xffffffff;
+  public var deselectedColor:Int = 0xff9777a1;
+
   public function new(content:String, scale:Bool = true):Void {
     var font = FlxBitmapFont.fromMonospace(
       "assets/images/fonts/alphabetRed.png",
@@ -40,9 +43,10 @@ class MenuText extends FlxBitmapText {
   }
 
   public function select():Void {
+    color = selectedColor;
+
     if (selected) return;
     selected = true;
-    color = 0xffffffff;
 
     if (scales) {
       if (activeTween != null) activeTween.cancel();
@@ -54,9 +58,10 @@ class MenuText extends FlxBitmapText {
   }
 
   public function deselect():Void {
+    color = deselectedColor;
+
     if (!selected) return;
     selected = false;
-    color = 0xff9777a1;
 
     if (scales) {
       if (activeTween != null) activeTween.cancel();

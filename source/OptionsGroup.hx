@@ -33,7 +33,7 @@ class OptionsGroup extends FlxSpriteGroup {
     add(optionsLabel);
 
     buttons = new Array<MenuButton>();
-    buttons[0] = new PipeButton("mute", FlxObject.LEFT);
+    buttons[0] = new PipeButton("volume", FlxObject.LEFT);
     buttons[1] = new PipeButton("music", FlxObject.RIGHT);
     buttons[2] = new PipeButton("invert x", FlxObject.LEFT);
 
@@ -44,8 +44,8 @@ class OptionsGroup extends FlxSpriteGroup {
     add(mainMenuButton);
 
     toggles = new Array<MenuToggle>();
-    toggles[0] = new MenuBooleanToggle(false);
-    toggles[1] = new MenuBooleanToggle(true);
+    toggles[0] = new MenuSliderToggle();
+    toggles[1] = new MenuSliderToggle();
     toggles[2] = new MenuBooleanToggle(false);
 
     for (i in 0...3) {
@@ -74,15 +74,20 @@ class OptionsGroup extends FlxSpriteGroup {
     for (i in 0...buttons.length) {
       if (Reg.mouseSelect && buttons[i].overlapsMouse()) {
         selectedIndex = i;
-        if (FlxG.mouse.justPressed) buttons[i].activate();
+        if (FlxG.mouse.justPressed) {
+          buttons[i].activate();
+          if (i < toggles.length) toggles[i].activate();
+        }
       }
       if (i == selectedIndex) {
+        if (i < toggles.length) toggles[i].select();
         buttons[i].select();
         if (FlxG.keys.justPressed.ENTER || FlxG.keys.justPressed.SPACE) buttons[i].activate();
-        if (FlxG.keys.justPressed.ENTER && i < toggles.length) toggles[i].activate();
+        if (FlxG.keys.justPressed.ENTER && i < toggles.length) toggles[i].toggle();
         if (FlxG.keys.justPressed.LEFT && i < toggles.length) toggles[i].decrement();
         if (FlxG.keys.justPressed.RIGHT && i < toggles.length) toggles[i].increment();
       } else {
+        if (i < toggles.length) toggles[i].deselect();
         buttons[i].deselect();
       }
     }
