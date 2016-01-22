@@ -50,6 +50,10 @@ class MenuSliderToggle extends MenuToggle {
     value = defaultValue;
   }
 
+#if flash
+  // Flash does not scale cleanly
+  @:access(FlxSprite._flashRect)
+#end
   public override function update(elapsed:Float):Void {
     super.update(elapsed);
 
@@ -60,8 +64,12 @@ class MenuSliderToggle extends MenuToggle {
     if (value < 0) value = 0;
     if (value > 1) value = 1;
 
+#if flash
+    sliderBar._flashRect.setTo(0, 0, Std.int(sliderBar.width * value), 4);
+#else
     sliderBar.scale.x = value;
     sliderBar.x = x - (sliderBar.width * (1 - value))/2 + 1;
+#end
 
     sliderHandle.x = x + sliderBar.width * value - sliderHandle.width/2 + 1;
     sliderHandleBorder.x = sliderHandle.x - 1;
