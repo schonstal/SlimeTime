@@ -30,7 +30,7 @@ class MenuSliderToggle extends MenuToggle {
     sliderInnerBar.makeGraphic(Std.int(sliderBar.width), Std.int(sliderBar.height), 0xff332c39);
 
     sliderBarBorder = new FlxSprite();
-    sliderBarBorder.makeGraphic(Std.int(sliderBar.width) + 2, Std.int(sliderBar.height) + 2, 0xff000000);
+    sliderBarBorder.makeGraphic(Std.int(sliderBar.width) + 1, Std.int(sliderBar.height) + 3, 0xff000000);
     sliderBarBorder.y = 1;
 
     add(sliderBarBorder);
@@ -41,7 +41,7 @@ class MenuSliderToggle extends MenuToggle {
     sliderHandle.makeGraphic(4, 8, 0xffffffff);
 
     sliderHandleBorder = new FlxSprite();
-    sliderHandleBorder.makeGraphic(Std.int(sliderHandle.width) + 2, Std.int(sliderHandle.height) + 2, 0xff000000);
+    sliderHandleBorder.makeGraphic(Std.int(sliderHandle.width) + 2, Std.int(sliderHandle.height) + 3, 0xff000000);
     sliderHandleBorder.y = -1;
 
     add(sliderHandleBorder);
