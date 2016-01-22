@@ -23,8 +23,8 @@ class MenuBooleanToggle extends MenuToggle {
     offText.x = onText.width + 8;
     add(offText);
 
+    onText.deselectedColor = offText.deselectedColor = 0xff332c39;
     onText.selectedColor = offText.selectedColor = 0xff9777a1;
-    onText.deselectedColor = offText.deselectedColor = 0xff000000;
   }
 
   public override function update(elapsed:Float):Void {
@@ -49,12 +49,10 @@ class MenuBooleanToggle extends MenuToggle {
 
   public override function onSelect():Void {
     onText.selectedColor = offText.selectedColor = 0xffffffff;
-    onText.deselectedColor = offText.deselectedColor = 0xff9777a1;
   }
 
   public override function onDeselect():Void {
     onText.selectedColor = offText.selectedColor = 0xff9777a1;
-    onText.deselectedColor = offText.deselectedColor = 0xff000000;
   }
 
   public override function activate():Void {

@@ -12,6 +12,8 @@ class MenuSliderToggle extends MenuToggle {
   var sliderBar:FlxSprite;
   var sliderBarBorder:FlxSprite;
 
+  var sliderInnerBar:FlxSprite;
+
   var sliderHandle:FlxSprite;
   var sliderHandleBorder:FlxSprite;
 
@@ -20,14 +22,19 @@ class MenuSliderToggle extends MenuToggle {
 
     sliderBar = new FlxSprite();
     sliderBar.y = 2;
-    sliderBar.makeGraphic(48, 4, 0xffffffff);
+    sliderBar.x = 1;
+    sliderBar.makeGraphic(44, 4, 0xffffffff);
+
+    sliderInnerBar = new FlxSprite();
+    sliderInnerBar.y = 2;
+    sliderInnerBar.makeGraphic(Std.int(sliderBar.width), Std.int(sliderBar.height), 0xff332c39);
 
     sliderBarBorder = new FlxSprite();
     sliderBarBorder.makeGraphic(Std.int(sliderBar.width) + 2, Std.int(sliderBar.height) + 2, 0xff000000);
-    sliderBarBorder.x = -1;
     sliderBarBorder.y = 1;
 
     add(sliderBarBorder);
+    add(sliderInnerBar);
     add(sliderBar);
 
     sliderHandle = new FlxSprite();
@@ -54,9 +61,9 @@ class MenuSliderToggle extends MenuToggle {
     if (value > 1) value = 1;
 
     sliderBar.scale.x = value;
-    sliderBar.x = x - (sliderBar.width * (1 - value))/2;
+    sliderBar.x = x - (sliderBar.width * (1 - value))/2 + 1;
 
-    sliderHandle.x = x + sliderBar.width * value - sliderHandle.width/2;
+    sliderHandle.x = x + sliderBar.width * value - sliderHandle.width/2 + 1;
     sliderHandleBorder.x = sliderHandle.x - 1;
   }
   
