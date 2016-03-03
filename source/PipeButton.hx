@@ -10,7 +10,6 @@ import flixel.math.FlxVector;
 import flash.display.BlendMode;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
-import flixel.addons.effects.FlxWaveSprite;
 
 class PipeButton extends MenuButton {
   var pipe:MenuPipe;

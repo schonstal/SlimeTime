@@ -10,7 +10,8 @@ import flixel.math.FlxVector;
 import flash.display.BlendMode;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
-import flixel.addons.effects.FlxWaveSprite;
+import flixel.addons.effects.chainable.FlxWaveEffect;
+import flixel.addons.effects.chainable.FlxEffectSprite;
 import flixel.math.FlxPoint;
 
 class TitleGroup extends FlxSpriteGroup {
@@ -19,13 +20,14 @@ class TitleGroup extends FlxSpriteGroup {
 
   var lastMousePosition:FlxPoint;
 
-  var title:FlxWaveSprite;
+  var title:FlxEffectSprite;
+  var waveEffect:FlxWaveEffect;
   var bg:FlxSprite;
 
   public function new():Void {
     super();
 
-    lastMousePosition = FlxG.mouse.toPoint();
+    lastMousePosition = FlxG.mouse.getWorldPosition();
 
     mainMenuGroup = new MainMenuGroup();
     mainMenuGroup.visible = false;
@@ -42,21 +44,22 @@ class TitleGroup extends FlxSpriteGroup {
 
     var titleTemplate = new FlxSprite();
     titleTemplate.loadGraphic("assets/images/logo.png");
-    titleTemplate.x = FlxG.width/2 - titleTemplate.width/2;
-    titleTemplate.y = 32;
 
-    title = new FlxWaveSprite(titleTemplate, FlxWaveMode.START, 0, -1, 3, 7);
+    title = new FlxEffectSprite(titleTemplate);
+    title.x = FlxG.width/2 - titleTemplate.width/2;
+    title.y = 32;
+    title.scale.y = 0;
+
+    waveEffect = new FlxWaveEffect(FlxWaveMode.START, 0, -1, 3, 7);
+    waveEffect.center = Std.int(titleTemplate.height) * 2;
+    waveEffect.strength = 400;
+    waveEffect.speed = 50;
+    title.effects = [waveEffect];
+
     add(title);
 
-    title.center = Std.int(titleTemplate.height) * 2;
-    title.scale.y = 0;
-
-    title.strength = 400;
-    title.speed = 50;
-    title.scale.y = 0;
-
     FlxTween.tween(title.scale, { y: 1 }, 1, { ease: FlxEase.quadOut, onComplete: function(t) {
-      FlxTween.tween(title, { strength: 0, speed: 25 }, 1, { ease: FlxEase.quartOut, onComplete: function(t) {
+      FlxTween.tween(waveEffect, { strength: 0, speed: 25 }, 1, { ease: FlxEase.quartOut, onComplete: function(t) {
         FlxG.camera.flash();
         bg.visible = false;
         mainMenuGroup.visible = true;
@@ -65,7 +68,7 @@ class TitleGroup extends FlxSpriteGroup {
   }
 
   override public function update(elapsed:Float):Void {
-    var nextMousePosition = FlxG.mouse.toPoint();
+    var nextMousePosition = FlxG.mouse.getWorldPosition();
     if (!lastMousePosition.equals(nextMousePosition)) {
       Reg.mouseSelect = true;
     }

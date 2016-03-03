@@ -10,7 +10,6 @@ import flixel.math.FlxVector;
 import flash.display.BlendMode;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
-import flixel.addons.effects.FlxWaveSprite;
 
 class MainMenuButton extends MenuButton {
   var belcher:MenuBelcher;

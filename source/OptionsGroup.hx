@@ -10,7 +10,7 @@ import flixel.math.FlxVector;
 import flash.display.BlendMode;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
-import flixel.addons.effects.FlxWaveSprite;
+import flixel.addons.effects.chainable.FlxWaveEffect;
 
 class OptionsGroup extends FlxSpriteGroup {
   var buttons:Array<MenuButton>;
