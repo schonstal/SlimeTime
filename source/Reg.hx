@@ -27,6 +27,7 @@ class Reg {
   public static var combo:Int;
 
   public static var mouseSelect:Bool = false;
+  public static var mouseLockY:Float = 0;
 
   public static var TAU:Float = 6.28318530718;
 }

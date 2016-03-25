@@ -56,8 +56,11 @@ class MenuSliderToggle extends MenuToggle {
 #end
   public override function update(elapsed:Float):Void {
     super.update(elapsed);
+    if (FlxG.mouse.y > y - 4 && FlxG.mouse.y < y + 12 && FlxG.mouse.pressed && Reg.mouseLockY == 0) {
+      Reg.mouseLockY = FlxG.mouse.y;
+    }
 
-    if(FlxG.mouse.y > y - 4 && FlxG.mouse.y < y + 12 && FlxG.mouse.pressed) {
+    if (Reg.mouseLockY > y - 4 && Reg.mouseLockY < y + 12 && FlxG.mouse.pressed) {
       value = (FlxG.mouse.x - x) / sliderBar.width;
     }
 

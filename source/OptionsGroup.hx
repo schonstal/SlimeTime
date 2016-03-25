@@ -22,6 +22,8 @@ class OptionsGroup extends FlxSpriteGroup {
 
   public var showMainMenu:Int->Void;
 
+  public var mouseLocked:Bool = false;
+
   public function new():Void {
     super();
 
@@ -70,6 +72,11 @@ class OptionsGroup extends FlxSpriteGroup {
 
   public override function update(elapsed:Float):Void {
     buttons[selectedIndex].select();
+    if (!FlxG.mouse.pressed) Reg.mouseLockY = 0;
+    if (Reg.mouseLockY > 0) {
+      super.update(elapsed);
+      return;
+    }
 
     for (i in 0...buttons.length) {
       if (Reg.mouseSelect && buttons[i].overlapsMouse()) {
