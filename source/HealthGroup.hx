@@ -11,7 +11,7 @@ import flixel.math.FlxVector;
 import flixel.math.FlxMath;
 
 class HealthGroup extends FlxSpriteGroup {
-  var spawnTimer:Float = 1;
+  var spawnTimer:Float = 10;
   var particles:FlxSpriteGroup;
   var healthSprite:Health;
 
