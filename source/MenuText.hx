@@ -19,11 +19,18 @@ class MenuText extends FlxBitmapText {
   public var deselectedColor:Int = 0xff9777a1;
 
   public function new(content:String, scale:Bool = true):Void {
-    var font = FlxBitmapFont.fromMonospace(
-      "assets/images/fonts/alphabetRed.png",
-      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
-      new FlxPoint(8, 9)
+#if html5
+    var font = FlxBitmapFont.fromXNA(
+      "assets/images/fonts/alphabetXNA-WebGL.png",
+      "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     );
+#else
+    var font = FlxBitmapFont.fromXNA(
+      "assets/images/fonts/alphabetXNA.png",
+      "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      0xff33ff33
+    );
+#end
 
     super(font);
 
