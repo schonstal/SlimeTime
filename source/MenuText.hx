@@ -22,12 +22,12 @@ class MenuText extends FlxBitmapText {
 #if html5
     var font = FlxBitmapFont.fromXNA(
       "assets/images/fonts/alphabetXNA-WebGL.png",
-      "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+      "abcdefghijklmnopqrstuvwxyz? ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     );
 #else
     var font = FlxBitmapFont.fromXNA(
       "assets/images/fonts/alphabetXNA.png",
-      "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      "abcdefghijklmnopqrstuvwxyz? ABCDEFGHIJKLMNOPQRSTUVWXYZ",
       0xff33ff33
     );
 #end

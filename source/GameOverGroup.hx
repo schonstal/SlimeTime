@@ -62,7 +62,12 @@ class GameOverGroup extends FlxSpriteGroup {
     if (FlxG.keys.justPressed.UP || FlxG.keys.justPressed.DOWN) FlxG.switchState(new PlayState());
 
     scoreText.text = "" + Reg.score;
-    highScoreText.text = "" + FlxG.save.data.highScore;
+
+    if (Reg.hardMode) {
+      highScoreText.text = "" + FlxG.save.data.hardHighScore;
+    } else {
+      highScoreText.text = "" + FlxG.save.data.highScore;
+    }
 
     var X:Float = scoreText.width > highScoreText.width ? scoreText.width : highScoreText.width;
     scoreText.x = FlxG.width/2 - X/2;

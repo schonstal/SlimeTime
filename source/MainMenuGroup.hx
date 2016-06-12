@@ -11,7 +11,7 @@ class MainMenuGroup extends FlxSpriteGroup {
 
   public var startGame:Void->Void;
   public var showOptions:Int->Void;
-  public var showCredits:Void->Void;
+  public var startHardMode:Void->Void;
 
   public function new():Void {
     super();
@@ -19,7 +19,7 @@ class MainMenuGroup extends FlxSpriteGroup {
     buttons = new Array<MainMenuButton>();
     buttons[0] = new MainMenuButton("options", function() { showOptions(0); });
     buttons[1] = new MainMenuButton("start", function() { startGame(); });
-    buttons[2] = new MainMenuButton("credits", function() { showCredits(); });
+    buttons[2] = new MainMenuButton("?????", function() { startHardMode(); });
 
     for (i in (0...3)) {
       buttons[i].x = (i + 1) * 80;

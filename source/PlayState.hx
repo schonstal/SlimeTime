@@ -171,8 +171,7 @@ class PlayState extends FlxState
 
     level.collideWithLevel(player);
 
-    if (Reg.started) Reg.difficulty = Reg.score/50000;
-    if (Reg.difficulty >= 1) Reg.difficulty = 1;
+    updateDifficulty();
 
     FlxG.overlap(slime, enemyProjectileGroup, Projectile.handleCollision);
     FlxG.overlap(slime, playerProjectileGroup, Projectile.handleCollision);
@@ -221,7 +220,21 @@ class PlayState extends FlxState
     });
     if (laserSprite != null) laserSprite.solid = false;
 
-    if (FlxG.save.data.highScore == null) FlxG.save.data.highScore = 0;
-    if (Reg.score > FlxG.save.data.highScore) FlxG.save.data.highScore = Reg.score;
+    recordHighScores();
+  }
+
+  private function updateDifficulty():Void {
+    if (Reg.started) Reg.difficulty = Reg.score/50000;
+    if (Reg.difficulty >= 1 || Reg.hardMode) Reg.difficulty = 1;
+  }
+
+  private function recordHighScores():Void {
+    if (Reg.hardMode) {
+      if (FlxG.save.data.hardHighScore == null) FlxG.save.data.hardHighScore = 0;
+      if (Reg.score > FlxG.save.data.hardHighScore) FlxG.save.data.hardHighScore = Reg.score;
+    } else {
+      if (FlxG.save.data.highScore == null) FlxG.save.data.highScore = 0;
+      if (Reg.score > FlxG.save.data.highScore) FlxG.save.data.highScore = Reg.score;
+    }
   }
 }

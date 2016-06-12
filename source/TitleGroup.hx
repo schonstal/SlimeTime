@@ -33,7 +33,7 @@ class TitleGroup extends FlxSpriteGroup {
     mainMenuGroup.visible = false;
     mainMenuGroup.startGame = startGame;
     mainMenuGroup.showOptions = showOptions;
-    mainMenuGroup.showCredits = showCredits;
+    mainMenuGroup.startHardMode = startHardMode;
 
     optionsGroup = new OptionsGroup();
     optionsGroup.showMainMenu = showMainMenu;
@@ -103,6 +103,8 @@ class TitleGroup extends FlxSpriteGroup {
     FlxG.mouse.visible = false;
   }
 
-  function showCredits():Void {
+  function startHardMode():Void {
+    Reg.hardMode = true;
+    startGame();
   }
 }
