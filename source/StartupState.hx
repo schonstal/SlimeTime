@@ -19,6 +19,7 @@ class StartupState extends FlxState
     super.create();
     FlxG.mouse.useSystemCursor = true;
     FlxG.sound.muteKeys = null;
+    if (FlxG.save.data.invertControls == null) FlxG.save.data.invertControls = true;
 
     bg = new FlxSprite();
     bg.makeGraphic(FlxG.width, FlxG.height, 0xff000000);

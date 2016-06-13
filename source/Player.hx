@@ -224,31 +224,35 @@ class Player extends Enemy //YOU ARE THE MONSTER
   }
 
   private function justPressed(action:String):Bool {
-    switch(action) {
-      case "jump":
-        return FlxG.keys.justPressed.S || FlxG.keys.justPressed.DOWN || FlxG.keys.justPressed.W ||
-               FlxG.keys.justPressed.UP || FlxG.keys.justPressed.SPACE;
-      case "left":
-        return FlxG.keys.justPressed.LEFT || FlxG.keys.justPressed.A;
-      case "right":
-        return FlxG.keys.justPressed.RIGHT || FlxG.keys.justPressed.D;
-      case "direction":
-        return justPressed("left") || justPressed("right");
+    if (action == "jump") {
+      return FlxG.keys.justPressed.S || FlxG.keys.justPressed.DOWN || FlxG.keys.justPressed.W ||
+             FlxG.keys.justPressed.UP || FlxG.keys.justPressed.SPACE;
+    }
+    if (action == (FlxG.save.data.invertControls ? "left" : "right")) {
+      return FlxG.keys.justPressed.LEFT || FlxG.keys.justPressed.A;
+    }
+    if (action == (FlxG.save.data.invertControls ? "right" : "left")) {
+      return FlxG.keys.justPressed.RIGHT || FlxG.keys.justPressed.D;
+    }
+    if (action == "direction") {
+      return justPressed("left") || justPressed("right");
     }
     return false;
   }
 
   private function pressed(action:String):Bool {
-    switch(action) {
-      case "jump":
-        return FlxG.keys.pressed.S || FlxG.keys.pressed.DOWN || FlxG.keys.pressed.W ||
-               FlxG.keys.pressed.UP || FlxG.keys.pressed.SPACE;
-      case "left":
-        return FlxG.keys.pressed.LEFT || FlxG.keys.pressed.A;
-      case "right":
-        return FlxG.keys.pressed.RIGHT || FlxG.keys.pressed.D;
-      case "direction":
-        return pressed("left") || pressed("right");
+    if (action == "jump") {
+      return FlxG.keys.pressed.S || FlxG.keys.justPressed.DOWN || FlxG.keys.justPressed.W ||
+             FlxG.keys.pressed.UP || FlxG.keys.justPressed.SPACE;
+    }
+    if (action == (FlxG.save.data.invertControls ? "left" : "right")) {
+      return FlxG.keys.pressed.LEFT || FlxG.keys.justPressed.A;
+    }
+    if (action == (FlxG.save.data.invertControls ? "right" : "left")) {
+      return FlxG.keys.pressed.RIGHT || FlxG.keys.justPressed.D;
+    }
+    if (action == "direction") {
+      return pressed("left") || justPressed("right");
     }
     return false;
   }

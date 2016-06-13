@@ -6,15 +6,23 @@ import flixel.FlxG;
 import flixel.FlxObject;
 
 class MenuBooleanToggle extends MenuToggle {
-  var value:Bool = true;
+  var value(get, set):Bool;
+  var _value:Bool = true;
 
   var onText:MenuText;
   var offText:MenuText;
 
-  public function new(defaultValue:Bool = true):Void {
-    super();
+  public function get_value():Bool {
+    return _value;
+  }
 
-    value = defaultValue;
+  public function set_value(v:Bool):Bool {
+    _value = v;
+    return v;
+  }
+
+  public function new():Void {
+    super();
 
     onText = new MenuText("on", false);
     add(onText);
@@ -29,7 +37,7 @@ class MenuBooleanToggle extends MenuToggle {
 
   public override function update(elapsed:Float):Void {
     super.update(elapsed);
-    
+
     if (value) {
       onText.select();
       offText.deselect();
@@ -38,13 +46,15 @@ class MenuBooleanToggle extends MenuToggle {
       onText.deselect();
     }
   }
-  
+
   public override function decrement():Void {
     value = true;
+    FlxG.sound.play("assets/sounds/enemyHurt.wav");
   }
 
   public override function increment():Void {
     value = false;
+    FlxG.sound.play("assets/sounds/enemyHurt.wav");
   }
 
   public override function onSelect():Void {
@@ -60,6 +70,7 @@ class MenuBooleanToggle extends MenuToggle {
   }
 
   public override function toggle():Void {
+    FlxG.sound.play("assets/sounds/enemyHurt.wav");
     value = !value;
   }
 }
