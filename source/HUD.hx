@@ -91,7 +91,6 @@ class HUD extends FlxSpriteGroup {
       comboText.visible = false;
       maxCombo.visible = false;
     }
- 
 
     var width:Int = Std.int((healthBarBackground.width - 8) * Reg.player.health/100);
     if (Reg.player.health != previousHealth && width > 0) {

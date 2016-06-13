@@ -10,11 +10,12 @@ import flixel.math.FlxPoint;
 class GameOverGroup extends FlxSpriteGroup {
   var scoreText:FlxBitmapText;
   var highScoreText:FlxBitmapText;
-  var restartText:LabelText;
 
   var scoreLabel:FlxSprite;
   var highScoreLabel:FlxSprite;
   var gameOverSprite:FlxSprite;
+
+  var restartButtons:RestartButtonGroup;
 
   public function new():Void {
     super();
@@ -29,12 +30,11 @@ class GameOverGroup extends FlxSpriteGroup {
     gameOverSprite.loadGraphic("assets/images/gameOver.png");
     add(gameOverSprite);
 
-    restartText = new LabelText("LASER to try again");
-    restartText.x = FlxG.width/2 - restartText.width/2;
-    restartText.y = FlxG.height - FlxG.height/3;
-    add(restartText);
+    restartButtons = new RestartButtonGroup();
+    restartButtons.exists = true;
+    add(restartButtons);
 
-    scoreLabel = new FlxSprite(4, 88);
+    scoreLabel = new FlxSprite(4, 94);
     scoreLabel.loadGraphic("assets/images/scoreFinal.png");
     add(scoreLabel);
 
@@ -42,10 +42,10 @@ class GameOverGroup extends FlxSpriteGroup {
     scoreText.letterSpacing = -2;
     scoreText.text = "0";
     scoreText.x = 4;
-    scoreText.y = 94;
+    scoreText.y = scoreLabel.y + 6;
     add(scoreText);
 
-    highScoreLabel = new FlxSprite(0, 116);
+    highScoreLabel = new FlxSprite(0, scoreText.y + 20);
     highScoreLabel.loadGraphic("assets/images/best.png");
     highScoreLabel.x = FlxG.width/2 - highScoreLabel.width/2;
     add(highScoreLabel);
@@ -54,13 +54,11 @@ class GameOverGroup extends FlxSpriteGroup {
     highScoreText.letterSpacing = -2;
     highScoreText.text = "0";
     highScoreText.x = FlxG.width/2 - 8;
-    highScoreText.y = 122;
+    highScoreText.y = highScoreLabel.y + 6;
     add(highScoreText);
   }
 
   public override function update(elapsed:Float):Void {
-    if (FlxG.keys.justPressed.UP || FlxG.keys.justPressed.DOWN) FlxG.switchState(new PlayState());
-
     scoreText.text = "" + Reg.score;
 
     if (Reg.hardMode) {
