@@ -30,7 +30,7 @@ class TitleGroup extends FlxSpriteGroup {
     optionsGroup = new OptionsGroup();
     optionsGroup.showMainMenu = showMainMenu;
 
-    var title = new FlxSprite();
+    title = new FlxSprite();
     title.loadGraphic("assets/images/logo.png");
     title.x = FlxG.width/2 - title.width/2;
     title.y = 32;
