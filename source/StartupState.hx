@@ -18,6 +18,7 @@ class StartupState extends FlxState
   override public function create():Void {
     super.create();
     FlxG.mouse.useSystemCursor = true;
+    FlxG.sound.muteKeys = null;
 
     bg = new FlxSprite();
     bg.makeGraphic(FlxG.width, FlxG.height, 0xff000000);

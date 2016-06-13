@@ -6,7 +6,9 @@ import flixel.FlxG;
 import flixel.FlxObject;
 
 class MenuSliderToggle extends MenuToggle {
-  var value:Float = 0.7;
+  var value(get, set):Float;
+  var _value:Float = 0;
+
   var previousValue:Float = 0;
 
   var sliderBar:FlxSprite;
@@ -16,6 +18,15 @@ class MenuSliderToggle extends MenuToggle {
 
   var sliderHandle:FlxSprite;
   var sliderHandleBorder:FlxSprite;
+
+  public function get_value():Float {
+    return _value;
+  }
+
+  public function set_value(v:Float):Float {
+    _value = v;
+    return v;
+  }
 
   public function new(defaultValue:Float = 0.7):Void {
     super();

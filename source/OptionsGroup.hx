@@ -46,7 +46,7 @@ class OptionsGroup extends FlxSpriteGroup {
     add(mainMenuButton);
 
     toggles = new Array<MenuToggle>();
-    toggles[0] = new MenuSliderToggle();
+    toggles[0] = new VolumeSliderToggle();
     toggles[1] = new MenuSliderToggle();
     toggles[2] = new MenuBooleanToggle(false);
 
