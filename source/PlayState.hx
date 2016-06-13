@@ -9,6 +9,7 @@ import flixel.math.FlxRandom;
 import flixel.util.FlxTimer;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
+import flixel.math.FlxPoint;
 
 class PlayState extends FlxState
 {
@@ -39,17 +40,20 @@ class PlayState extends FlxState
   var slime:Slime;
   var hud:HUD;
 
+  var lastMousePosition:FlxPoint;
+
   override public function create():Void {
     super.create();
     FlxG.timeScale = 1;
-    if (Reg.initialized) {
-      FlxG.camera.flash(0xffffffff, 1);
-    }
+    FlxG.camera.flash(0xffffffff, 1);
+
     Reg.random = new FlxRandom();
     Reg.started = false;
     Reg.difficulty = 0;
     Reg.score = 0;
     Reg.combo = 0;
+
+    lastMousePosition = FlxG.mouse.getWorldPosition();
 
     playerProjectileGroup = new FlxSpriteGroup();
     playerLaserGroup = new FlxSpriteGroup();
@@ -121,6 +125,8 @@ class PlayState extends FlxState
 
     add(titleGroup);
 
+    lastMousePosition = FlxG.mouse.getWorldPosition();
+
     add(playerProjectileGroup);
     add(enemyProjectileGroup);
 
@@ -137,7 +143,6 @@ class PlayState extends FlxState
 
     //DEBUGGER
     FlxG.debugger.drawDebug = true;
-    FlxG.mouse.useSystemCursor = true;
   }
 
   override public function destroy():Void {
@@ -168,6 +173,8 @@ class PlayState extends FlxState
     }
 
     super.update(elapsed);
+
+    enableMouseInput();
 
     level.collideWithLevel(player);
 
@@ -221,6 +228,22 @@ class PlayState extends FlxState
     if (laserSprite != null) laserSprite.solid = false;
 
     recordHighScores();
+  }
+
+  private function enableMouseInput():Void {
+    var nextMousePosition = FlxG.mouse.getWorldPosition();
+    if (!lastMousePosition.equals(nextMousePosition)) {
+      Reg.mouseSelect = true;
+    }
+
+    lastMousePosition.put();
+    lastMousePosition = nextMousePosition;
+
+    if (FlxG.keys.justPressed.UP || FlxG.keys.justPressed.DOWN ||
+        FlxG.keys.justPressed.LEFT || FlxG.keys.justPressed.RIGHT ||
+        FlxG.keys.justPressed.ENTER || FlxG.keys.justPressed.SPACE) {
+      Reg.mouseSelect = false;
+    }
   }
 
   private function updateDifficulty():Void {
