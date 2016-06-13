@@ -53,10 +53,11 @@ class TitleGroup extends FlxSpriteGroup {
     exists = false;
     mainMenuGroup.exists = false;
     Reg.initialized = true;
+    Reg.hardMode = false;
   }
 
   function startHardMode():Void {
-    Reg.hardMode = true;
     startGame();
+    Reg.hardMode = true;
   }
 }
