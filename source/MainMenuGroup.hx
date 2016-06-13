@@ -16,6 +16,8 @@ class MainMenuGroup extends FlxSpriteGroup {
   public function new():Void {
     super();
 
+    if (Reg.hardMode) selectedIndex = 2;
+
     buttons = new Array<MainMenuButton>();
     buttons[0] = new MainMenuButton("options", function() { showOptions(0); });
     buttons[1] = new MainMenuButton("start", function() { startGame(); });
