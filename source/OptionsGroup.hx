@@ -17,6 +17,7 @@ class OptionsGroup extends FlxSpriteGroup {
   var mainMenuButton:MainMenuButton;
   var selectedIndex:Int = 0;
   var optionsLabel:LabelText;
+  var initialized:Bool = false;
 
   var toggles:Array<MenuToggle>;
 
@@ -39,7 +40,10 @@ class OptionsGroup extends FlxSpriteGroup {
     buttons[1] = new PipeButton("music", FlxObject.RIGHT);
     buttons[2] = new PipeButton("invert x", FlxObject.LEFT);
 
-    mainMenuButton = new MainMenuButton("main menu", function() { showMainMenu(0); });
+    mainMenuButton = new MainMenuButton("main menu", function() {
+      initialized = false;
+      showMainMenu(0);
+    });
     buttons[3] = mainMenuButton;
 
     mainMenuButton.x = 161;
@@ -72,6 +76,13 @@ class OptionsGroup extends FlxSpriteGroup {
 
   public override function update(elapsed:Float):Void {
     buttons[selectedIndex].select();
+
+    if (!initialized) {
+      initialized = true;
+      super.update(elapsed);
+      return;
+    }
+
     if (!FlxG.mouse.pressed) Reg.mouseLockY = 0;
     if (Reg.mouseLockY > 0) {
       super.update(elapsed);
