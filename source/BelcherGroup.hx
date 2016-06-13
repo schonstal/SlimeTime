@@ -8,24 +8,40 @@ import flixel.FlxObject;
 
 import flixel.math.FlxVector;
 import flixel.math.FlxMath;
+import flixel.math.FlxRandom;
 
 class BelcherGroup extends FlxSpriteGroup {
   var spawnTimer:Float = 1;
+  var availableSlots:Array<Int> = [];
+  var random:FlxRandom;
 
   public function new() {
     super();
+    random = new FlxRandom();
+    availableSlots = [for (i in (16...(FlxG.width - 80))) if (i % 16 == 0) i];
+    availableSlots = random.shuffleArray(availableSlots, 100);
   }
 
   override public function update(elapsed:Float):Void {
     if (Reg.started && Reg.difficulty >= 0.05) {
       spawnTimer -= elapsed;
       if (spawnTimer < 0) {
+        if (availableSlots.length < 1) {
+          super.update(elapsed);
+          return;
+        }
         spawnTimer = Reg.random.float(
-          FlxMath.lerp(5, 4, Reg.difficulty),
-          FlxMath.lerp(8, 6, Reg.difficulty)
+          FlxMath.lerp(5, 2, Reg.difficulty),
+          FlxMath.lerp(8, 4, Reg.difficulty)
         );
         var g = recycle(Belcher);
-        cast(g, Belcher).spawn();
+        var belcher = cast(g, Belcher);
+        belcher.spawn();
+        belcher.x = availableSlots.pop();
+        belcher.onDeath = function() {
+          availableSlots.push(Std.int(belcher.x));
+          availableSlots = random.shuffleArray(availableSlots, 100);
+        }
         add(g);
       }
     }

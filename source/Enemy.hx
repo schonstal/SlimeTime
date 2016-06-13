@@ -22,6 +22,8 @@ class Enemy extends FlxSprite {
   var explosionOffset:FlxPoint;
   var explosionCount:Int = 1;
 
+  public var onDeath:Void->Void;
+
   public function new() {
     super();
     health = 5;
@@ -65,6 +67,7 @@ class Enemy extends FlxSprite {
 
   function die():Void {
     exists = false;
+    if (onDeath != null) onDeath();
   }
 
   public function flash():Void {

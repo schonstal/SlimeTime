@@ -44,7 +44,6 @@ class Belcher extends Enemy {
     height = 32;
     offset.y = 32;
     y = FlxG.height;
-    x = Reg.random.int(16, FlxG.width - 80);
     tweenIn();
   }
 
