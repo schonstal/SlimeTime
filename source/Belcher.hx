@@ -38,7 +38,7 @@ class Belcher extends Enemy {
     super.spawn();
 
     animation.play("shoot", true);
-    health = 100;
+    health = 80;
     shootTimer = 2;
 
     height = 32;
