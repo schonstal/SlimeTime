@@ -31,7 +31,7 @@ class BelcherGroup extends FlxSpriteGroup {
           return;
         }
         spawnTimer = Reg.random.float(
-          FlxMath.lerp(5, 2, Reg.difficulty),
+          FlxMath.lerp(5, 3, Reg.difficulty),
           FlxMath.lerp(8, 4, Reg.difficulty)
         );
         var g = recycle(Belcher);
