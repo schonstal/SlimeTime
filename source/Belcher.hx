@@ -25,7 +25,7 @@ class Belcher extends Enemy {
     animation.callback = onAnimate;
     animation.finishCallback = onAnimationComplete;
     animation.play("idle");
-    points = 500;
+    points = 100;
 
     explosionOffset.y = -width/2;
     explosionOffset.x = -height/2;
