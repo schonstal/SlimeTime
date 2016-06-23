@@ -213,6 +213,10 @@ class PlayState extends FlxState
     });
 
     FlxG.overlap(player, healthGroup, function(player:FlxObject, health:FlxObject):Void {
+      Reg.score += 100 * Reg.combo;
+      if (Reg.combo > 0) {
+        Reg.pointService.showPoints(health.x + health.width/2, health.y + health.height/2, 100 * Reg.combo);
+      }
       player.health += 50;
       if (player.health >= 100) player.health = 100;
       FlxG.camera.flash(0xccffffff, 0.5, null, true);

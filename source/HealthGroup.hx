@@ -11,7 +11,7 @@ import flixel.math.FlxVector;
 import flixel.math.FlxMath;
 
 class HealthGroup extends FlxSpriteGroup {
-  var spawnTimer:Float = 10;
+  var spawnTimer:Float = 5;
   var particles:FlxSpriteGroup;
   var healthSprite:Health;
 
@@ -29,8 +29,8 @@ class HealthGroup extends FlxSpriteGroup {
       spawnTimer -= elapsed;
       if (spawnTimer < 0) {
         spawnTimer = Reg.random.float(
-          FlxMath.lerp(10, 5, Reg.difficulty),
-          FlxMath.lerp(15, 8, Reg.difficulty)
+          FlxMath.lerp(3, 2, Reg.difficulty),
+          FlxMath.lerp(4, 3, Reg.difficulty)
         );
 
         healthSprite = cast(recycle(Health), Health);
