@@ -17,7 +17,7 @@ class GrenadeGroup extends FlxSpriteGroup {
   }
 
   override public function update(elapsed:Float):Void {
-    if (Reg.started && Reg.difficulty > 0.01) {
+    if (Reg.started && (Reg.score >= 1500 || Reg.hardMode)) {
       spawnTimer -= elapsed;
       if (spawnTimer < 0) {
         spawnTimer = Reg.random.float(
