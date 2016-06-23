@@ -251,7 +251,7 @@ class PlayState extends FlxState
   }
 
   private function updateDifficulty():Void {
-    if (Reg.started) Reg.difficulty = Reg.score/50000;
+    if (Reg.started) Reg.difficulty = Reg.combo/10;
     if (Reg.difficulty >= 1 || Reg.hardMode) Reg.difficulty = 1;
   }
 
