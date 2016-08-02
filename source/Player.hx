@@ -242,8 +242,8 @@ class Player extends Enemy //YOU ARE THE MONSTER
 
   private function pressed(action:String):Bool {
     if (action == "jump") {
-      return FlxG.keys.pressed.S || FlxG.keys.justPressed.DOWN || FlxG.keys.justPressed.W ||
-             FlxG.keys.pressed.UP || FlxG.keys.justPressed.SPACE;
+      return FlxG.keys.pressed.S || FlxG.keys.pressed.DOWN || FlxG.keys.pressed.W ||
+             FlxG.keys.pressed.UP || FlxG.keys.pressed.SPACE;
     }
     if (action == (FlxG.save.data.invertControls ? "left" : "right")) {
       return FlxG.keys.pressed.LEFT || FlxG.keys.justPressed.A;
