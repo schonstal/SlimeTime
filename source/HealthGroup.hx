@@ -29,8 +29,8 @@ class HealthGroup extends FlxSpriteGroup {
       spawnTimer -= elapsed;
       if (spawnTimer < 0) {
         spawnTimer = Reg.random.float(
-          FlxMath.lerp(6, 4, Reg.difficulty),
-          FlxMath.lerp(8, 6, Reg.difficulty)
+          FlxMath.lerp(8, 6, Reg.difficulty),
+          FlxMath.lerp(12, 10, Reg.difficulty)
         );
 
         healthSprite = cast(recycle(Health), Health);
