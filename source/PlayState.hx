@@ -35,6 +35,7 @@ class PlayState extends FlxState
   var gameOver:Bool = false;
 
   var healthGroup:HealthGroup;
+  var coinGroup:CoinGroup;
 
   var level:Room;
   var slime:Slime;
@@ -106,6 +107,9 @@ class PlayState extends FlxState
 
     healthGroup = new HealthGroup();
     add(healthGroup);
+
+    coinGroup = new CoinGroup();
+    add(coinGroup);
 
     add(new OozeGlow());
 
@@ -221,6 +225,16 @@ class PlayState extends FlxState
       if (player.health >= 100) player.health = 100;
       FlxG.camera.flash(0xccffffff, 0.5, null, true);
       health.kill();
+      FlxG.sound.play("assets/sounds/player/heal.wav", 0.6);
+    });
+
+    FlxG.overlap(player, coinGroup, function(player:FlxObject, coin:FlxObject):Void {
+      Reg.score += 500 * Reg.combo;
+      if (Reg.combo > 0) {
+        Reg.pointService.showPoints(coin.x + coin.width/2, coin.y + coin.height/2, 500 * Reg.combo);
+      }
+      FlxG.camera.flash(0xccffffff, 0.5, null, true);
+      coin.kill();
       FlxG.sound.play("assets/sounds/player/heal.wav", 0.6);
     });
 

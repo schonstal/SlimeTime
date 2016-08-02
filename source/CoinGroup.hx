@@ -10,10 +10,10 @@ import flixel.util.FlxColor;
 import flixel.math.FlxVector;
 import flixel.math.FlxMath;
 
-class HealthGroup extends FlxSpriteGroup {
-  var spawnTimer:Float = 8;
+class CoinGroup extends FlxSpriteGroup {
+  var spawnTimer:Float = 3;
   var particles:FlxSpriteGroup;
-  var healthSprite:Health;
+  var coinSprite:Coin;
 
   var particleTimer:Float = 0;
   var particleThreshold:Float = 0.025;
@@ -29,17 +29,17 @@ class HealthGroup extends FlxSpriteGroup {
       spawnTimer -= elapsed;
       if (spawnTimer < 0) {
         spawnTimer = Reg.random.float(
-          FlxMath.lerp(10, 6, Reg.difficulty),
-          FlxMath.lerp(12, 8, Reg.difficulty)
+          FlxMath.lerp(3, 2, Reg.difficulty),
+          FlxMath.lerp(4, 3, Reg.difficulty)
         );
 
-        healthSprite = cast(recycle(Health), Health);
-        healthSprite.spawn();
-        add(healthSprite);
+        coinSprite = cast(recycle(Coin), Coin);
+        coinSprite.spawn();
+        add(coinSprite);
       }
     }
 
-    if(healthSprite != null && healthSprite.exists) {
+    if(coinSprite != null && coinSprite.exists) {
       spawnParticles(elapsed);
     }
 
@@ -58,13 +58,13 @@ class HealthGroup extends FlxSpriteGroup {
       particle.animation.add("2", [1]);
       particle.animation.play('$size');
 
-      particle.color = FlxColor.fromHSB(336,
+      particle.color = FlxColor.fromHSB(114,
         size > 1 ? 0.9 : 0.1,
         Reg.random.float(0.8, 1)
       );
 
-      particle.x = healthSprite.x + Reg.random.int(0, 12);
-      particle.y = healthSprite.y;
+      particle.x = coinSprite.x + Reg.random.int(0, 12);
+      particle.y = coinSprite.y;
 
       particle.velocity.x = Reg.random.int(-10, 10);
       particle.velocity.y = Reg.random.int(-10, 0);
