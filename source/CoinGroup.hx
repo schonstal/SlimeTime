@@ -58,7 +58,7 @@ class CoinGroup extends FlxSpriteGroup {
       particle.animation.add("2", [1]);
       particle.animation.play('$size');
 
-      particle.color = FlxColor.fromHSB(114,
+      particle.color = FlxColor.fromHSB(41,
         size > 1 ? 0.9 : 0.1,
         Reg.random.float(0.8, 1)
       );
