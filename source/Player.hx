@@ -76,7 +76,7 @@ class Player extends Enemy //YOU ARE THE MONSTER
     Reg.started = false;
     health = 100;
   }
-  
+
   private function start():Void {
     acceleration.y = gravity;
     visible = true;
