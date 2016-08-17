@@ -13,7 +13,9 @@ class RestartButtonGroup extends FlxSpriteGroup {
     super();
 
     buttons = new Array<GameOverButton>();
-    buttons[0] = new GameOverButton("retry", function() { FlxG.switchState(new PlayState()); });
+    buttons[0] = new GameOverButton("retry", function() {
+      FlxG.switchState(new PlayState());
+    });
     buttons[1] = new GameOverButton("menu", function() {
       Reg.initialized = false;
       FlxG.switchState(new PlayState());
