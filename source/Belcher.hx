@@ -45,6 +45,7 @@ class Belcher extends Enemy {
     offset.y = 32;
     y = FlxG.height;
     tweenIn();
+    FlxG.sound.play("assets/sounds/belcherSpawn.wav", 0.4);
   }
 
   function tweenIn():Void {
