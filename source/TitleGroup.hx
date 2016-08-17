@@ -54,6 +54,7 @@ class TitleGroup extends FlxSpriteGroup {
     mainMenuGroup.exists = false;
     Reg.initialized = true;
     Reg.hardMode = false;
+    FlxG.sound.music.stop();
   }
 
   function startHardMode():Void {

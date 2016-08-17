@@ -46,6 +46,9 @@ class PlayState extends FlxState
     super.create();
     FlxG.timeScale = 1;
     FlxG.camera.flash(0xffffffff, 1);
+    if(!Reg.initialized) {
+      FlxG.sound.playMusic("assets/music/title.wav");
+    }
 
     Reg.random = new FlxRandom();
     Reg.started = false;
@@ -151,8 +154,11 @@ class PlayState extends FlxState
 
   override public function update(elapsed:Float):Void {
     if (Reg.started) {
-      spawnGroup.exists = false;
-      hud.exists = true;
+      if (spawnGroup.exists) {
+        spawnGroup.exists = false;
+        hud.exists = true;
+        FlxG.sound.playMusic("assets/music/gameplay.wav");
+      }
     } else {
       spawnGroup.exists = Reg.initialized;
     }
@@ -160,6 +166,7 @@ class PlayState extends FlxState
       spawnGroup.exists = false;
 
       if (!gameOver) {
+        FlxG.sound.music.stop();
         FlxG.timeScale = 0.2;
         new FlxTimer().start(0.1, function(t) {
           gameOverGroup.exists = true;
