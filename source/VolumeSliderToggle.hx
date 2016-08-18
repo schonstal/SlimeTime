@@ -19,9 +19,6 @@ class VolumeSliderToggle extends MenuSliderToggle {
 
   public override function set_value(volume:Float):Float {
     FlxG.sound.volume = volume;
-    if (initialized) {
-      FlxG.sound.play("assets/sounds/enemyHurt.wav");
-    }
     return volume;
   }
 }
