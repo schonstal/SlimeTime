@@ -55,6 +55,9 @@ class PlayState extends FlxState
     Reg.difficulty = 0;
     Reg.score = 0;
     Reg.combo = 0;
+    if (FlxG.save.data.musicVolume == null) {
+      FlxG.save.data.musicVolume = 0.7;
+    }
 
     lastMousePosition = FlxG.mouse.getWorldPosition();
 
@@ -153,6 +156,8 @@ class PlayState extends FlxState
   }
 
   override public function update(elapsed:Float):Void {
+    if (FlxG.sound.music != null) FlxG.sound.music.volume = FlxG.save.data.musicVolume;
+
     if (Reg.started) {
       if (spawnGroup.exists) {
         spawnGroup.exists = false;

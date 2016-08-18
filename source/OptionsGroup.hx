@@ -51,7 +51,7 @@ class OptionsGroup extends FlxSpriteGroup {
 
     toggles = new Array<MenuToggle>();
     toggles[0] = new VolumeSliderToggle();
-    toggles[1] = new MenuSliderToggle();
+    toggles[1] = new MusicSliderToggle();
     toggles[2] = new InvertControlsToggle();
 
     for (i in 0...3) {
