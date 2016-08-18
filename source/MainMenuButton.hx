@@ -31,7 +31,7 @@ class MainMenuButton extends MenuButton {
   public override function onSelect():Void {
     menuText.select();
     belcher.spawn(x);
-    FlxG.sound.play("assets/sounds/belcherSpawn.wav", 0.4);
+    FlxG.sound.play("assets/sounds/belcherSpawn.wav", 0.3);
   }
 
   public override function onDeselect():Void {
@@ -44,7 +44,8 @@ class MainMenuButton extends MenuButton {
     belcher.select();
     menuText.deselect();
     FlxG.camera.flash(0x88ffffff, 0.2);
-    FlxG.sound.play("assets/sounds/enemyDie.wav", 0.4);
+    FlxG.camera.shake(0.005, 0.2);
+    FlxG.sound.play("assets/sounds/enemyDie.wav", 0.7);
   }
 
   public function initialize():Void {
