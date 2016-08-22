@@ -23,7 +23,7 @@ class BelcherGroup extends FlxSpriteGroup {
   }
 
   override public function update(elapsed:Float):Void {
-    if (Reg.started && (Reg.score >= 500 || Reg.hardMode)) {
+    if (Reg.started && (Reg.score >= 250 || Reg.hardMode)) {
       spawnTimer -= elapsed;
       if (spawnTimer < 0) {
         if (availableSlots.length < 1) {
