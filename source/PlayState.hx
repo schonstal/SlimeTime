@@ -162,7 +162,7 @@ class PlayState extends FlxState
       if (spawnGroup.exists) {
         spawnGroup.exists = false;
         hud.exists = true;
-        FlxG.sound.playMusic("assets/music/gameplay.wav");
+        FlxG.sound.playMusic("assets/music/test.wav");
       }
     } else {
       spawnGroup.exists = Reg.initialized;
