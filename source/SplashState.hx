@@ -24,8 +24,13 @@ class SplashState extends FlxState
     splash = new FlxSprite();
     splash.loadGraphic("assets/images/splash.png");
 
+    #if mac
       FlxG.sound.play("assets/sounds/bading.wav");
+    #end
     new FlxTimer().start(0.25, function(t):Void {
+      #if (windows || linux || html5 || flash)
+        FlxG.sound.play("assets/sounds/bading.wav");
+      #end
       add(splash);
       new FlxTimer().start(2, function(t):Void {
         remove(splash);
