@@ -45,7 +45,7 @@ class Belcher extends Enemy {
     offset.y = 32;
     y = FlxG.height;
     tweenIn();
-    FlxG.sound.play("assets/sounds/belcherSpawn.wav", 0.4);
+    FlxG.sound.play("assets/sounds/belcherSpawn.wav", 0.4 * FlxG.save.data.sfxVolume);
   }
 
   function tweenIn():Void {
@@ -74,7 +74,7 @@ class Belcher extends Enemy {
 
   function onAnimate(name:String, frameIndex:Int, frame:Int):Void {
     if (name == "shoot" && frame == 6) {
-      FlxG.sound.play("assets/sounds/belcherShoot.wav");
+      FlxG.sound.play("assets/sounds/belcherShoot.wav", 1 * FlxG.save.data.sfxVolume);
     //FlxG.camera.shake(0.02, 0.2);
       for(i in (1...9)) {
         if(i == 8) return;

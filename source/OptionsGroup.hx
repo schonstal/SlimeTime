@@ -36,7 +36,7 @@ class OptionsGroup extends FlxSpriteGroup {
     add(optionsLabel);
 
     buttons = new Array<MenuButton>();
-    buttons[0] = new PipeButton("volume", FlxObject.LEFT);
+    buttons[0] = new PipeButton("sfx", FlxObject.LEFT);
     buttons[1] = new PipeButton("music", FlxObject.RIGHT);
     buttons[2] = new PipeButton("invert x", FlxObject.LEFT);
 

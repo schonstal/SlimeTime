@@ -9,16 +9,16 @@ class VolumeSliderToggle extends MenuSliderToggle {
   var initialized:Bool = false;
 
   public function new():Void {
-    super(FlxG.sound.volume);
+    super(FlxG.save.data.sfxVolume);
     initialized = true;
   }
 
   public override function get_value():Float {
-    return FlxG.sound.volume;
+    return FlxG.save.data.sfxVolume;
   }
 
   public override function set_value(volume:Float):Float {
-    FlxG.sound.volume = volume;
+    FlxG.save.data.sfxVolume = volume;
     return volume;
   }
 }

@@ -49,12 +49,12 @@ class MenuBooleanToggle extends MenuToggle {
 
   public override function decrement():Void {
     value = true;
-    FlxG.sound.play("assets/sounds/enemyHurt.wav");
+    FlxG.sound.play("assets/sounds/enemyHurt.wav", 1 * FlxG.save.data.sfxVolume);
   }
 
   public override function increment():Void {
     value = false;
-    FlxG.sound.play("assets/sounds/enemyHurt.wav");
+    FlxG.sound.play("assets/sounds/enemyHurt.wav", 1 * FlxG.save.data.sfxVolume);
   }
 
   public override function onSelect():Void {
@@ -70,7 +70,7 @@ class MenuBooleanToggle extends MenuToggle {
   }
 
   public override function toggle():Void {
-    FlxG.sound.play("assets/sounds/enemyHurt.wav");
+    FlxG.sound.play("assets/sounds/enemyHurt.wav", 1 * FlxG.save.data.sfxVolume);
     value = !value;
   }
 }

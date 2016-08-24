@@ -55,9 +55,14 @@ class PlayState extends FlxState
     Reg.difficulty = 0;
     Reg.score = 0;
     Reg.combo = 0;
+
     if (FlxG.save.data.musicVolume == null) {
-      FlxG.save.data.musicVolume = 0.7;
+      FlxG.save.data.musicVolume = 0.8;
     }
+    if (FlxG.save.data.sfxVolume == null) {
+      FlxG.save.data.sfxVolume = 0.8;
+    }
+    FlxG.sound.volume = 1;
 
     lastMousePosition = FlxG.mouse.getWorldPosition();
 

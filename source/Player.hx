@@ -96,7 +96,7 @@ class Player extends Enemy //YOU ARE THE MONSTER
     FlxSpriteUtil.flicker(this, 0.6, 0.04, true, true, function(flicker) {
       justHurt = false;
     });
-    FlxG.sound.play("assets/sounds/player/hurt.wav");
+    FlxG.sound.play("assets/sounds/player/hurt.wav", 1 * FlxG.save.data.sfxVolume);
 
     super.hurt(damage);
   }
@@ -124,7 +124,7 @@ class Player extends Enemy //YOU ARE THE MONSTER
     //FlxG.camera.shake(0.01, 0.2);
     Reg.playerLasesrService.shoot(x - (facing == FlxObject.RIGHT ? 3 : 4), y + height - 6, facing);
     canJumpTimer = canJumpThreshold;
-    FlxG.sound.play("assets/sounds/player/laser.wav", 0.6);
+    FlxG.sound.play("assets/sounds/player/laser.wav", 0.5 * FlxG.save.data.sfxVolume);
   }
 
   private function canJump():Bool {
@@ -179,7 +179,7 @@ class Player extends Enemy //YOU ARE THE MONSTER
       var direction = new FlxVector(facing == FlxObject.LEFT ? 1 : -1, Reg.random.float(-0.05, 0.05));
       Reg.playerProjectileService.shoot(x + (facing == FlxObject.LEFT ? 8 : -8), y + 3, direction, facing);
       shootTimer = shootRate;
-      FlxG.sound.play("assets/sounds/player/shoot.wav");
+      FlxG.sound.play("assets/sounds/player/shoot.wav", 1 * FlxG.save.data.sfxVolume);
     }
   }
 
@@ -215,7 +215,7 @@ class Player extends Enemy //YOU ARE THE MONSTER
     exists = false;
     acceleration.y = acceleration.x = velocity.x = velocity.y = 0;
     Reg.enemyExplosionService.explode(x + width/2, y + height/2 + explosionOffset.y, 0, 0, true);
-    FlxG.sound.play("assets/sounds/player/die.wav");
+    FlxG.sound.play("assets/sounds/player/die.wav", 1 * FlxG.save.data.sfxVolume);
   }
 
   private function updateTimers():Void {
