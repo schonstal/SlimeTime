@@ -47,7 +47,7 @@ class PlayState extends FlxState
     FlxG.timeScale = 1;
     FlxG.camera.flash(0xffffffff, 1);
     if(!Reg.initialized) {
-      FlxG.sound.playMusic("assets/music/title.wav");
+      FlxG.sound.playMusic("assets/music/titleScreen.wav");
     }
 
     Reg.random = new FlxRandom();
@@ -162,7 +162,7 @@ class PlayState extends FlxState
       if (spawnGroup.exists) {
         spawnGroup.exists = false;
         hud.exists = true;
-        FlxG.sound.playMusic("assets/music/test.wav");
+        FlxG.sound.playMusic("assets/music/gameplay.wav");
       }
     } else {
       spawnGroup.exists = Reg.initialized;
