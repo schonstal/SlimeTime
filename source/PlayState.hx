@@ -171,6 +171,7 @@ class PlayState extends FlxState
       spawnGroup.exists = false;
 
       if (!gameOver) {
+        FlxG.save.flush();
         FlxG.sound.music.stop();
         FlxG.timeScale = 0.2;
         new FlxTimer().start(0.1, function(t) {
