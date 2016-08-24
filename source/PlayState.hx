@@ -60,7 +60,7 @@ class PlayState extends FlxState
       FlxG.save.data.musicVolume = 0.8;
     }
     if (FlxG.save.data.sfxVolume == null) {
-      FlxG.save.data.sfxVolume = 0.8;
+      FlxG.save.data.sfxVolume = 0.6;
     }
     FlxG.sound.volume = 1;
 
@@ -239,7 +239,7 @@ class PlayState extends FlxState
       if (player.health >= 100) player.health = 100;
       FlxG.camera.flash(0xccffffff, 0.5, null, true);
       health.kill();
-      FlxG.sound.play("assets/sounds/player/heal.wav", 0.6);
+      FlxG.sound.play("assets/sounds/player/heal.wav", 0.5 * FlxG.save.data.sfxVolume);
     });
 
     var laserSprite:FlxObject;
